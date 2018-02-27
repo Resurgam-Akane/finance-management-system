@@ -13,19 +13,15 @@ import java.util.List;
  */
 public class Account {
     // todo: set max and min
-    private User user;
+    private String username;
     private Date lastUpdateTime;
     private List<Item> income;
     private List<Item> expense;
     private BigDecimal savingAmount;
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+    public void setUsername(String username) { this.username = username; }
 
-    public User getUser() {
-        return user;
-    }
+    public String getUsername() { return username; }
 
     public void setLastUpdateTime(Date lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
