@@ -15,6 +15,8 @@ public class User implements UserDetails{
 
     private String password;
 
+    private String roles;
+
     @Override
     public String getPassword() { return password; }
 
@@ -53,4 +55,8 @@ public class User implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
+
+    public String getRoles() {return roles;}
+
+    public void setRoles(String roles) {this.roles = roles;}
 }

@@ -4,6 +4,6 @@ import com.xuzhu.fmsauthservice.domain.User;
 
 public interface UserService {
 
-    void create(User user);
+    boolean create(User user);
 
 }

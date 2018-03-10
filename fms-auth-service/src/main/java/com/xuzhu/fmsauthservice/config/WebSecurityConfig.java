@@ -1,5 +1,7 @@
 package com.xuzhu.fmsauthservice.config;
 
+import com.xuzhu.fmsauthservice.service.security.MongoUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -8,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private MongoUserDetailsService mongoUserDetailsService;
     /**
      * 匹配 "/" 路径，不需要权限即可访问
      * 匹配 "/user" 及其以下所有路径，都需要 "USER" 权限
@@ -32,9 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder builder) throws Exception{
-        builder
-                .inMemoryAuthentication()
-                .withUser("xuzhu").password("pwd").roles("USER");
+        builder.userDetailsService(mongoUserDetailsService);
     }
 
 }
