@@ -1,4 +1,4 @@
-package com.xuzhu.fmsauthservice.domain;
+package com.xuzhu.fmsapigetway.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

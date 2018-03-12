@@ -1,14 +1,12 @@
-package com.xuzhu.fmsauthservice.service;
+package com.xuzhu.fmsapigetway.service;
 
-import com.thoughtworks.xstream.mapper.Mapper;
-import com.xuzhu.fmsauthservice.domain.User;
-import com.xuzhu.fmsauthservice.DAO.UserDAO;
+import com.xuzhu.fmsapigetway.client.AccountServiceClient;
+import com.xuzhu.fmsapigetway.domain.User;
+import com.xuzhu.fmsapigetway.DAO.UserDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import static org.springframework.util.ObjectUtils.isEmpty;
 

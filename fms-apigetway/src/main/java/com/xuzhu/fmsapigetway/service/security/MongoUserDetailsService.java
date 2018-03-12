@@ -1,7 +1,7 @@
-package com.xuzhu.fmsauthservice.service.security;
+package com.xuzhu.fmsapigetway.service.security;
 
-import com.xuzhu.fmsauthservice.DAO.UserDAO;
-import com.xuzhu.fmsauthservice.domain.User;
+import com.xuzhu.fmsapigetway.DAO.UserDAO;
+import com.xuzhu.fmsapigetway.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
