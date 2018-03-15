@@ -1,6 +1,6 @@
 package com.xuzhu.fmsapigetway.controller;
 
-import com.xuzhu.fmsapigetway.domain.User;
+import com.xuzhu.fmsapigetway.domain.*;
 import com.xuzhu.fmsapigetway.service.UserService;
 import com.xuzhu.fmsapigetway.client.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +28,9 @@ public class UserController {
 
     @GetMapping("/account/{username}")
     public String getAccountByUsername(@PathVariable String username) {
-        return accountServiceClient.getAccountsByUsername(username);
+        //return accountServiceClient.getAccountsByUsername(username);
+        Account account = accountServiceClient.getAccountsByUsername(username);
+        return account.getUsername();
+        //todo:添加一个模板  使用的是@Controller方式  可以接受account对象 Feign调用正常
     }
 }

@@ -1,7 +1,4 @@
-package com.xuzhu.fmsaccountservice.domain;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+package com.xuzhu.fmsapigetway.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -14,10 +11,8 @@ import java.util.List;
     expense:各项支出
     savingAmount:储蓄
  */
-@Document(collection = "Account")
 public class Account {
     // todo: set max and min
-    @Id
     private String username;
     private Date lastUpdateTime;
     private List<Item> income;
