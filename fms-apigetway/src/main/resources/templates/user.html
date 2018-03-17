@@ -4,6 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>个人页 | 个人财务管理系统</title>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
         img {
             max-width: 100%;
@@ -32,20 +34,19 @@
 <div class="container-fluid" style="float:left">
     <div class="row-fluid">
         <div class="span3">
-            <div class="well sidebar-nav">
-                <img src="http://static.hdslb.com/images/member/noface.gif" alt="90*90" class="img-circle" width="90" height="90" />
-                <ul class="nav nav-list">
-                    <li class="nav-header"><span th:text="${account.username}"></span></li>
-                    <li><a href="#">综合查询</a> </li>
-                    <li><a href="#">支出查询</a> </li>
-                    <li><a href="#">收入查询</a> </li>
-                    <li><a href="#">更新财务</a> </li>
-                </ul>
-            </div>
+            <ul class="nav nav-tabs nav-stacked">
+                <li class="active"><a href="/">个人信息</a> </li>
+                <li><a href="#">支出查询</a> </li>
+                <li><a href="#">收入查询</a> </li>
+                <li><a href="#">更新财务</a> </li>
+            </ul>
+        </div>
+        <div class="span9">
+            <p>username:<span th:text="${account.username}"></span></p>
+            <P>savingaccount:<span th:text="${account.username}"></span> </P>
         </div>
     </div>
 </div>
-
 </body>
 
 </html>

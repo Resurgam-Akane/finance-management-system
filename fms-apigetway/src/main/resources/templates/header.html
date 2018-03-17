@@ -26,12 +26,24 @@
 
                 <div class="navbar-form navbar-right">
                     <a class="btn btn-danger" th:href="@{/logout}" th:if="${#httpServletRequest.remoteUser}">退出登陆</a>
-                </div>
-
-                <div class="navbar-form navbar-right">
-                    <a class="btn btn-danger" th:href="@{'/account/' + ${#httpServletRequest.getRemoteUser()}}" th:if="${#httpServletRequest.remoteUser}">个人中心</a>
                     <a class="btn btn-success" th:href="@{/login}" th:unless="${#httpServletRequest.remoteUser}">登录</a>
                 </div>
+<!--
+                <div class="navbar-form navbar-right" th:if="${#httpServletRequest.remoteUser}">
+                    <a class="btn btn-danger" th:href="@{'/account/' + ${#httpServletRequest.getRemoteUser()}}">个人中心</a>
+                </div>
+                -->
+                <ul class="nav navbar-nav navbar-right" th:if="${#httpServletRequest.remoteUser}">
+                    <li class="dropdown">
+                        <a href="/" class="dropdown-toggle" data-toggle="dropdown">
+                            更多操作 <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{'/account/' + ${#httpServletRequest.getRemoteUser()}}">个人中心</a> </li>
+                            <li><a href="#">更改信息</a> </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
