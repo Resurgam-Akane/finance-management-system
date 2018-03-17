@@ -24,6 +24,9 @@
                     </li>
                 </ul>
                 <div class="navbar-form navbar-right">
+                    <a class="btn btn-danger" th:href="@{/logout}" th:if="${#httpServletRequest.remoteUser}">退出登陆</a>
+                </div>
+                <div class="navbar-form navbar-right">
                     <a class="btn btn-danger" th:href="@{'/account/' + ${#httpServletRequest.getRemoteUser()}}" th:if="${#httpServletRequest.remoteUser}">个人中心</a>
                     <a class="btn btn-success" th:href="@{/login}" th:unless="${#httpServletRequest.remoteUser}">登录</a>
                 </div>
