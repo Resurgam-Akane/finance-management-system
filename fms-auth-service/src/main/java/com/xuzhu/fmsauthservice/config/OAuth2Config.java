@@ -26,7 +26,8 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
         oauthServer.tokenKeyAccess("permitAll()")
-                .checkTokenAccess("isAuthenticated()");
+                .checkTokenAccess("isAuthenticated()")
+                .allowFormAuthenticationForClients();
     }
 
     @Override
@@ -36,11 +37,11 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
                 .secret("123456")
                 .authorizedGrantTypes("client_credentials", "refresh_token")
                 .scopes("server")
-                .and()
-                .withClient("fms-statistic-service")
+                /*.and()
+                .withClient("fms-apigetway")
                 .secret("123456")
                 .authorizedGrantTypes("client_credentials", "refresh_token")
-                .scopes("server");
+                .scopes("server")*/;
     }
 
 }

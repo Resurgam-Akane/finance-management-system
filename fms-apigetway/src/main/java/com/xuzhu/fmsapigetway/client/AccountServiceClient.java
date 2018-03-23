@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient("fms-account-service")
+@FeignClient(name = "fms-account-service")
 public interface AccountServiceClient {
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
     Account getAccountsByUsername(@PathVariable("username") String username);
