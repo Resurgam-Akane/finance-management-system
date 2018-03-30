@@ -21,9 +21,6 @@ import org.springframework.security.oauth2.provider.token.ResourceServerTokenSer
 @EnableResourceServer
 public class AuthConfig extends ResourceServerConfigurerAdapter {
 
-    @Autowired
-    private ResourceServerProperties sso;
-
     @Bean
     @ConfigurationProperties(prefix = "security.oauth2.client")
     public ClientCredentialsResourceDetails clientCredentialsResourceDetails() {
@@ -40,11 +37,11 @@ public class AuthConfig extends ResourceServerConfigurerAdapter {
         return new OAuth2RestTemplate(clientCredentialsResourceDetails());
     }
 
-    @Bean
+    /*@Bean
     public ResourceServerTokenServices tokenServices() {
         RemoteTokenServices RSTS = new RemoteTokenServices();
         RSTS.setCheckTokenEndpointUrl(sso.getTokenInfoUri());
         RSTS.setClientId(sso.getClientId());
         return RSTS;
-    }
+    }*/
 }

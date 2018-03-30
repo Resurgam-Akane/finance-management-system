@@ -150,57 +150,6 @@
 </head>
 
 <body style="background-color: #222222; padding-bottom: 0">
-<script th:inline="javascript">
-    function requestOauth2TOken(username, password) {
-        var success = false;
-
-        $.ajax({
-            url: '/oauth/token',
-            datatype: 'json',
-            type: 'post',
-            headers: {'Authorization': 'Basic YnJvd3Nlcjo='},
-            async: false,
-            data: {
-                scope: 'ui',
-                username: username,
-                password: password,
-                grant_type: 'password',
-                client_id: 'browser',
-                client_secret: '123456'
-            },
-            success: function (data) {
-                localStorage.setItem('token', data.access_token);
-                success = true;
-            },
-            error: function () {
-                removeOauthTokenFromStorage();
-            }
-        });
-
-        return success;
-    }
-
-    function getOauthTokenFromStorage() {
-        return localStorage.getItem('token');
-    }
-
-    function removeOauthTokenFromStorage() {
-        return localStorage.removeItem('token');
-    }
-
-    $(document).ready(function () {
-        $("#AccountCenter").click (function () {
-            var username = localStorage.getItem('username');
-            var password = localStorage.getItem('password')
-            if(requestOauth2TOken(username, password)) {
-                alert("into the function true");
-
-                //var account = getCurrentAccount();
-            }
-            else alert("Something went wrong. Please, check your credentials");
-        });
-    });
-</script>
 
 <!--<div th:replace="header :: nav"></div>-->
 <nav class="navbar navbar-inverse navbar-fixed-top">

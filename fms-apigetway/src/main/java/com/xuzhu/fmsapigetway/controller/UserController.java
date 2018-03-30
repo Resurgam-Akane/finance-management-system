@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @Controller
 public class UserController {
     @Autowired
@@ -19,20 +21,30 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String Register() { return "register"; }
 
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
+
     @PostMapping("/register")
+    @ResponseBody
     public String doRegister(User user){
         // 此处省略校验逻辑
         if (userService.create(user))
-            return "redirect:register?success";
-        return "redirect:register?error";
+            return "success";
+        return "error";
     }
 
-    @GetMapping("/account/{username}")
+    @RequestMapping(value = "/user/current", method = RequestMethod.GET)
+    public String getUser(Principal principal) {
+        return "user";
+    }
+
+/*    @GetMapping("/account/{username}")
     public String getAccountByUsername(@PathVariable String username, Model model) {
         //return accountServiceClient.getAccountsByUsername(username);
         Account account = accountServiceClient.getAccountsByUsername(username);
         model.addAttribute("account", account);
         return "user";
-        //todo:添加一个模板  使用的是@Controller方式  可以接受account对象 Feign调用正常
-    }
+    }*/
 }

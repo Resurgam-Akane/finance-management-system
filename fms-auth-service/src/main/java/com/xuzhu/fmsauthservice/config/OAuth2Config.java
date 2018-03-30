@@ -36,12 +36,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
                 .withClient("fms-account-service")
                 .secret("123456")
                 .authorizedGrantTypes("client_credentials", "refresh_token")
-                .scopes("server")
-                /*.and()
-                .withClient("fms-apigetway")
-                .secret("123456")
-                .authorizedGrantTypes("client_credentials", "refresh_token")
-                .scopes("server")*/;
+                .scopes("server");
     }
 
 }

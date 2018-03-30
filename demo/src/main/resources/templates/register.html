@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>登录 | 个人财务管理系统</title>
+    <title>注册 | 个人财务管理系统</title>
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
 </head>
@@ -11,20 +11,35 @@
 
 <script th:inline="javascript">
     $(document).ready(function () {
-        $("#loginbutton").click (function () {
+        $("#registerbutton").click (function () {
             var username = document.getElementById("username").value;
             var password = document.getElementById("password").value;
-            localStorage.setItem('username', username);
-            localStorage.setItem('password', password);
-            if(requestOauth2TOken(username, password)) {
-                //var account = getCurrentAccount();
-            }
-            else alert("Something went wrong. Please, check your credentials");
+            $.ajax({
+                url: '/uaa/register',
+                datatype: 'json',
+                type: 'post',
+                async: false,
+                data: {
+                    username: username,
+                    password: password
+                },
+                success: function (data) {
+                    //var json_data = JSON.parse(data);
+                    var status = data;
+                    if (status.toString() === "success") {
+                        alert("注册成功");
+                    }
+                    else if (status.toString() === 'fail')
+                        alert("注册失败2");
+                },
+                error: function () {
+                    alert("登陆失败");
+                }
+            });
         });
     });
 </script>
 
-<!--<div th:replace="header :: nav"></div>-->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -52,10 +67,10 @@
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><span class="glyphicon glyphicon-console"></span> Login</h3>
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-console"></span> Register</h3>
                 </div>
                 <div class="panel-body">
-                    <form th:action="@{/login}" method="post" autocomplete="off">
+                    <form method="post" autocomplete="off">
                         <div class="form-group" style="margin-top: 30px">
                             <div class="input-group col-md-6 col-md-offset-3">
                                 <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
@@ -65,25 +80,24 @@
                         <div class="form-group ">
                             <div class="input-group col-md-6 col-md-offset-3">
                                 <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-                                <input type="password" class="form-control" name="password" id="password"
-                                       placeholder="密码" />
+                                <input type="password" class="form-control" name="password" id="password" placeholder="密码" />
                             </div>
                         </div>
                         <br />
                         <div th:if="${param.error}">
-                            <p style="text-align: center" class="text-danger">登录失败，账号或密码错误!</p>
+                            <p style="text-align: center" class="text-danger">注册失败，账号已存在！</p>
                         </div>
-                        <div th:if="${result}">
-                            <p style="text-align: center" class="text-success" th:text="${result}"></p>
+                        <div th:if="${param.success}">
+                            <p style="text-align: center" class="text-success">注册成功，可以登录了！</p>
                         </div>
                         <div class="form-group">
                             <div class="input-group col-md-6 col-md-offset-3 col-xs-12 ">
-                                <button id="loginbutton" type="submit" class="btn btn-primary btn-block">登录</button>
+                                <button id="registerbutton" type="button" class="btn btn-primary btn-block">注册</button>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group col-md-6 col-md-offset-3" style="text-align: center">
-                                <a href="/register">创建账号</a> | 忘记密码?
+                                <a href="/login">返回登录页面</a>
                             </div>
                         </div>
                     </form>
@@ -93,9 +107,7 @@
     </div>
 
 </div>
-<!--
-<script th:src="@{js/lib/jquery.js}"></script>
-<script th:src="@{js/main.js}"></script>-->
+
 </body>
 
 </html>
