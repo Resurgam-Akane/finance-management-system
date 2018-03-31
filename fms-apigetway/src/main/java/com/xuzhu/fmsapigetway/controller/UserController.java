@@ -32,7 +32,7 @@ public class UserController {
         // 此处省略校验逻辑
         if (userService.create(user))
             return "success";
-        return "error";
+        return "fail";
     }
 
     @RequestMapping(value = "/user/current", method = RequestMethod.GET)

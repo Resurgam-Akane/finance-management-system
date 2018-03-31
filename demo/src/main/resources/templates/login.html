@@ -47,14 +47,14 @@
         return localStorage.removeItem('token');
     }
 
-    function getCurrentAccount() {
+    function getCurrentAccount(username) {
 
         var token = getOauthTokenFromStorage();
         var account = null;
 
         if (token) {
             $.ajax({
-                url: 'account/xuzhu',
+                url: '/accounts/' + username,
                 datatype: 'json',
                 type: 'get',
                 headers: {'Authorization': 'Bearer ' + token},
@@ -75,6 +75,7 @@
         $("#loginbutton").click (function () {
             var username = document.getElementById("username").value;
             var password = document.getElementById("password").value;
+            var isLoginSuccess = false;
             /*localStorage.setItem('username', username);
             localStorage.setItem('password', password);
             if(requestOauth2TOken(username, password)) {
@@ -96,7 +97,9 @@
                     if (status.toString() === "success") {
                         if (requestOauth2TOken(username, password)) {
                             $('#loginstatus').text("登陆成功");
-                            //window.location.href=...
+                            var account = getCurrentAccount(username);
+                            localStorage.setItem('account', account);
+                            window.location.href="/account";
                         }
                         else {
                             $('#loginstatus').text("登陆失败");
