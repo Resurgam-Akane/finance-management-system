@@ -9,9 +9,7 @@ import java.util.List;
 
 /*
     user:Account对应的用户
-    lastUpdateTime:最后一次更新时间
-    income:各项收入
-    expense:各项支出
+    UpdateTime:本次更新时间
     savingAmount:储蓄
  */
 @Document(collection = "Account")
@@ -19,24 +17,39 @@ public class Account {
     // todo: set max and min
     @Id
     private String username;
-    private Date lastUpdateTime;
-    private List<Item> income;
-    private List<Item> expense;
+    private Date updateTime;
+    //private List<Item> income;
+    //private List<Item> expense;
+    private String name;
+    private String age;
+    private String sex;
     private BigDecimal savingAmount;
 
     public void setUsername(String username) { this.username = username; }
 
     public String getUsername() { return username; }
 
-    public void setLastUpdateTime(Date lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
-    public Date getLastUpdateTime() {
-        return lastUpdateTime;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setIncome(List<Item> income) {
+    public void setName(String name) { this.name = name;}
+
+    public String getName() { return name;}
+
+    public void setAge(String age) { this.age = age; }
+
+    public String getAge() { return age; }
+
+    public void setSex(String sex) { this.sex = sex; }
+
+    public String getSex() { return sex; }
+
+    /*public void setIncome(List<Item> income) {
         this.income = income;
     }
 
@@ -48,7 +61,7 @@ public class Account {
         this.expense = expense;
     }
 
-    public List<Item> getExpense() { return expense; }
+    public List<Item> getExpense() { return expense; }*/
 
     public void setSavingAmount(BigDecimal savingAmount) {
         this.savingAmount = savingAmount;

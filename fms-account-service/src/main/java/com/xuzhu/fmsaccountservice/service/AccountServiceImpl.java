@@ -25,8 +25,15 @@ public class AccountServiceImpl implements AccountService{
             ;//todo: create and save
             account = new Account();
             account.setUsername(username);
+            account.setName("未设置");
+            account.setSex("未设置");
+            account.setAge("未设置");
             account.setSavingAmount(new BigDecimal(0));
-            account.setLastUpdateTime(new Date());
+            account.setUpdateTime(new Date());
+            accountDAO.save(account);
+        }
+        else {
+            account.setUpdateTime(new Date());
             accountDAO.save(account);
         }
 

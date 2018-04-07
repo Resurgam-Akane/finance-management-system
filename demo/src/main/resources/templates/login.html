@@ -5,6 +5,14 @@
     <title>登录 | 个人财务管理系统</title>
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
+
+    <link th:href="@{/css/dashboard.css}" type="text/css" rel="stylesheet" charset="utf-8"/>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js" type="text/javascript"></script>
+    <![endif]-->
 </head>
 
 <body style="background-color: #f1f1f1; padding-bottom: 0">
@@ -71,6 +79,14 @@
         return account;
     }
 
+    function initialCenter(account) {
+        $('#updateTime').text(new Date(account.updateTime));
+        $('#savingAmount').text(account.savingAmount);
+        $('#name').text(account.name);
+        $('#sex').text(account.sex);
+        $('#age').text(account.age);
+    }
+
     $(document).ready(function () {
         $("#loginbutton").click (function () {
             var username = document.getElementById("username").value;
@@ -97,9 +113,13 @@
                     if (status.toString() === "success") {
                         if (requestOauth2TOken(username, password)) {
                             $('#loginstatus').text("登陆成功");
+                            $('#logoutbtn').show();
+                            $('#loginbtn').hide();
                             var account = getCurrentAccount(username);
                             localStorage.setItem('account', account);
-                            window.location.href="/account";
+                            $('#loginpagediv').hide();
+                            initialCenter(account);
+                            $('#mainpagediv').show();
                         }
                         else {
                             $('#loginstatus').text("登陆失败");
@@ -114,6 +134,36 @@
             });
         });
     });
+
+    $(document).ready(function () {
+        $('#sidenav li').click(function () {
+            $(this).addClass("active").siblings("li").removeClass("active");
+        });
+    });
+
+    $(document).ready(function () {
+        $('#setpersonalinfo').click(function () {
+
+            var token = getOauthTokenFromStorage();
+            var back = null;
+            if (token) {
+                $.ajax({
+                    url: '/incomes/haha',
+                    datatype: 'json',
+                    type: 'get',
+                    headers: {'Authorization': 'Bearer ' + token},
+                    async: false,
+                    success: function (data) {
+                        back = data;
+                        alert(back);
+                    },
+                    error: function () {
+                        removeOauthTokenFromStorage();
+                    }
+                });
+            }
+        });
+    })
 </script>
 
 <!--<div th:replace="header :: nav"></div>-->
@@ -130,61 +180,221 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <div class="navbar-form navbar-right">
-                <button id="AccountCenter" class="btn btn-danger" th:if="${#httpServletRequest.remoteUser}">个人中心</button>
-                <a class="btn btn-danger" th:href="@{/logout}" th:if="${#httpServletRequest.remoteUser}">退出登陆</a>
-                <a class="btn btn-success" th:href="@{/login}" th:unless="${#httpServletRequest.remoteUser}">登录</a>
+                <!-- need modify-->
+                <a id="logoutbtn" class="btn btn-danger" href="/" style="display: none">退出登陆</a>
+                <a id="loginbtn" class="btn btn-success" th:href="@{/login}">登录</a>
             </div>
         </div>
     </div>
 </nav>
 
-<div class="container" style="margin-top: 60px">
+<section id="loginpage">
+    <div id="loginpagediv" class="container" style="margin-top: 60px">
 
-    <div class="row" style="margin-top: 100px">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><span class="glyphicon glyphicon-console"></span> Login</h3>
+        <div id="loginform" class="row" style="margin-top: 100px">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-console"></span> Login</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form method="post" autocomplete="off">
+                            <div class="form-group" style="margin-top: 30px">
+                                <div class="input-group col-md-6 col-md-offset-3">
+                                    <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                                    <input type="text" class="form-control" name="username" id="username" placeholder="账号" />
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="input-group col-md-6 col-md-offset-3">
+                                    <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                                    <input type="password" class="form-control" name="password" id="password"
+                                           placeholder="密码" />
+                                </div>
+                            </div>
+                            <br />
+                            <div>
+                                <p id="loginstatus" style="text-align: center" class="text-danger">欢迎使用</p>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group col-md-6 col-md-offset-3 col-xs-12 ">
+                                    <button id="loginbutton" type="button" class="btn btn-primary btn-block">登录</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group col-md-6 col-md-offset-3" style="text-align: center">
+                                    <a href="/register">创建账号</a> | 忘记密码?
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <form method="post" autocomplete="off">
-                        <div class="form-group" style="margin-top: 30px">
-                            <div class="input-group col-md-6 col-md-offset-3">
-                                <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                                <input type="text" class="form-control" name="username" id="username" placeholder="账号" />
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <div class="input-group col-md-6 col-md-offset-3">
-                                <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-                                <input type="password" class="form-control" name="password" id="password"
-                                       placeholder="密码" />
-                            </div>
-                        </div>
-                        <br />
-                        <div>
-                            <p id="loginstatus" style="text-align: center" class="text-danger">欢迎使用</p>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group col-md-6 col-md-offset-3 col-xs-12 ">
-                                <button id="loginbutton" type="button" class="btn btn-primary btn-block">登录</button>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group col-md-6 col-md-offset-3" style="text-align: center">
-                                <a href="/register">创建账号</a> | 忘记密码?
-                            </div>
-                        </div>
-                    </form>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="mainpage">
+    <div id="mainpagediv" class="container-fluid" style="display: none">
+        <div class="row">
+            <div id="sidenav" class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li id="center" class="active"><a href="#">个人中心</a></li>
+                    <li id="incomemanagement"><a href="#">收入管理 </a></li>
+                    <li id="expensemanagement"><a href="#">支出管理 </a></li>
+                    <li id="financemanagement"><a href="#">理财管理 </a></li>
+                    <li id="financialstatements"><a href="#">财务报表 </a></li>
+                    <li id="realassets"><a href="#">实物资产 </a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h1 class="page-header">个人中心</h1>
+
+                <div class="row placeholders">
+                    <div>
+                        <p class="text-left">更新时间：<span id="updateTime"></span> </p>
+                        <p class="text-left">储蓄金额：<span id="savingAmount"></span> </p>
+                        <p class="text-left" >姓名：<span id="name"></span> </p>
+                        <p class="text-left" >性别：<span id="sex"></span> </p>
+                        <p class="text-left" >年龄：<span id="age"></span> </p>
+                        <button id="setpersonalinfo" type="button" class="btn btn-primary btn-block">修改个人信息</button>
+                    </div>
+                </div>
+
+                <h2 class="sub-header">Section title</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Header</th>
+                            <th>Header</th>
+                            <th>Header</th>
+                            <th>Header</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1,001</td>
+                            <td>Lorem</td>
+                            <td>ipsum</td>
+                            <td>dolor</td>
+                            <td>sit</td>
+                        </tr>
+                        <tr>
+                            <td>1,002</td>
+                            <td>amet</td>
+                            <td>consectetur</td>
+                            <td>adipiscing</td>
+                            <td>elit</td>
+                        </tr>
+                        <tr>
+                            <td>1,003</td>
+                            <td>Integer</td>
+                            <td>nec</td>
+                            <td>odio</td>
+                            <td>Praesent</td>
+                        </tr>
+                        <tr>
+                            <td>1,003</td>
+                            <td>libero</td>
+                            <td>Sed</td>
+                            <td>cursus</td>
+                            <td>ante</td>
+                        </tr>
+                        <tr>
+                            <td>1,004</td>
+                            <td>dapibus</td>
+                            <td>diam</td>
+                            <td>Sed</td>
+                            <td>nisi</td>
+                        </tr>
+                        <tr>
+                            <td>1,005</td>
+                            <td>Nulla</td>
+                            <td>quis</td>
+                            <td>sem</td>
+                            <td>at</td>
+                        </tr>
+                        <tr>
+                            <td>1,006</td>
+                            <td>nibh</td>
+                            <td>elementum</td>
+                            <td>imperdiet</td>
+                            <td>Duis</td>
+                        </tr>
+                        <tr>
+                            <td>1,007</td>
+                            <td>sagittis</td>
+                            <td>ipsum</td>
+                            <td>Praesent</td>
+                            <td>mauris</td>
+                        </tr>
+                        <tr>
+                            <td>1,008</td>
+                            <td>Fusce</td>
+                            <td>nec</td>
+                            <td>tellus</td>
+                            <td>sed</td>
+                        </tr>
+                        <tr>
+                            <td>1,009</td>
+                            <td>augue</td>
+                            <td>semper</td>
+                            <td>porta</td>
+                            <td>Mauris</td>
+                        </tr>
+                        <tr>
+                            <td>1,010</td>
+                            <td>massa</td>
+                            <td>Vestibulum</td>
+                            <td>lacinia</td>
+                            <td>arcu</td>
+                        </tr>
+                        <tr>
+                            <td>1,011</td>
+                            <td>eget</td>
+                            <td>nulla</td>
+                            <td>Class</td>
+                            <td>aptent</td>
+                        </tr>
+                        <tr>
+                            <td>1,012</td>
+                            <td>taciti</td>
+                            <td>sociosqu</td>
+                            <td>ad</td>
+                            <td>litora</td>
+                        </tr>
+                        <tr>
+                            <td>1,013</td>
+                            <td>torquent</td>
+                            <td>per</td>
+                            <td>conubia</td>
+                            <td>nostra</td>
+                        </tr>
+                        <tr>
+                            <td>1,014</td>
+                            <td>per</td>
+                            <td>inceptos</td>
+                            <td>himenaeos</td>
+                            <td>Curabitur</td>
+                        </tr>
+                        <tr>
+                            <td>1,015</td>
+                            <td>sodales</td>
+                            <td>ligula</td>
+                            <td>in</td>
+                            <td>libero</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+</section>
 
-</div>
-<!--
-<script th:src="@{js/lib/jquery.js}"></script>
-<script th:src="@{js/main.js}"></script>-->
 </body>
 
 </html>
