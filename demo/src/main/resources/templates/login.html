@@ -5,6 +5,7 @@
     <title>登录 | 个人财务管理系统</title>
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
 
     <link th:href="@{/css/dashboard.css}" type="text/css" rel="stylesheet" charset="utf-8"/>
 
@@ -92,8 +93,8 @@
             var username = document.getElementById("username").value;
             var password = document.getElementById("password").value;
             var isLoginSuccess = false;
-            /*localStorage.setItem('username', username);
-            localStorage.setItem('password', password);
+            localStorage.setItem('username', username);
+            /*localStorage.setItem('password', password);
             if(requestOauth2TOken(username, password)) {
                 window.location.href="/index";
             }
@@ -138,32 +139,120 @@
     $(document).ready(function () {
         $('#sidenav li').click(function () {
             $(this).addClass("active").siblings("li").removeClass("active");
+
+            if (this.id === "center") {
+                $('#centerdiv').show();
+                $('#incomemanagementdiv').hide();
+                $('#expensemanagementdiv').hide();
+                $('#financemanagementdiv').hide();
+                $('#financialstatementsdiv').hide();
+                $('#realassetsdiv').hide();
+            }
+            else if (this.id === "incomemanagement") {
+                $('#centerdiv').hide();
+                $('#incomemanagementdiv').show();
+                $('#expensemanagementdiv').hide();
+                $('#financemanagementdiv').hide();
+                $('#financialstatementsdiv').hide();
+                $('#realassetsdiv').hide();
+            }
+            else if (this.id === "expensemanagement") {
+                $('#centerdiv').hide();
+                $('#incomemanagementdiv').hide();
+                $('#expensemanagementdiv').show();
+                $('#financemanagementdiv').hide();
+                $('#financialstatementsdiv').hide();
+                $('#realassetsdiv').hide();
+            }
+            else if (this.id === "financemanagement") {
+                $('#centerdiv').hide();
+                $('#incomemanagementdiv').hide();
+                $('#expensemanagementdiv').hide();
+                $('#financemanagementdiv').show();
+                $('#financialstatementsdiv').hide();
+                $('#realassetsdiv').hide();
+            }
+            else if (this.id === "financialstatements") {
+                $('#centerdiv').hide();
+                $('#incomemanagementdiv').hide();
+                $('#expensemanagementdiv').hide();
+                $('#financemanagementdiv').hide();
+                $('#financialstatementsdiv').show();
+                $('#realassetsdiv').hide();
+            }
+            else if (this.id === "realassets") {
+                $('#centerdiv').hide();
+                $('#incomemanagementdiv').hide();
+                $('#expensemanagementdiv').hide();
+                $('#financemanagementdiv').hide();
+                $('#financialstatementsdiv').hide();
+                $('#realassetsdiv').show();
+            }
         });
     });
 
-    $(document).ready(function () {
-        $('#setpersonalinfo').click(function () {
+    function setPersonalInfo() {
+        var token = getOauthTokenFromStorage();
+        var name = document.getElementById("setName").value;
+        var sex = document.getElementById("setSex").value;
+        var age = document.getElementById("setAge").value;
+        var savingAmount = document.getElementById("setSavingAmount").value;
+        var updateTime = new Date();
 
-            var token = getOauthTokenFromStorage();
-            var back = null;
-            if (token) {
-                $.ajax({
-                    url: '/incomes/haha',
-                    datatype: 'json',
-                    type: 'get',
-                    headers: {'Authorization': 'Bearer ' + token},
-                    async: false,
-                    success: function (data) {
-                        back = data;
-                        alert(back);
-                    },
-                    error: function () {
-                        removeOauthTokenFromStorage();
+        if (name === "") {
+            alert("请输入姓名！");
+            return false;
+        }
+
+        if (sex === "") {
+            alert("请输入性别！");
+            return false;
+        }
+
+        if (age === "") {
+            alert("请输入年龄！")
+            return false;
+        }
+
+        if (savingAmount === "") {
+            alert("请输入储蓄金额！");
+            return false;
+        }
+
+        if (token) {
+            $.ajax({
+                url: '/accounts/setPersonalInfo',
+                datatype: 'json',
+                type: 'post',
+                contentType: "application/json",
+                headers: {'Authorization': 'Bearer ' + token},
+                async: false,
+                data: JSON.stringify({
+                    username: localStorage.getItem('username'),
+                    updateTime: updateTime,
+                    name: name,
+                    age: age,
+                    sex: sex,
+                    savingAmount: savingAmount
+                }),
+                success: function (data) {
+                    if (data === "success") {
+                        $("#updateTime").text(new Date(updateTime));
+                        $("#savingAmount").text(savingAmount);
+                        $("#name").text(name);
+                        $("#sex").text(sex);
+                        $("#age").text(age);
+                        $("#setPersonalInfoModal").modal('hide');
                     }
-                });
-            }
-        });
-    })
+                    else if (data === "fail")
+                        alert("修改个人信息失败!");
+                },
+                error: function () {
+                    removeOauthTokenFromStorage();
+                }
+            });
+        }
+    }
 </script>
 
 <!--<div th:replace="header :: nav"></div>-->
@@ -208,8 +297,7 @@
                             <div class="form-group ">
                                 <div class="input-group col-md-6 col-md-offset-3">
                                     <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-                                    <input type="password" class="form-control" name="password" id="password"
-                                           placeholder="密码" />
+                                    <input type="password" class="form-control" name="password" id="password" placeholder="密码" />
                                 </div>
                             </div>
                             <br />
@@ -240,15 +328,15 @@
         <div class="row">
             <div id="sidenav" class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
-                    <li id="center" class="active"><a href="#">个人中心</a></li>
-                    <li id="incomemanagement"><a href="#">收入管理 </a></li>
-                    <li id="expensemanagement"><a href="#">支出管理 </a></li>
-                    <li id="financemanagement"><a href="#">理财管理 </a></li>
-                    <li id="financialstatements"><a href="#">财务报表 </a></li>
-                    <li id="realassets"><a href="#">实物资产 </a></li>
+                    <li id="center" class="active"><a>个人中心</a></li>
+                    <li id="incomemanagement"><a>收入管理</a></li>
+                    <li id="expensemanagement"><a>支出管理</a></li>
+                    <li id="financemanagement"><a>理财管理</a></li>
+                    <li id="financialstatements"><a>财务报表</a></li>
+                    <li id="realassets"><a>实物资产</a></li>
                 </ul>
             </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div id="centerdiv" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <h1 class="page-header">个人中心</h1>
 
                 <div class="row placeholders">
@@ -258,7 +346,44 @@
                         <p class="text-left" >姓名：<span id="name"></span> </p>
                         <p class="text-left" >性别：<span id="sex"></span> </p>
                         <p class="text-left" >年龄：<span id="age"></span> </p>
-                        <button id="setpersonalinfo" type="button" class="btn btn-primary btn-block">修改个人信息</button>
+                        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#setPersonalInfoModal">修改个人信息</button>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="setPersonalInfoModal" tabindex="-1" role="dialog" aria-labelledby="setPersonalInfoModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="setPersonalInfoModalLabel">修改个人信息</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" autocomplete="off">
+                                    <div class="form-group" style="margin-top: 30px">
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                                            <input type="text" class="form-control" name="setName" id="setName" placeholder="姓名" />
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <input type="text" class="form-control" name="setSex" id="setSex" placeholder="性别" />
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <input type="text" class="form-control" name="setAge" id="setAge" placeholder="年龄" />
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <input type="text" class="form-control" name="setSavingAmount" id="setSavingAmount" placeholder="储蓄金额" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                <button id="setPersonalInfoBtn" type="button" class="btn btn-primary" onclick="setPersonalInfo()">提交更改</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -389,6 +514,51 @@
                         </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+            <div id="incomemanagementdiv" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="display:none;">
+                <h1 class="page-header">收入管理</h1>
+
+                <div class="row placeholders">
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+            <div id="expensemanagementdiv" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="display:none;">
+                <h1 class="page-header">支出管理</h1>
+
+                <div class="row placeholders">
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+            <div id="financemanagementdiv" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="display:none;">
+                <h1 class="page-header">理财管理</h1>
+
+                <div class="row placeholders">
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+            <div id="financialstatementsdiv" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="display:none;">
+                <h1 class="page-header">财务报表</h1>
+
+                <div class="row placeholders">
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+            <div id="realassetsdiv" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="display:none;">
+                <h1 class="page-header">实物资产</h1>
+
+                <div class="row placeholders">
+                    <div>
+
+                    </div>
                 </div>
             </div>
         </div>
