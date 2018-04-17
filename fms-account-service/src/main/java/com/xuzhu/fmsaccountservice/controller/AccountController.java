@@ -22,4 +22,9 @@ public class AccountController {
     public String setPersonalInfo(@Valid @RequestBody Account account) {
         return accountService.setPersonalInfo(account);
     }
+
+    @RequestMapping(value = "/haha", method = RequestMethod.POST)
+    public String hehe(){
+        return "hehe";
+    }
 }

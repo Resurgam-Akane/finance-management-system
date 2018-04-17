@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @EnableEurekaClient
-@EnableFeignClients
 @RefreshScope
+@EnableFeignClients
 public class FmsAccountServiceApplication {
 
 	public static void main(String[] args) {

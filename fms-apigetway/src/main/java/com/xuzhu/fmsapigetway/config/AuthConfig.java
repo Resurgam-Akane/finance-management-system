@@ -62,6 +62,16 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
                 .withClient("fms-incomemanagement-service")
                 .secret("123456")
                 .authorizedGrantTypes("client_credentials", "refresh_token")
+                .scopes("server")
+                .and()
+                .withClient("fms-expensemanagement-service")
+                .secret("123456")
+                .authorizedGrantTypes("client_credentials", "refresh_token")
+                .scopes("server")
+                .and()
+                .withClient("fms-realassets-service")
+                .secret("123456")
+                .authorizedGrantTypes("client_credentials", "refresh_token")
                 .scopes("server");
         // @formatter:on
         ;

@@ -36,8 +36,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/current", method = RequestMethod.GET)
-    public String getUser(Principal principal) {
-        return "user";
+    public Principal getUser(Principal principal) {
+        return principal;
     }
 
 /*    @GetMapping("/account/{username}")
@@ -47,4 +47,5 @@ public class UserController {
         model.addAttribute("account", account);
         return "user";
     }*/
+
 }

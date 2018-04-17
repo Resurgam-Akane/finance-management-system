@@ -3,9 +3,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>登录 | 个人财务管理系统</title>
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
+    <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.45/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <script src="https://cdn.bootcss.com/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.45/js/bootstrap-datetimepicker.min.js"></script>
+
 
     <link th:href="@{/css/dashboard.css}" type="text/css" rel="stylesheet" charset="utf-8"/>
 
@@ -140,6 +144,9 @@
         $('#sidenav li').click(function () {
             $(this).addClass("active").siblings("li").removeClass("active");
 
+            var username = localStorage.getItem('username');
+            var token = getOauthTokenFromStorage();
+
             if (this.id === "center") {
                 $('#centerdiv').show();
                 $('#incomemanagementdiv').hide();
@@ -155,6 +162,27 @@
                 $('#financemanagementdiv').hide();
                 $('#financialstatementsdiv').hide();
                 $('#realassetsdiv').hide();
+
+                $.ajax({
+                    url: '/incomes/' + username,
+                    datatype: 'json',
+                    type: 'get',
+                    headers: {'Authorization': 'Bearer ' + token},
+                    async: false,
+                    success: function (data) {
+                        if (data === "") {
+                            $('#noincomeitemdiv').show();
+                            $('#incometablediv').hide();
+                        }
+                        else {
+                            $('#noincomeitemdiv').hide();
+                            $('#incometablediv').show();
+                        }
+                    },
+                    error: function () {
+
+                    }
+                });
             }
             else if (this.id === "expensemanagement") {
                 $('#centerdiv').hide();
@@ -163,6 +191,27 @@
                 $('#financemanagementdiv').hide();
                 $('#financialstatementsdiv').hide();
                 $('#realassetsdiv').hide();
+
+                $.ajax({
+                    url: '/expenses/' + username,
+                    datatype: 'json',
+                    type: 'get',
+                    headers: {'Authorization': 'Bearer ' + token},
+                    async: false,
+                    success: function (data) {
+                        if (data === "") {
+                            $('#noexpenseitemdiv').show();
+                            $('#expensetablediv').hide();
+                        }
+                        else {
+                            $('#noexpenseitemdiv').hide();
+                            $('#expensetablediv').show();
+                        }
+                    },
+                    error: function () {
+
+                    }
+                });
             }
             else if (this.id === "financemanagement") {
                 $('#centerdiv').hide();
@@ -194,7 +243,7 @@
     function setPersonalInfo() {
         var token = getOauthTokenFromStorage();
         var name = document.getElementById("setName").value;
-        var sex = document.getElementById("setSex").value;
+        var sex = $("#setSex").find("option:selected").val();
         var age = document.getElementById("setAge").value;
         var savingAmount = document.getElementById("setSavingAmount").value;
         var updateTime = new Date();
@@ -253,6 +302,110 @@
             });
         }
     }
+
+    /*$("#addIncomeItemModal").on("hidden.bs.modal", function(){
+        $(this).removeData("bs.modal");
+    });*/
+
+    function addIncomeItem() {
+        var token = getOauthTokenFromStorage();
+        var incomeItemName = document.getElementById("setIncomeItemName").value;
+        var incomeItemAmount = document.getElementById("setIncomeItemAmount").value;
+        var incomeItemTimePoint = document.getElementById("setIncomeItemTimePoint").value;
+        var incomeItemSource = document.getElementById("setIncomeItemSource").value;
+        var incomeItemMode = $("#setIncomeItemMode").find("option:selected").val();
+        var incomeItemPeriod = $("#setIncomeItemPeriod").find("option:selected").val();
+        var incomeItemInfo = document.getElementById("setIncomeItemInfo").value;
+        var updateTime = new Date();
+        var username = localStorage.getItem('username');
+
+        if(incomeItemName === "") {
+            alert("请输入收入项目名称");
+            return false;
+        }
+
+        if (incomeItemAmount === "") {
+            alert("请输入收入金额");
+            return false;
+        }
+
+        if (incomeItemTimePoint === "") {
+            alert("请输入收入时间");
+            return false;
+        }
+        //$("#addIncomeItemModal").modal('hide');
+        if (token) {
+            $.ajax({
+                url: '/incomes/addIncomeItem/' + username,
+                datatype: 'json',
+                type: 'post',
+                contentType: "application/json",
+                headers: {'Authorization': 'Bearer ' + token},
+                async: false,
+                data: JSON.stringify({
+                    incomeItemName: incomeItemName,
+                    incomeItemAmount: incomeItemAmount,
+                    incomeItemTimePoint: incomeItemTimePoint,
+                    incomeItemSource: incomeItemSource,
+                    incomeItemMode: incomeItemMode,
+                    incomeItemPeriod: incomeItemPeriod,
+                    incomeItemInfo: incomeItemInfo,
+                    updateTime: updateTime
+                }),
+                success: function (data) {
+                    if (data === "success") {
+
+                        $("#addIncomeItemModal").modal('hide');
+                    }
+                    else if (data === "fail")
+                        alert("添加收入项目失败!");
+                },
+                error: function () {
+                    removeOauthTokenFromStorage();
+                }
+            });
+        }
+    }
+
+    function addExpenseItem() {
+        var token = getOauthTokenFromStorage();
+        var username=localStorage.getItem('username');
+
+        if(token) {
+            $.ajax({
+                url: '/expenses/addExpenseItem/' + username,
+                datatype: 'json',
+                type: 'get',
+                //contentType: "application/json",
+                headers: {'Authorization': 'Bearer ' + token},
+                async: false,
+                success: function (data) {
+                    if (data === username) {
+
+                        $("#addExpenseItemModal").modal('hide');
+                    }
+                    else if (data === "fail")
+                        alert("添加收入项目失败!");
+                },
+                error: function () {
+                    removeOauthTokenFromStorage();
+                }
+            });
+        }
+    }
+
+    $(document).ready(function () {
+        $(function () {
+            $('#setIncomeItemDateTime').datetimepicker();
+        });
+    })
+
+    $(document).ready(function () {
+        $(function () {
+            $('#setExpenseItemDateTime').datetimepicker();
+        });
+    })
+
 </script>
 
 <!--<div th:replace="header :: nav"></div>-->
@@ -366,7 +519,12 @@
                                         </div>
                                         <div class="input-group col-md-6 col-md-offset-3">
                                             <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
-                                            <input type="text" class="form-control" name="setSex" id="setSex" placeholder="性别" />
+                                            <label for="setSex"></label>
+                                            <select name="setSex" id="setSex" class="selectpicker form-control">
+                                                <option value="unset" selected="selected">未设置</option>
+                                                <option value="male">男</option>
+                                                <option value="female">女</option>
+                                            </select>
                                         </div>
                                         <div class="input-group col-md-6 col-md-offset-3">
                                             <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
@@ -521,8 +679,108 @@
 
                 <div class="row placeholders">
                     <div>
-
+                        <button class="btn btn-primary btn-lg pull-left" data-toggle="modal" data-target="#setIncomeItemModal">添加收入项</button>
                     </div>
+                </div>
+
+                <div class="modal fade" id="addIncomeItemModal" tabindex="-1" role="dialog" aria-labelledby="addIncomeItemModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="addIncomeItemModalLabel">修改个人信息</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" autocomplete="off">
+                                    <div class="form-group" style="margin-top: 30px">
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                                            <input type="text" class="form-control" name="setIncomeItemName" id="setIncomeItemName" placeholder="收入项目名称" />
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <input type="text" class="form-control" name="setIncomeItemAmount" id="setIncomeItemAmount" placeholder="收入金额" />
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <label for="setIncomeItemMode"></label>
+                                            <select name="setIncomeItemMode" id="setIncomeItemMode" class="selectpicker form-control">
+                                                <option value="cash" selected="selected">现金</option>
+                                                <option value="alipay">支付宝</option>
+                                                <option value="wechat">微信</option>
+                                                <option value="bank">银行</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <input type="text" class="form-control" name="setIncomeItemTimePoint" id="setIncomeItemTimePoint" placeholder="收入日期" />
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <input type="text" class="form-control" name="setIncomeItemSource" id="setIncomeItemSource" placeholder="收入来源" />
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <label for="setIncomeItemPeriod"></label>
+                                            <select name="setIncomeItemPeriod" id="setIncomeItemPeriod" class="selectpicker form-control">
+                                                <option value="NO" selected="selected">一次性收入</option>
+                                                <option value="HOUR">每小时收入</option>
+                                                <option value="DAY">每天收入</option>
+                                                <option value="MONTH">每月收入</option>
+                                                <option value="QUARTER">每季度收入</option>
+                                                <option value="YEAR">每年收入</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <div class='input-group date' id='setIncomeItemDateTime'>
+                                                <input type='text' class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <input type="text" class="form-control" name="setIncomeItemInfo" id="setIncomeItemInfo" placeholder="备注信息" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                <button id="addIncomesItemBtn" type="button" class="btn btn-primary" onclick="addIncomeItem()">提交</button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="sub-header">收入结构</h2>
+
+                <div class="row placeholders">
+                    <!-- 包括 重要支出（金额较大）、收入分布饼状图、收入折线图（日、月、年） -->
+                </div>
+
+                <h2 class="sub-header">收入项目明细</h2>
+                <div id="noincomeitemdiv" class="row placeholders">
+                    <p class="text-left">无收入项目记录</p>
+                </div>
+                <div id="incometablediv" class="table-responsive" style="display: none">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>收入项目名称</th>
+                            <th>金额</th>
+                            <th>日期</th>
+                            <th>来源</th>
+                            <th>方式</th>
+                            <th>间隔</th>
+                            <th>备注</th>
+                        </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
             <div id="expensemanagementdiv" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="display:none;">
@@ -530,9 +788,110 @@
 
                 <div class="row placeholders">
                     <div>
-
+                        <button class="btn btn-primary btn-lg pull-left" data-toggle="modal" data-target="#addExpenseItemModal">添加支出项</button>
                     </div>
                 </div>
+
+                <div class="modal fade" id="addExpenseItemModal" tabindex="-1" role="dialog" aria-labelledby="addExpenseItemModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="addExpenseItemModalLabel">修改个人信息</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" autocomplete="off">
+                                    <div class="form-group" style="margin-top: 30px">
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                                            <input type="text" class="form-control" name="setExpenseItemName" id="setExpenseItemName" placeholder="支出项目名称" />
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <input type="text" class="form-control" name="setExpenseItemAmount" id="setExpenseItemAmount" placeholder="支出金额" />
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <label for="setExpenseItemMode"></label>
+                                            <select name="setExpenseItemMode" id="setExpenseItemMode" class="selectpicker form-control">
+                                                <option value="cash" selected="selected">现金</option>
+                                                <option value="alipay">支付宝</option>
+                                                <option value="wechat">微信</option>
+                                                <option value="bank">银行</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <input type="text" class="form-control" name="setExpenseItemTimePoint" id="setExpenseItemTimePoint" placeholder="支出日期" />
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <input type="text" class="form-control" name="setExpenseItemSource" id="setExpenseItemSource" placeholder="支出来源" />
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <label for="setExpenseItemPeriod"></label>
+                                            <select name="setExpenseItemPeriod" id="setExpenseItemPeriod" class="selectpicker form-control">
+                                                <option value="NO" selected="selected">一次性支出</option>
+                                                <option value="HOUR">每小时支出</option>
+                                                <option value="DAY">每天支出</option>
+                                                <option value="MONTH">每月支出</option>
+                                                <option value="QUARTER">每季度支出</option>
+                                                <option value="YEAR">每年支出</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <div class='input-group date' id='setExpenseItemDateTime'>
+                                                <input type='text' class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <input type="text" class="form-control" name="setExpenseItemInfo" id="setExpenseItemInfo" placeholder="备注信息" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                <button id="addExpensesItemBtn" type="button" class="btn btn-primary" onclick="addExpenseItem()">提交</button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="sub-header">支出结构</h2>
+
+                <div class="row placeholders">
+                    <!-- 包括 重要支出（金额较大）、收入分布饼状图、收入折线图（日、月、年） -->
+                </div>
+
+                <h2 class="sub-header">收入项目明细</h2>
+                <div id="noexpenseitemdiv" class="row placeholders">
+                    <p class="text-left">无收入项目记录</p>
+                </div>
+                <div id="expensetablediv" class="table-responsive" style="display: none">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>支出项目名称</th>
+                            <th>金额</th>
+                            <th>日期</th>
+                            <th>来源</th>
+                            <th>方式</th>
+                            <th>间隔</th>
+                            <th>备注</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+
             </div>
             <div id="financemanagementdiv" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="display:none;">
                 <h1 class="page-header">理财管理</h1>
