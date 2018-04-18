@@ -16,12 +16,17 @@ public class IncomeController {
     IncomesService incomesService;
 
     @RequestMapping(value = "/addIncomeItem/{username}", method = RequestMethod.POST)
-    public String addIncomeItem(@PathVariable String username, @Valid @RequestBody Item item) {
+    public List<Item> addIncomeItem(@PathVariable String username, @Valid @RequestBody Item item) {
         return incomesService.addIncomesItem(username, item);
     }
 
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
     public List<Item> loadIncomes(@PathVariable String username) {
         return incomesService.loadIncomes(username);
+    }
+
+    @RequestMapping(value = "/deleteIncomeItem/{username}", method = RequestMethod.POST)
+    public List<Item> deleteIncomeItem(@PathVariable String username, @Valid @RequestParam String index) {
+        return incomesService.deleteIncomesItem(username, Integer.parseInt(index));
     }
 }

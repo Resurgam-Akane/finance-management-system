@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IncomesService {
     List<Item> loadIncomes(String username);
-    String addIncomesItem(String username, Item item);
-    String deleteIncomesItem(String username, Item item);
+    List<Item> addIncomesItem(String username, Item item);
+    List<Item> deleteIncomesItem(String username, int index);
     String updateIncomesItem(String username, Item item);
 }

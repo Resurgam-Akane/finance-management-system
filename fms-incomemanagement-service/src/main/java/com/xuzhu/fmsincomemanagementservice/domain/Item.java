@@ -21,9 +21,9 @@ public class Item {
     private String incomeItemTimePoint;
     private String incomeItemSource;
     private String incomeItemMode;
-    private String incomeItemInfo;
-    private Date updateTime;
     private String incomeItemPeriod;
+    private Date updateTime;
+    private String incomeItemInfo;
 
     public void setIncomeItemName(String incomeItemName) {
         this.incomeItemName = incomeItemName;

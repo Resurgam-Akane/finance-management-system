@@ -6,6 +6,7 @@ import com.xuzhu.fmsincomemanagementservice.domain.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,21 +17,32 @@ public class IncomesServiceImpl implements IncomesService{
     private AccountDAO accountDAO;
 
     @Override
-    public String addIncomesItem(String username, Item item) {
+    public List<Item> addIncomesItem(String username, Item item) {
         Account account = accountDAO.findOne(username);
 
         if (account != null) {
             account.addIncomItem(item);
             accountDAO.save(account);
         }
-        else return "fail";
+        else return null;
 
-        return "success";
+        return account.getIncomes();
     }
 
     @Override
-    public String deleteIncomesItem(String username, Item item) {
-        return "success";
+    public List<Item> deleteIncomesItem(String username, int index) {
+        Account account = accountDAO.findOne(username);
+
+        if (account != null) {
+            List<Item> items = account.getIncomes();
+            items.remove(index);
+            account.setIncomes(items);
+            account.setUpdateTime(new Date());
+            accountDAO.save(account);
+        }
+        else return null;
+
+        return account.getIncomes();
     }
 
     @Override
@@ -49,6 +61,7 @@ public class IncomesServiceImpl implements IncomesService{
             account.setUsername(username);
             account.setCreateTime(new Date());
             account.setUpdateTime(new Date());
+            account.setIncomes(new ArrayList<>());
             accountDAO.save(account);
             return account.getIncomes();
         }
