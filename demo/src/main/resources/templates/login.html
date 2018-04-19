@@ -915,7 +915,7 @@
                                             <label for="setExpenseItemSource"></label>
                                             <select name="setExpenseItemSource" id="setExpenseItemSource" class="selectpicker form-control">
                                                 <option value="交通" selected="selected">交通</option>
-                                                <option value="租赁">房租</option>
+                                                <option value="租赁">租赁</option>
                                                 <option value="教育">教育</option>
                                                 <option value="衣服">衣服</option>
                                                 <option value="饮食">饮食</option>
@@ -956,7 +956,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                                 <button id="addExpensesItemBtn" type="button" class="btn btn-primary" onclick="addExpenseItem()">提交</button>
-                                <button id="editIncomesItemBtn" type="button" class="btn btn-primary" onclick="editExpenseItem()" style="display: none">提交</button>
+                                <button id="editExpensesItemBtn" type="button" class="btn btn-primary" onclick="editExpenseItem()" style="display: none">提交</button>
                             </div>
 
 
@@ -967,27 +967,37 @@
                 <h2 class="sub-header">支出结构</h2>
 
                 <div class="row placeholders">
+                    <div class="input-group col-md-6 col-md-offset-3">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                        <label for="setExpenseStructureOfMonth"></label>
+                        <select name="setExpenseStructureOfMonth" id="setExpenseStructureOfMonth" class="selectpicker form-control">
+                            <option value="01">一月</option>
+                            <option value="02">二月</option>
+                            <option value="03">三月</option>
+                            <option value="04">四月</option>
+                            <option value="05">五月</option>
+                            <option value="06">六月</option>
+                            <option value="07">七月</option>
+                            <option value="08">八月</option>
+                            <option value="09">九月</option>
+                            <option value="10">十月</option>
+                            <option value="11">十一月</option>
+                            <option value="12">十二月</option>
+                        </select>
+                    </div>
                     <!-- 包括 重要支出（金额较大）、收入分布饼状图、收入折线图（日、月、年） -->
+                    <div id="expenseStructureOfMonth" class="col-xs-6 col-sm-6 placeholder" style="height: auto;width: auto;">
+                    </div>
+                    <br />
+                    <div class="col-xs-6 col-sm-6 placeholder">
+                        <h4>年内支出变化</h4>
+                        <span class="text-muted">Something else</span>
+                    </div>
                 </div>
 
-                <h2 class="sub-header">收入项目明细</h2>
-                <div id="noexpenseitemdiv" class="row placeholders">
-                    <p class="text-left">无收入项目记录</p>
-                </div>
-                <div id="expensetablediv" class="table-responsive" style="display: none">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>支出项目名称</th>
-                            <th>金额</th>
-                            <th>日期</th>
-                            <th>来源</th>
-                            <th>方式</th>
-                            <th>间隔</th>
-                            <th>备注</th>
-                        </tr>
-                        </thead>
-                    </table>
+                <h2 class="sub-header">支出项目明细</h2>
+                <div id="expensetablediv" class="table-responsive">
+                    <table id="expenseTable"></table>
                 </div>
 
             </div>
