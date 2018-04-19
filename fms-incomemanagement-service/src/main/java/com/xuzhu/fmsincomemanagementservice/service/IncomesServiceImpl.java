@@ -46,11 +46,23 @@ public class IncomesServiceImpl implements IncomesService{
     }
 
     @Override
-    public String updateIncomesItem(String username, Item item) {
-        return  "success";
+    public List<Item> editIncomesItem(String username, int index, Item item) {
+        Account account = accountDAO.findOne(username);
+
+        if (account != null) {
+            List<Item> items = account.getIncomes();
+            items.set(index, item);
+            account.setIncomes(items);
+            account.setUpdateTime(new Date());
+            accountDAO.save(account);
+        }
+        else return null;
+
+        return account.getIncomes();
     }
 
-    @Override public List<Item> loadIncomes(String username) {
+    @Override
+    public List<Item> loadIncomes(String username) {
         Account account = accountDAO.findOne(username);
 
         if (account != null) {

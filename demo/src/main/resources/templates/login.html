@@ -788,10 +788,6 @@
                                                 <option value="银行">银行</option>
                                             </select>
                                         </div>
-                                        <!--<div class="input-group col-md-6 col-md-offset-3">
-                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
-                                            <input type="text" class="form-control" name="setIncomeItemTimePoint" id="setIncomeItemTimePoint" placeholder="收入日期" />
-                                        </div>-->
                                         <div class="input-group col-md-6 col-md-offset-3">
                                             <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
                                             <label for="setIncomeItemSource"></label>
@@ -844,9 +840,28 @@
                 <h2 class="sub-header">收入结构</h2>
 
                 <div class="row placeholders">
+                    <div class="input-group col-md-6 col-md-offset-3">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                        <label for="setIncomeStructureOfMonth"></label>
+                        <select name="setIncomeStructureOfMonth" id="setIncomeStructureOfMonth" class="selectpicker form-control">
+                            <option value="01">一月</option>
+                            <option value="02">二月</option>
+                            <option value="03">三月</option>
+                            <option value="04">四月</option>
+                            <option value="05">五月</option>
+                            <option value="06">六月</option>
+                            <option value="07">七月</option>
+                            <option value="08">八月</option>
+                            <option value="09">九月</option>
+                            <option value="10">十月</option>
+                            <option value="11">十一月</option>
+                            <option value="12">十二月</option>
+                        </select>
+                    </div>
                     <!-- 包括 重要支出（金额较大）、收入分布饼状图、收入折线图（日、月、年） -->
                     <div id="incomeStructureOfMonth" class="col-xs-6 col-sm-6 placeholder" style="height: auto;width: auto;">
                     </div>
+                    <br />
                     <div class="col-xs-6 col-sm-6 placeholder">
                         <h4>年内收入变化</h4>
                         <span class="text-muted">Something else</span>
@@ -941,6 +956,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                                 <button id="addExpensesItemBtn" type="button" class="btn btn-primary" onclick="addExpenseItem()">提交</button>
+                                <button id="editIncomesItemBtn" type="button" class="btn btn-primary" onclick="editExpenseItem()" style="display: none">提交</button>
                             </div>
 
 

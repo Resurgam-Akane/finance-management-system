@@ -29,4 +29,9 @@ public class IncomeController {
     public List<Item> deleteIncomeItem(@PathVariable String username, @Valid @RequestParam String index) {
         return incomesService.deleteIncomesItem(username, Integer.parseInt(index));
     }
+
+    @RequestMapping(value = "/editIncomeItem/{username}/{index}", method = RequestMethod.POST)
+    public List<Item> editIncomeItem(@PathVariable String username, @Valid @PathVariable String index, @Valid @RequestBody Item item) {
+        return incomesService.editIncomesItem(username, Integer.parseInt(index), item);
+    }
 }
