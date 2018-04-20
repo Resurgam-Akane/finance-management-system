@@ -4,9 +4,12 @@ var incomesEditIndex;
 var expensesEditIndex;
 var incomesStructureOfPerMonth = { '01' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '02' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '03' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '04' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '05' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '06' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '07' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '08' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '09' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '10' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '11' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '12' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}] };
 var expensesStructureOfPerMonth ={ '01' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '02' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '03' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '04' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '05' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '06' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '07' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '08' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '09' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '10' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '11' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '12' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}] };
+var incomesTrendOfYear = [];
+var expensesTrendOfYear = [];
 
 var currentDate = new Date();
 var currentMonth=currentDate.getMonth()+1;
+var currentYear=currentDate.getFullYear().toString();
 currentMonth =(currentMonth < 10 ? "0" + currentMonth : currentMonth);
 
 
@@ -20,10 +23,15 @@ function computeForOneMonthOneIncomeSource(month, data, i) {
     if (data[i].incomeItemSource === "工资") {
         if (data[i].incomeItemPeriod === "一次性收入")
             incomesStructureOfPerMonth[month][0].value += data[i].incomeItemAmount;
-        else if (data[i].incomeItemPeriod === "每天收入") {
-            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12")
-                incomesStructureOfPerMonth[month][0].value += data[i].incomeItemAmount * 31;
-            else incomesStructureOfPerMonth[month][0].value += data[i].incomeItemAmount * 30;
+        else if (data[i].incomeItemPeriod === "本月每天收入") {
+            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12") {
+                var interval = 31 - parseInt(data[i].incomeItemTimePoint.split('-')[2]) + 1;
+                incomesStructureOfPerMonth[month][0].value += data[i].incomeItemAmount * interval;
+            }
+            else {
+                var interval = 30 - parseInt(data[i].incomeItemTimePoint.split('-')[2]) + 1;
+                incomesStructureOfPerMonth[month][0].value += data[i].incomeItemAmount * interval;
+            }
         }
         else if (data[i].incomeItemPeriod === "每月收入") {
             incomesStructureOfPerMonth[month][0].value += data[i].incomeItemAmount;
@@ -32,10 +40,15 @@ function computeForOneMonthOneIncomeSource(month, data, i) {
     else if (data[i].incomeItemSource === "租赁") {
         if (data[i].incomeItemPeriod === "一次性收入")
             incomesStructureOfPerMonth[month][1].value += data[i].incomeItemAmount;
-        else if (data[i].incomeItemPeriod === "每天收入") {
-            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12")
-                incomesStructureOfPerMonth[month][1].value += data[i].incomeItemAmount * 31;
-            else incomesStructureOfPerMonth[month][1].value += data[i].incomeItemAmount * 30;
+        else if (data[i].incomeItemPeriod === "本月每天收入") {
+            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12") {
+                var interval = 31 - parseInt(data[i].incomeItemTimePoint.split('-')[2]) + 1;
+                incomesStructureOfPerMonth[month][1].value += data[i].incomeItemAmount * interval;
+            }
+            else {
+                var interval = 30 - parseInt(data[i].incomeItemTimePoint.split('-')[2]) + 1;
+                incomesStructureOfPerMonth[month][1].value += data[i].incomeItemAmount * interval;
+            }
         }
         else if (data[i].incomeItemPeriod === "每月收入") {
             incomesStructureOfPerMonth[month][1].value += data[i].incomeItemAmount;
@@ -44,10 +57,15 @@ function computeForOneMonthOneIncomeSource(month, data, i) {
     else if (data[i].incomeItemSource === "财产转让") {
         if (data[i].incomeItemPeriod === "一次性收入")
             incomesStructureOfPerMonth[month][2].value += data[i].incomeItemAmount;
-        else if (data[i].incomeItemPeriod === "每天收入") {
-            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12")
-                incomesStructureOfPerMonth[month][2].value += data[i].incomeItemAmount * 31;
-            else incomesStructureOfPerMonth[month][2].value += data[i].incomeItemAmount * 30;
+        else if (data[i].incomeItemPeriod === "本月每天收入") {
+            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12") {
+                var interval = 31 - parseInt(data[i].incomeItemTimePoint.split('-')[2]) + 1;
+                incomesStructureOfPerMonth[month][2].value += data[i].incomeItemAmount * interval;
+            }
+            else {
+                var interval = 30 - parseInt(data[i].incomeItemTimePoint.split('-')[2]) + 1;
+                incomesStructureOfPerMonth[month][2].value += data[i].incomeItemAmount * interval;
+            }
         }
         else if (data[i].incomeItemPeriod === "每月收入") {
             incomesStructureOfPerMonth[month][2].value += data[i].incomeItemAmount;
@@ -56,10 +74,15 @@ function computeForOneMonthOneIncomeSource(month, data, i) {
     else if (data[i].incomeItemSource === "礼金") {
         if (data[i].incomeItemPeriod === "一次性收入")
             incomesStructureOfPerMonth[month][3].value += data[i].incomeItemAmount;
-        else if (data[i].incomeItemPeriod === "每天收入") {
-            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12")
-                incomesStructureOfPerMonth[month][3].value += data[i].incomeItemAmount * 31;
-            else incomesStructureOfPerMonth[month][3].value += data[i].incomeItemAmount * 30;
+        else if (data[i].incomeItemPeriod === "本月每天收入") {
+            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12") {
+                var interval = 31 - parseInt(data[i].incomeItemTimePoint.split('-')[2]) + 1;
+                incomesStructureOfPerMonth[month][3].value += data[i].incomeItemAmount * interval;
+            }
+            else {
+                var interval = 30 - parseInt(data[i].incomeItemTimePoint.split('-')[2]) + 1;
+                incomesStructureOfPerMonth[month][3].value += data[i].incomeItemAmount * interval;
+            }
         }
         else if (data[i].incomeItemPeriod === "每月收入") {
             incomesStructureOfPerMonth[month][3].value += data[i].incomeItemAmount;
@@ -68,10 +91,15 @@ function computeForOneMonthOneIncomeSource(month, data, i) {
     else if (data[i].incomeItemSource === "其他") {
         if (data[i].incomeItemPeriod === "一次性收入")
             incomesStructureOfPerMonth[month][4].value += data[i].incomeItemAmount;
-        else if (data[i].incomeItemPeriod === "每天收入") {
-            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12")
-                incomesStructureOfPerMonth[month][4].value += data[i].incomeItemAmount * 31;
-            else incomesStructureOfPerMonth[month][4].value += data[i].incomeItemAmount * 30;
+        else if (data[i].incomeItemPeriod === "本月每天收入") {
+            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12") {
+                var interval = 31 - parseInt(data[i].incomeItemTimePoint.split('-')[2]) + 1;
+                incomesStructureOfPerMonth[month][4].value += data[i].incomeItemAmount * interval;
+            }
+            else {
+                var interval = 30 - parseInt(data[i].incomeItemTimePoint.split('-')[2]) + 1;
+                incomesStructureOfPerMonth[month][4].value += data[i].incomeItemAmount * interval;
+            }
         }
         else if (data[i].incomeItemPeriod === "每月收入") {
             incomesStructureOfPerMonth[month][4].value += data[i].incomeItemAmount;
@@ -83,10 +111,15 @@ function computeForOneMonthOneExpenseSource(month, data, i) {
     if (data[i].expenseItemSource === "交通") {
         if (data[i].expenseItemPeriod === "一次性支出")
             expensesStructureOfPerMonth[month][0].value += data[i].expenseItemAmount;
-        else if (data[i].expenseItemPeriod === "每天支出") {
-            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12")
-                expensesStructureOfPerMonth[month][0].value += data[i].expenseItemAmount * 31;
-            else expensesStructureOfPerMonth[month][0].value += data[i].expenseItemAmount * 30;
+        else if (data[i].expenseItemPeriod === "本月每天支出") {
+            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12") {
+                var interval = 31 - parseInt(data[i].expenseItemTimePoint.split('-')[2]) + 1;
+                expensesStructureOfPerMonth[month][0].value += data[i].expenseItemAmount * interval;
+            }
+            else {
+                var interval = 30 - parseInt(data[i].expenseItemTimePoint.split('-')[2]) + 1;
+                expensesStructureOfPerMonth[month][0].value += data[i].expenseItemAmount * interval;
+            }
         }
         else if (data[i].expenseItemPeriod === "每月支出") {
             expensesStructureOfPerMonth[month][0].value += data[i].expenseItemAmount;
@@ -95,10 +128,15 @@ function computeForOneMonthOneExpenseSource(month, data, i) {
     else if (data[i].expenseItemSource === "租赁") {
         if (data[i].expenseItemPeriod === "一次性支出")
             expensesStructureOfPerMonth[month][1].value += data[i].expenseItemAmount;
-        else if (data[i].expenseItemPeriod === "每天支出") {
-            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12")
-                expensesStructureOfPerMonth[month][1].value += data[i].expenseItemAmount * 31;
-            else expensesStructureOfPerMonth[month][1].value += data[i].expenseItemAmount * 30;
+        else if (data[i].expenseItemPeriod === "本月每天支出") {
+            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12") {
+                var interval = 31 - parseInt(data[i].expenseItemTimePoint.split('-')[2]) + 1;
+                expensesStructureOfPerMonth[month][1].value += data[i].expenseItemAmount * interval;
+            }
+            else {
+                var interval = 30 - parseInt(data[i].expenseItemTimePoint.split('-')[2]) + 1;
+                expensesStructureOfPerMonth[month][1].value += data[i].expenseItemAmount * interval;
+            }
         }
         else if (data[i].expenseItemPeriod === "每月支出") {
             expensesStructureOfPerMonth[month][1].value += data[i].expenseItemAmount;
@@ -107,10 +145,15 @@ function computeForOneMonthOneExpenseSource(month, data, i) {
     else if (data[i].expenseItemSource === "教育") {
         if (data[i].expenseItemPeriod === "一次性支出")
             expensesStructureOfPerMonth[month][2].value += data[i].expenseItemAmount;
-        else if (data[i].expenseItemPeriod === "每天支出") {
-            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12")
-                expensesStructureOfPerMonth[month][2].value += data[i].expenseItemAmount * 31;
-            else expensesStructureOfPerMonth[month][2].value += data[i].expenseItemAmount * 30;
+        else if (data[i].expenseItemPeriod === "本月每天支出") {
+            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12") {
+                var interval = 31 - parseInt(data[i].expenseItemTimePoint.split('-')[2]) + 1;
+                expensesStructureOfPerMonth[month][2].value += data[i].expenseItemAmount * interval;
+            }
+            else {
+                var interval = 30 - parseInt(data[i].expenseItemTimePoint.split('-')[2]) + 1;
+                expensesStructureOfPerMonth[month][2].value += data[i].expenseItemAmount * interval;
+            }
         }
         else if (data[i].expenseItemPeriod === "每月支出") {
             expensesStructureOfPerMonth[month][2].value += data[i].expenseItemAmount;
@@ -119,10 +162,15 @@ function computeForOneMonthOneExpenseSource(month, data, i) {
     else if (data[i].expenseItemSource === "衣服") {
         if (data[i].expenseItemPeriod === "一次性支出")
             expensesStructureOfPerMonth[month][3].value += data[i].expenseItemAmount;
-        else if (data[i].expenseItemPeriod === "每天支出") {
-            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12")
-                expensesStructureOfPerMonth[month][3].value += data[i].expenseItemAmount * 31;
-            else expensesStructureOfPerMonth[month][3].value += data[i].expenseItemAmount * 30;
+        else if (data[i].expenseItemPeriod === "本月每天支出") {
+            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12") {
+                var interval = 31 - parseInt(data[i].expenseItemTimePoint.split('-')[2]) + 1;
+                expensesStructureOfPerMonth[month][3].value += data[i].expenseItemAmount * interval;
+            }
+            else {
+                var interval = 30 - parseInt(data[i].expenseItemTimePoint.split('-')[2]) + 1;
+                expensesStructureOfPerMonth[month][3].value += data[i].expenseItemAmount * interval;
+            }
         }
         else if (data[i].expenseItemPeriod === "每月支出") {
             expensesStructureOfPerMonth[month][3].value += data[i].expenseItemAmount;
@@ -131,10 +179,15 @@ function computeForOneMonthOneExpenseSource(month, data, i) {
     else if (data[i].expenseItemSource === "饮食") {
         if (data[i].expenseItemPeriod === "一次性支出")
             expensesStructureOfPerMonth[month][4].value += data[i].expenseItemAmount;
-        else if (data[i].expenseItemPeriod === "每天支出") {
-            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12")
-                expensesStructureOfPerMonth[month][4].value += data[i].expenseItemAmount * 31;
-            else expensesStructureOfPerMonth[month][4].value += data[i].expenseItemAmount * 30;
+        else if (data[i].expenseItemPeriod === "本月每天支出") {
+            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12") {
+                var interval = 31 - parseInt(data[i].expenseItemTimePoint.split('-')[2]) + 1;
+                expensesStructureOfPerMonth[month][4].value += data[i].expenseItemAmount * interval;
+            }
+            else {
+                var interval = 30 - parseInt(data[i].expenseItemTimePoint.split('-')[2]) + 1;
+                expensesStructureOfPerMonth[month][4].value += data[i].expenseItemAmount * interval;
+            }
         }
         else if (data[i].expenseItemPeriod === "每月支出") {
             expensesStructureOfPerMonth[month][4].value += data[i].expenseItemAmount;
@@ -143,10 +196,15 @@ function computeForOneMonthOneExpenseSource(month, data, i) {
     else if (data[i].expenseItemSource === "旅游") {
         if (data[i].expenseItemPeriod === "一次性支出")
             expensesStructureOfPerMonth[month][5].value += data[i].expenseItemAmount;
-        else if (data[i].expenseItemPeriod === "每天支出") {
-            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12")
-                expensesStructureOfPerMonth[month][5].value += data[i].expenseItemAmount * 31;
-            else expensesStructureOfPerMonth[month][5].value += data[i].expenseItemAmount * 30;
+        else if (data[i].expenseItemPeriod === "本月每天支出") {
+            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12") {
+                var interval = 31 - parseInt(data[i].expenseItemTimePoint.split('-')[2]) + 1;
+                expensesStructureOfPerMonth[month][5].value += data[i].expenseItemAmount * interval;
+            }
+            else {
+                var interval = 30 - parseInt(data[i].expenseItemTimePoint.split('-')[2]) + 1;
+                expensesStructureOfPerMonth[month][5].value += data[i].expenseItemAmount * interval;
+            }
         }
         else if (data[i].expenseItemPeriod === "每月支出") {
             expensesStructureOfPerMonth[month][5].value += data[i].expenseItemAmount;
@@ -155,10 +213,15 @@ function computeForOneMonthOneExpenseSource(month, data, i) {
     else if (data[i].expenseItemSource === "运动") {
         if (data[i].expenseItemPeriod === "一次性支出")
             expensesStructureOfPerMonth[month][6].value += data[i].expenseItemAmount;
-        else if (data[i].expenseItemPeriod === "每天支出") {
-            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12")
-                expensesStructureOfPerMonth[month][6].value += data[i].expenseItemAmount * 31;
-            else expensesStructureOfPerMonth[month][6].value += data[i].expenseItemAmount * 30;
+        else if (data[i].expenseItemPeriod === "本月每天支出") {
+            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12") {
+                var interval = 31 - parseInt(data[i].expenseItemTimePoint.split('-')[2]) + 1;
+                expensesStructureOfPerMonth[month][6].value += data[i].expenseItemAmount * interval;
+            }
+            else {
+                var interval = 30 - parseInt(data[i].expenseItemTimePoint.split('-')[2]) + 1;
+                expensesStructureOfPerMonth[month][6].value += data[i].expenseItemAmount * interval;
+            }
         }
         else if (data[i].expenseItemPeriod === "每月支出") {
             expensesStructureOfPerMonth[month][6].value += data[i].expenseItemAmount;
@@ -167,10 +230,15 @@ function computeForOneMonthOneExpenseSource(month, data, i) {
     else if (data[i].expenseItemSource === "医疗") {
         if (data[i].expenseItemPeriod === "一次性支出")
             expensesStructureOfPerMonth[month][7].value += data[i].expenseItemAmount;
-        else if (data[i].expenseItemPeriod === "每天支出") {
-            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12")
-                expensesStructureOfPerMonth[month][7].value += data[i].expenseItemAmount * 31;
-            else expensesStructureOfPerMonth[month][7].value += data[i].expenseItemAmount * 30;
+        else if (data[i].expenseItemPeriod === "本月每天支出") {
+            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12") {
+                var interval = 31 - parseInt(data[i].expenseItemTimePoint.split('-')[2]) + 1;
+                expensesStructureOfPerMonth[month][7].value += data[i].expenseItemAmount * interval;
+            }
+            else {
+                var interval = 30 - parseInt(data[i].expenseItemTimePoint.split('-')[2]) + 1;
+                expensesStructureOfPerMonth[month][7].value += data[i].expenseItemAmount * interval;
+            }
         }
         else if (data[i].expenseItemPeriod === "每月支出") {
             expensesStructureOfPerMonth[month][7].value += data[i].expenseItemAmount;
@@ -179,10 +247,15 @@ function computeForOneMonthOneExpenseSource(month, data, i) {
     else if (data[i].expenseItemSource === "水电费") {
         if (data[i].expenseItemPeriod === "一次性支出")
             expensesStructureOfPerMonth[month][8].value += data[i].expenseItemAmount;
-        else if (data[i].expenseItemPeriod === "每天支出") {
-            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12")
-                expensesStructureOfPerMonth[month][8].value += data[i].expenseItemAmount * 31;
-            else expensesStructureOfPerMonth[month][8].value += data[i].expenseItemAmount * 30;
+        else if (data[i].expenseItemPeriod === "本月每天支出") {
+            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12") {
+                var interval = 31 - parseInt(data[i].expenseItemTimePoint.split('-')[2]) + 1;
+                expensesStructureOfPerMonth[month][8].value += data[i].expenseItemAmount * interval;
+            }
+            else {
+                var interval = 30 - parseInt(data[i].expenseItemTimePoint.split('-')[2]) + 1;
+                expensesStructureOfPerMonth[month][8].value += data[i].expenseItemAmount * interval;
+            }
         }
         else if (data[i].expenseItemPeriod === "每月支出") {
             expensesStructureOfPerMonth[month][8].value += data[i].expenseItemAmount;
@@ -191,14 +264,89 @@ function computeForOneMonthOneExpenseSource(month, data, i) {
     else if (data[i].expenseItemSource === "其他") {
         if (data[i].expenseItemPeriod === "一次性支出")
             expensesStructureOfPerMonth[month][9].value += data[i].expenseItemAmount;
-        else if (data[i].expenseItemPeriod === "每天支出") {
-            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12")
-                expensesStructureOfPerMonth[month][9].value += data[i].expenseItemAmount * 31;
-            else expensesStructureOfPerMonth[month][9].value += data[i].expenseItemAmount * 30;
+        else if (data[i].expenseItemPeriod === "本月每天支出") {
+            if (month === "01" || month === "03" || month === "05" || month === "07" || month === "08" || month === "10" || month === "12") {
+                var interval = 31 - parseInt(data[i].expenseItemTimePoint.split('-')[2]) + 1;
+                expensesStructureOfPerMonth[month][9].value += data[i].expenseItemAmount * interval;
+            }
+            else {
+                var interval = 30 - parseInt(data[i].expenseItemTimePoint.split('-')[2]) + 1;
+                expensesStructureOfPerMonth[month][9].value += data[i].expenseItemAmount * interval;
+            }
         }
         else if (data[i].expenseItemPeriod === "每月支出") {
             expensesStructureOfPerMonth[month][9].value += data[i].expenseItemAmount;
         }
+    }
+}
+
+function computeForOneYearIncomeTrend(data, year) {
+    incomesTrendOfYear = [];
+    var incomeOfPerMonth = {'01': 0, '02': 0, '03': 0, '04': 0, '05': 0, '06': 0, '07': 0, '08': 0, '09': 0, '10': 0, '11': 0, '12': 0};
+    for (var i = 0; i < data.length; ++i) {
+        var incomeYearMonthDay = data[i].incomeItemTimePoint.split('-');
+        if ( incomeYearMonthDay[0] === year) {
+            if (data[i].incomeItemPeriod === "一次性收入" || data[i].incomeItemPeriod === "每年收入")
+                incomeOfPerMonth[incomeYearMonthDay[1]] += data[i].incomeItemAmount;
+            else if(data[i].incomeItemPeriod === "本月每天收入") {
+                if (incomeYearMonthDay[1] === "01" || incomeYearMonthDay[1] === "03" || incomeYearMonthDay[1] === "05" || incomeYearMonthDay[1] === "07" || incomeYearMonthDay[1] === "08" || incomeYearMonthDay[1] === "10" || incomeYearMonthDay[1] === "12") {
+                    var interval = 31 - parseInt(incomeYearMonthDay[2]) + 1;
+                    incomeOfPerMonth[incomeYearMonthDay[1]] += data[i].incomeItemAmount * interval;
+                }
+                else {
+                    var interval = 30 - parseInt(incomeYearMonthDay[2]) + 1;
+                    incomeOfPerMonth[incomeYearMonthDay[1]] += data[i].incomeItemAmount*interval;
+                }
+            }
+            else if(data[i].incomeItemPeriod === "每月收入") {
+                var interval = 12 - parseInt(incomeYearMonthDay[1]);
+                incomeOfPerMonth[incomeYearMonthDay[1]] += data[i].incomeItemAmount * interval;
+            }
+            else if(data[i].incomeItemPeriod === "每季度收入") {
+                var interval = (12 - parseInt(incomeYearMonthDay[1])) / 3;
+                incomeOfPerMonth[incomeYearMonthDay[1]] += data[i].incomeItemAmount * interval;
+            }
+        }
+    }
+
+    for (var i = 1; i < 13; ++i) {
+        i = i < 10 ? '0'+ i : i;
+        incomesTrendOfYear.push(incomeOfPerMonth[i]);
+    }
+}
+
+function computeForOneYearExpenseTrend(data, year) {
+    expensesTrendOfYear = [];
+    var expenseOfPerMonth = {'01': 0, '02': 0, '03': 0, '04': 0, '05': 0, '06': 0, '07': 0, '08': 0, '09': 0, '10': 0, '11': 0, '12': 0};
+    for (var i = 0; i < data.length; ++i) {
+        var expenseYearMonthDay = data[i].expenseItemTimePoint.split('-');
+        if ( expenseYearMonthDay[0] === year) {
+            if (data[i].expenseItemPeriod === "一次性支出" || data[i].expenseItemPeriod === "每年支出")
+                expenseOfPerMonth[expenseYearMonthDay[1]] += data[i].expenseItemAmount;
+            else if(data[i].expenseItemPeriod === "本月每天支出") {
+                if (expenseYearMonthDay[1] === "01" || expenseYearMonthDay[1] === "03" || expenseYearMonthDay[1] === "05" || expenseYearMonthDay[1] === "07" || expenseYearMonthDay[1] === "08" || expenseYearMonthDay[1] === "10" || expenseYearMonthDay[1] === "12") {
+                    var interval = 31 - parseInt(expenseYearMonthDay[2]) + 1;
+                    expenseOfPerMonth[expenseYearMonthDay[1]] += data[i].expenseItemAmount * interval;
+                }
+                else {
+                    var interval = 30 - parseInt(expenseYearMonthDay[2]) + 1;
+                    expenseOfPerMonth[expenseYearMonthDay[1]] += data[i].expenseItemAmount*interval;
+                }
+            }
+            else if(data[i].expenseItemPeriod === "每月支出") {
+                var interval = 12 - parseInt(expenseYearMonthDay[1]);
+                expenseOfPerMonth[expenseYearMonthDay[1]] += data[i].expenseItemAmount * interval;
+            }
+            else if(data[i].expenseItemPeriod === "每季度支出") {
+                var interval = (12 - parseInt(expenseYearMonthDay[1])) / 3;
+                expenseOfPerMonth[expenseYearMonthDay[1]] += data[i].expenseItemAmount * interval;
+            }
+        }
+    }
+
+    for (var i = 1; i < 13; ++i) {
+        i = i < 10 ? '0'+ i : i;
+        expensesTrendOfYear.push(expenseOfPerMonth[i]);
     }
 }
 
@@ -211,7 +359,7 @@ function computeForincomesStructureOfPerMonth(data) {
             incomesStructureOfPerMonth[k][j].value = 0;
         }
     }
-    //alert(JSON.stringify(incomesStructureOfPerMonth));
+
     if (data.length !== 0) {
         for (var i = 0; i < data.length; ++i) {
             var month = data[i].incomeItemTimePoint.split('-')[1];
@@ -265,7 +413,7 @@ function computeForexpensesStructureOfPerMonth(data) {
             expensesStructureOfPerMonth[k][j].value = 0;
         }
     }
-    //alert(JSON.stringify(expensesStructureOfPerMonth));
+
     if (data.length !== 0) {
         for (var i = 0; i < data.length; ++i) {
             var month = data[i].expenseItemTimePoint.split('-')[1];
@@ -386,11 +534,7 @@ $(document).ready(function () {
         var password = document.getElementById("password").value;
         var isLoginSuccess = false;
         localStorage.setItem('username', username);
-        /*localStorage.setItem('password', password);
-        if(requestOauth2TOken(username, password)) {
-            window.location.href="/index";
-        }
-        else alert("Something went wrong. Please, check your credentials");*/
+
         $.ajax({
             url: '/uaa/login',
             datatype: 'json',
@@ -451,6 +595,7 @@ $(document).ready(function () {
             $('#financialstatementsdiv').hide();
             $('#realassetsdiv').hide();
             $('#setIncomeStructureOfMonth').val(currentMonth);
+            $('#setIncomeTrendOfYearValue').val(currentYear);
             $.ajax({
                 url: '/incomes/' + username,
                 datatype: 'json',
@@ -460,8 +605,11 @@ $(document).ready(function () {
                 success: function (data) {
                     incomesList = data;
                     computeForincomesStructureOfPerMonth(data);
+                    computeForOneYearIncomeTrend(data, currentYear);
                     setDataForIncomeStructureOfMonthOption(currentMonth);
+                    setDataForIncomeTrendOfYear();
                     incomesStructureOfMonth_chart.setOption(incomeStructureOfMonth_option);
+                    incomeTrendOfYear_chart.setOption(incomeTrendOfYear_option);
                     loadIncomeTable(data);
                 },
                 error: function () {
@@ -477,6 +625,7 @@ $(document).ready(function () {
             $('#financialstatementsdiv').hide();
             $('#realassetsdiv').hide();
             $('#setExpenseStructureOfMonth').val(currentMonth);
+            $('#setExpenseTrendOfYearValue').val(currentYear);
             $.ajax({
                 url: '/expenses/' + username,
                 datatype: 'json',
@@ -485,11 +634,12 @@ $(document).ready(function () {
                 async: false,
                 success: function (data) {
                     expensesList = data;
-                    //alert(JSON.stringify(data));
                     computeForexpensesStructureOfPerMonth(data);
+                    computeForOneYearExpenseTrend(data, currentYear);
                     setDataForexpenseStructureOfMonthOption(currentMonth);
-                    alert(JSON.stringify(expensesStructureOfPerMonth))
+                    setDataForExpenseTrendOfYear();
                     expensesStructureOfMonth_chart.setOption(expenseStructureOfMonth_option);
+                    expenseTrendOfYear_char.setOption(expenseTrendOfYear_option);
                     loadExpenseTable(data);
                 },
                 error: function () {
@@ -652,8 +802,11 @@ function addIncomeItem() {
                 $("#addIncomeItemModal").modal('hide');
                 incomesList = data;
                 computeForincomesStructureOfPerMonth(data);
+                computeForOneYearIncomeTrend(data, currentYear);
                 setDataForIncomeStructureOfMonthOption(currentMonth);
+                setDataForIncomeTrendOfYear();
                 incomesStructureOfMonth_chart.setOption(incomeStructureOfMonth_option);
+                incomeTrendOfYear_chart.setOption(incomeTrendOfYear_option);
                 loadIncomeTable(data);
             },
             error: function () {
@@ -681,7 +834,7 @@ function addExpenseItem() {
     }
 
     if (expenseItemAmount === "") {
-        alert("请输入收入金额");
+        alert("请输入支出金额");
         return false;
     }
     else if (!parseFloat(expenseItemAmount)) {
@@ -695,7 +848,7 @@ function addExpenseItem() {
 
 
     if (expenseItemTimePoint === "") {
-        alert("请输入收入时间");
+        alert("请输入支出时间");
         return false;
     }
 
@@ -727,10 +880,12 @@ function addExpenseItem() {
                 $("#setExpenseItemPeriod").val("一次性支出");
                 $("#addExpenseItemModal").modal('hide');
                 expensesList = data;
-                alert(data);
                 computeForexpensesStructureOfPerMonth(data);
+                computeForOneYearExpenseTrend(data, currentYear);
                 setDataForexpenseStructureOfMonthOption(currentMonth);
+                setDataForExpenseTrendOfYear();
                 expensesStructureOfMonth_chart.setOption(expenseStructureOfMonth_option);
+                expenseTrendOfYear_char.setOption(expenseTrendOfYear_option);
                 loadExpenseTable(data);
             },
             error: function () {
@@ -742,18 +897,52 @@ function addExpenseItem() {
 
 $(document).ready(function () {
     $(function () {
-        $('#setIncomeItemDateTime').datetimepicker({
-            format: 'YYYY-MM-DD',
-            locale: moment.locale('zh-cn')
+        $('#setIncomeItemTimePoint').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            forceParse: true,
+            language: 'cn',
+            endDate : new Date()
         });
     });
 });
 
 $(document).ready(function () {
     $(function () {
-        $('#setExpenseItemDateTime').datetimepicker({
-            format: 'YYYY-MM-DD',
-            locale: moment.locale('zh-cn')
+        $('#setExpenseItemTimePoint').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            forceParse: true,
+            language: 'cn',
+            endDate : new Date()
+        });
+    });
+});
+
+$(document).ready(function () {
+    $(function () {
+        $('#setIncomeTrendOfYearValue').datepicker({
+            format: 'yyyy',
+            autoclose: true,
+            forceParse: true,
+            language: 'cn',
+            startView: 2,
+            maxViewMode: 2,
+            minViewMode:2
+        });
+    });
+});
+
+$(document).ready(function () {
+    $(function () {
+        $('#setExpenseTrendOfYearValue').datepicker({
+            format: 'yyyy',
+            autoclose: true,
+            forceParse: true,
+            language: 'cn',
+            startView: 2,
+            maxViewMode: 2,
+            minViewMode:2
         });
     });
 });
@@ -942,8 +1131,11 @@ function editIncomeItem() {
                 $("#addIncomeItemModal").modal('hide');
                 incomesList = data;
                 computeForincomesStructureOfPerMonth(data);
+                computeForOneYearIncomeTrend(data, currentYear);
                 setDataForIncomeStructureOfMonthOption(currentMonth);
+                setDataForIncomeTrendOfYear();
                 incomesStructureOfMonth_chart.setOption(incomeStructureOfMonth_option);
+                incomeTrendOfYear_chart.setOption(incomeTrendOfYear_option);
                 loadIncomeTable(data);
             },
             error: function () {
@@ -954,7 +1146,61 @@ function editIncomeItem() {
 }
 
 function editExpenseItem() {
-    ;
+    var expenseItemName = document.getElementById("setExpenseItemName").value;
+    var expenseItemAmount = document.getElementById("setExpenseItemAmount").value;
+    var expenseItemTimePoint = document.getElementById("setExpenseItemTimePoint").value;
+    var expenseItemSource = $("#setExpenseItemSource").find("option:selected").val();
+    var expenseItemMode = $("#setExpenseItemMode").find("option:selected").val();
+    var expenseItemPeriod = $("#setExpenseItemPeriod").find("option:selected").val();
+    var expenseItemInfo = document.getElementById("setExpenseItemInfo").value;
+    var token = getOauthTokenFromStorage();
+    var username=localStorage.getItem('username');
+    var updateTime = new Date();
+
+    if(token) {
+        $.ajax({
+            url: '/expenses/editExpenseItem/' + username + '/' + expensesEditIndex,
+            datatype: 'json',
+            type: 'post',
+            contentType: "application/json",
+            headers: {'Authorization': 'Bearer ' + token},
+            async: false,
+            data: JSON.stringify({
+                expenseItemName: expenseItemName,
+                expenseItemAmount: expenseItemAmount,
+                expenseItemTimePoint: expenseItemTimePoint,
+                expenseItemSource: expenseItemSource,
+                expenseItemMode: expenseItemMode,
+                expenseItemPeriod: expenseItemPeriod,
+                expenseItemInfo: expenseItemInfo,
+                updateTime: updateTime
+            }),
+            success: function (data) {
+                document.getElementById("addExpenseItemModalLabel").innerHTML = "新建支出项";
+                $("#editExpensesItemBtn").hide();
+                $("#addExpensesItemBtn").show();
+                $("#setExpenseItemName").val("");
+                $("#setExpenseItemAmount").val("");
+                $("#setExpenseItemTimePoint").val("");
+                $("#setExpenseItemInfo").val("");
+                $("#setExpenseItemMode").val("现金");
+                $("#setExpenseItemSource").val("交通");
+                $("#setExpenseItemPeriod").val("一次性支出");
+                $("#addExpenseItemModal").modal('hide');
+                expensesList = data;
+                computeForexpensesStructureOfPerMonth(data);
+                computeForOneYearExpenseTrend(data, currentYear);
+                setDataForexpenseStructureOfMonthOption(currentMonth);
+                setDataForExpenseTrendOfYear();
+                expensesStructureOfMonth_chart.setOption(expenseStructureOfMonth_option);
+                expenseTrendOfYear_char.setOption(expenseTrendOfYear_option);
+                loadExpenseTable(data);
+            },
+            error: function () {
+                removeOauthTokenFromStorage();
+            }
+        });
+    }
 }
 
 function delIncomeItem(index) {
@@ -975,8 +1221,11 @@ function delIncomeItem(index) {
             success: function (data) {
                 incomesList = data;
                 computeForincomesStructureOfPerMonth(data);
+                computeForOneYearIncomeTrend(data, currentYear);
                 setDataForIncomeStructureOfMonthOption(currentMonth);
+                setDataForIncomeTrendOfYear();
                 incomesStructureOfMonth_chart.setOption(incomeStructureOfMonth_option);
+                incomeTrendOfYear_chart.setOption(incomeTrendOfYear_option);
                 loadIncomeTable(data);
             },
             error: function () {
@@ -986,12 +1235,40 @@ function delIncomeItem(index) {
     }
 }
 
-function delExpenseItem() {
-    ;
+function delExpenseItem(index) {
+    var token = getOauthTokenFromStorage();
+    var username=localStorage.getItem('username');
+
+    if(token) {
+        $.ajax({
+            url: '/expenses/deleteExpenseItem/' + username,
+            datatype: 'json',
+            type: 'post',
+            //contentType: "application/json",
+            headers: {'Authorization': 'Bearer ' + token},
+            async: false,
+            data: {
+                index: index
+            },
+            success: function (data) {
+                expensesList = data;
+                computeForexpensesStructureOfPerMonth(data);
+                computeForOneYearExpenseTrend(data, currentYear);
+                setDataForexpenseStructureOfMonthOption(currentMonth);
+                setDataForExpenseTrendOfYear();
+                expensesStructureOfMonth_chart.setOption(expenseStructureOfMonth_option);
+                expenseTrendOfYear_char.setOption(expenseTrendOfYear_option);
+                loadExpenseTable(data);
+            },
+            error: function () {
+                removeOauthTokenFromStorage();
+            }
+        });
+    }
 }
 
 function showList() {
-    incomesStructureOfPerMonthInit();
+    ;
 }
 
 $(document).ready(function () {
@@ -1000,7 +1277,7 @@ $(document).ready(function () {
         setDataForIncomeStructureOfMonthOption(month);
         incomesStructureOfMonth_chart.setOption(incomeStructureOfMonth_option);
     })
-})
+});
 
 $(document).ready(function () {
     $("#setExpenseStructureOfMonth").change(function () {
@@ -1008,7 +1285,25 @@ $(document).ready(function () {
         setDataForexpenseStructureOfMonthOption(month);
         expensesStructureOfMonth_chart.setOption(expenseStructureOfMonth_option);
     })
-})
+});
+
+$(document).ready(function () {
+    $("#setIncomeTrendOfYear").change(function () {
+        var year = document.getElementById("setIncomeTrendOfYearValue").value;
+        computeForOneYearIncomeTrend(incomesList, year);
+        setDataForIncomeTrendOfYear();
+        incomeTrendOfYear_chart.setOption(incomeTrendOfYear_option);
+    })
+});
+
+$(document).ready(function () {
+    $("#setExpenseTrendOfYear").change(function () {
+        var year = document.getElementById("setExpenseTrendOfYearValue").value;
+        computeForOneYearExpenseTrend(expensesList, year);
+        setDataForExpenseTrendOfYear();
+        expenseTrendOfYear_char.setOption(expenseTrendOfYear_option);
+    })
+});
 
 function setDataForIncomeStructureOfMonthOption(month) {
     incomeStructureOfMonth_option = {
@@ -1062,7 +1357,7 @@ function setDataForIncomeStructureOfMonthOption(month) {
                 radius : '55%',
                 center: ['50%', '50%'],
                 selectedMode: 'single',
-                data:incomesStructureOfPerMonth[month].sort(function (a, b) { return a.value - b.value; }),
+                data:incomesStructureOfPerMonth[month],
                 //roseType: 'radius',
                 label: {
                     normal: {
@@ -1176,7 +1471,7 @@ function setDataForexpenseStructureOfMonthOption(month) {
                 radius : '55%',
                 center: ['50%', '50%'],
                 selectedMode: 'single',
-                data:expensesStructureOfPerMonth[month].sort(function (a, b) { return a.value - b.value; }),
+                data:expensesStructureOfPerMonth[month],
                 //roseType: 'radius',
                 label: {
                     normal: {
@@ -1213,12 +1508,90 @@ function setDataForexpenseStructureOfMonthOption(month) {
     };
 }
 
+function setDataForIncomeTrendOfYear() {
+    incomeTrendOfYear_option = {
+        title: {
+            text: '年内每月收入趋势图',
+            x: 'center'
+        },
+        tooltip:{
+            trigger: 'axis'
+        },
+        xAxis: {
+            type: 'category',
+            data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+        },
+        yAxis: {
+            type: 'value',
+            axisLabel: {
+                formatter: '{value} 元'
+            }
+        },
+        series: [{
+            name: '月总收入金额',
+            type:'line',
+            data: incomesTrendOfYear,
+            markPoint: {
+                data: [
+                    {type: 'max', name: '最大值'},
+                    {type: 'min', name: '最小值'}
+                ]
+            },
+            markLine: {
+                data: [
+                    {type: 'average', name: '平均值'}
+                ]
+            }
+        }]
+    };
+}
 
+function setDataForExpenseTrendOfYear() {
+    expenseTrendOfYear_option = {
+        title: {
+            text: '年内每月支出趋势图',
+            x: 'center'
+        },
+        tooltip:{
+            trigger: 'axis'
+        },
+        xAxis: {
+            type: 'category',
+            data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+        },
+        yAxis: {
+            type: 'value',
+            axisLabel: {
+                formatter: '{value} 元'
+            }
+        },
+        series: [{
+            name: '月总收入金额',
+            type:'line',
+            data: expensesTrendOfYear,
+            markPoint: {
+                data: [
+                    {type: 'max', name: '最大值'},
+                    {type: 'min', name: '最小值'}
+                ]
+            },
+            markLine: {
+                data: [
+                    {type: 'average', name: '平均值'}
+                ]
+            }
+        }]
+    };
+}
 
 var incomeStructureOfMonthContainer = document.getElementById('incomeStructureOfMonth');
 var expenseStructureOfMonthContainer = document.getElementById('expenseStructureOfMonth');
+var incomeTrendOfYearContainer = document.getElementById('incomeTrendOfYear');
+var expenseTrendOfYearContainer = document.getElementById('expenseTrendOfYear');
 var incomeStructureOfMonth_option;
 var expenseStructureOfMonth_option;
+var incomeTrendOfYear_option;
+var expenseTrendOfYear_option;
 
 var resizeIncomeStructureOfMonthContainer = function () {
     incomeStructureOfMonthContainer.style.width = window.innerWidth*0.8+'px';
@@ -1230,15 +1603,33 @@ var resizeExpenseStructureOfMonthContainer = function () {
     expenseStructureOfMonthContainer.style.height = window.innerHeight*0.8+'px';
 };
 
+var resizeIncomeTrendOfYearContainer = function () {
+    incomeTrendOfYearContainer.style.width = window.innerWidth*0.8 + 'px';
+    incomeTrendOfYearContainer.style.height = window.innerHeight*0.8 + 'px';
+};
+
+var resizeExpenseTrendOfYearContainer = function () {
+    expenseTrendOfYearContainer.style.width = window.innerWidth*0.8 + 'px';
+    expenseTrendOfYearContainer.style.height = window.innerHeight*0.8 + 'px';
+};
+
 resizeIncomeStructureOfMonthContainer();
 resizeExpenseStructureOfMonthContainer();
+resizeIncomeTrendOfYearContainer();
+resizeExpenseTrendOfYearContainer();
 
 var incomesStructureOfMonth_chart = echarts.init(incomeStructureOfMonthContainer);
 var expensesStructureOfMonth_chart = echarts.init(expenseStructureOfMonthContainer);
+var incomeTrendOfYear_chart = echarts.init(incomeTrendOfYearContainer);
+var expenseTrendOfYear_char = echarts.init(expenseTrendOfYearContainer);
 
 window.onresize = function() {
     resizeIncomeStructureOfMonthContainer();
     resizeExpenseStructureOfMonthContainer();
+    resizeIncomeTrendOfYearContainer();
+    resizeExpenseTrendOfYearContainer();
     incomesStructureOfMonth_chart.resize();
     expensesStructureOfMonth_chart.resize();
+    incomeTrendOfYear_chart.resize();
+    expenseTrendOfYear_char.resize();
 };
