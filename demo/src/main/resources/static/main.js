@@ -1,5 +1,6 @@
 var incomesList;
 var expensesList;
+var realAssetsList;
 var incomesEditIndex;
 var expensesEditIndex;
 var incomesStructureOfPerMonth = { '01' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '02' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '03' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '04' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '05' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '06' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '07' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '08' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '09' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '10' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '11' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '12' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}] };
@@ -670,6 +671,24 @@ $(document).ready(function () {
             $('#financemanagementdiv').hide();
             $('#financialstatementsdiv').hide();
             $('#realassetsdiv').show();
+
+            $.ajax({
+                url: '/realassets/' + username,
+                datatype: 'json',
+                type: 'get',
+                headers: {'Authorization': 'Bearer ' + token},
+                async: false,
+                success: function (data) {
+                    alert(typeof data);
+                    for(var x in data) {
+                        alert(JSON.stringify(data[x]));
+                    }
+                    //loadRealAssetsTable(data[1]);
+                },
+                error: function () {
+
+                }
+            });
         }
     });
 });
@@ -895,6 +914,56 @@ function addExpenseItem() {
     }
 }
 
+function addRealAssetsItem() {
+    var token = getOauthTokenFromStorage();
+    var username = localStorage.getItem('username');
+    var realAssetsItemName = document.getElementById('setRealAssetsItemName').value;
+    var realAssetsItemAmount = document.getElementById('setRealAssetsItemAmount').value;
+    var realAssetsItemTimePoint = document.getElementById('setRealAssetsItemTimePoint').value;
+    var realAssetsItemInfo = document.getElementById('setExpenseItemInfo').value;
+
+    if (realAssetsItemName === "") {
+        alert("请输入实物资产名称");
+        return false;
+    }
+    if (realAssetsItemAmount === "") {
+        alert("请输入实物资产金额");
+        return false;
+    }
+    if (parseFloat(realAssetsItemAmount) < 0) {
+        alert("请输入正数");
+        return false;
+    }
+    if (!parseFloat(realAssetsItemAmount)) {
+        alert("请输入正数");
+        return false;
+    }
+
+    if (token) {
+        $.ajax({
+            url: '/realassets/addRealAssetsItem/' + username,
+            datatype: 'json',
+            type: 'post',
+            contentType: "application/json",
+            headers: {'Authorization': 'Bearer ' + token},
+            async: false,
+            data:
+                JSON.stringify({
+                realAssetsItemName: realAssetsItemName,
+                realAssetsItemAmount: realAssetsItemAmount,
+                realAssetsItemTimePoint: realAssetsItemTimePoint,
+                realAssetsItemInfo:realAssetsItemInfo
+                }),
+            success: function (data) {
+                alert(JSON.stringify(data));
+            },
+            error: function () {
+                removeOauthTokenFromStorage();
+            }
+        });
+    }
+}
+
 $(document).ready(function () {
     $(function () {
         $('#setIncomeItemTimePoint').datepicker({
@@ -947,6 +1016,18 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    $(function () {
+        $('#setRealAssetsItemTimePoint').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            forceParse: true,
+            language: 'cn',
+            endDate : new Date()
+        });
+    });
+});
+
 function loadIncomeTable(data) {
     $('#incomeTable').bootstrapTable('destroy').bootstrapTable({
         method: 'get',
@@ -958,7 +1039,7 @@ function loadIncomeTable(data) {
         pageNumber:1,
         pageList: [10, 20, 50, 100, 200, 500],
         sidePagination:'client',
-        search: true,
+        search: false,
         showColumns: true,
         showRefresh: false,
         showExport: false,
@@ -1006,7 +1087,7 @@ function loadExpenseTable(data) {
         pageNumber:1,
         pageList: [10, 20, 50, 100, 200, 500],
         sidePagination:'client',
-        search: true,
+        search: false,
         showColumns: true,
         showRefresh: false,
         showExport: false,
@@ -1043,6 +1124,42 @@ function loadExpenseTable(data) {
     });
 }
 
+function loadRealAssetsTable(data) {
+    $('#realassetsTable').bootstrapTable('destroy').bootstrapTable({
+        method: 'get',
+        cache: false,
+        height: 400,
+        striped: true,
+        pagination: true,
+        pageSize: 20,
+        pageNumber:1,
+        pageList: [10, 20, 50, 100, 200, 500],
+        sidePagination:'client',
+        search: false,
+        showColumns: true,
+        showRefresh: false,
+        showExport: false,
+        columns: [{
+            field: 'realAssetsItemName',
+            title: '支出项名称'
+        }, {
+            field: 'realAssetsItemAmount',
+            title: '金额'
+        }, {
+            field: 'realAssetsItemTimePoint',
+            title: '时间'
+        }, {
+            field: 'expenseItemInfo',
+            title: '备注'
+        }, {
+            field: 'operate',
+            title: '操作',
+            formatter: operateFormatterForRealAssets
+        }],
+        data: data
+    });
+}
+
 var operateFormatterForIncome = function(value, row, index) {
     return [
         '<button class="btn btn-info btn-sm rightSize detailBtn" type="button" onclick="editForIncome(\'' + row.incomeItemName+ '\', \''+row.incomeItemAmount+'\', \''+ row.incomeItemTimePoint+ '\', \'' + row.incomeItemSource + '\', \'' + row.incomeItemMode + '\', \'' + row.incomeItemInfo + '\', \'' + row.updateTime + '\', \'' + row.incomeItemPeriod + '\', \'' + index + '\')"><i class="Edit fa fa-paste"></i> 修改</button>',
@@ -1055,7 +1172,14 @@ var operateFormatterForExpense = function (value, row, index) {
         '<button class="btn btn-info btn-sm rightSize detailBtn" type="button" onclick="editForExpense(\'' + row.expenseItemName+ '\', \''+row.expenseItemAmount+'\', \''+ row.expenseItemTimePoint+ '\', \'' + row.expenseItemSource + '\', \'' + row.expenseItemMode + '\', \'' + row.expenseItemInfo + '\', \'' + row.updateTime + '\', \'' + row.expenseItemPeriod + '\', \'' + index + '\')"><i class="Edit fa fa-paste"></i> 修改</button>',
         '<button class="btn btn-danger btn-sm rightSize packageBtn" type="button" onclick="delExpenseItem(\''+ index + '\')"><i class="Delete fa fa-envelope"></i> 删除</button>'
     ].join('');
-}
+};
+
+var operateFormatterForRealAssets = function (value, row, index) {
+    return [
+        '<button class="btn btn-info btn-sm rightSize detailBtn" type="button" onclick=alert("haha!")><i class="Edit fa fa-paste"></i> 修改</button>',
+        '<button class="btn btn-danger btn-sm rightSize packageBtn" type="button" onclick=alert(\'' + index + '\')><i class="Delete fa fa-envelope"></i> 删除</button>'
+    ].join('');
+};
 
 function editForIncome(incomeItemName, incomeItemAmount, incomeItemTimePoint, incomeItemSource, incomeItemMode, incomeItemInfo, updateTime, incomeItemPeriod, index) {
     $("#addIncomeItemModal").modal('show');

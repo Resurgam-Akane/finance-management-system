@@ -22,6 +22,7 @@ public class IncomesServiceImpl implements IncomesService{
 
         if (account != null) {
             account.addIncomItem(item);
+            account.setUpdateTime(new Date());
             accountDAO.save(account);
         }
         else return null;

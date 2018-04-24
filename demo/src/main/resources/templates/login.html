@@ -363,7 +363,7 @@
                                         </div>
                                         <div class="input-group col-md-6 col-md-offset-3">
                                             <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
-                                            <div class='input-group date' id='setExpenseItemDateTime'>
+                                            <div class='input-group' id='setExpenseItemDateTime'>
                                                 <input type='text' id="setExpenseItemTimePoint" class="form-control" placeholder="支出日期"/>
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
@@ -478,45 +478,8 @@
                                         </div>
                                         <div class="input-group col-md-6 col-md-offset-3">
                                             <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
-                                            <label for="setRealAssetsItemMode"></label>
-                                            <select name="setRealAssetsItemMode" id="setRealAssetsItemMode" class="selectpicker form-control">
-                                                <option value="现金" selected="selected">现金</option>
-                                                <option value="支付宝">支付宝</option>
-                                                <option value="微信">微信</option>
-                                                <option value="银行">银行</option>
-                                            </select>
-                                        </div>
-                                        <div class="input-group col-md-6 col-md-offset-3">
-                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
-                                            <label for="setRealAssetsItemSource"></label>
-                                            <select name="setRealAssetsItemSource" id="setRealAssetsItemSource" class="selectpicker form-control">
-                                                <option value="交通" selected="selected">交通</option>
-                                                <option value="租赁">租赁</option>
-                                                <option value="教育">教育</option>
-                                                <option value="衣服">衣服</option>
-                                                <option value="饮食">饮食</option>
-                                                <option value="旅游">旅游</option>
-                                                <option value="运动">运动</option>
-                                                <option value="医疗">医疗</option>
-                                                <option value="水电费">水电费</option>
-                                                <option value="其他">其他</option>
-                                            </select>
-                                        </div>
-                                        <div class="input-group col-md-6 col-md-offset-3">
-                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
-                                            <label for="setRealAssetsItemPeriod"></label>
-                                            <select name="setRealAssetsItemPeriod" id="setRealAssetsItemPeriod" class="selectpicker form-control">
-                                                <option value="一次性支出" selected="selected">一次性支出</option>
-                                                <option value="本月每天支出">本月每天支出</option>
-                                                <option value="每月支出">每月支出</option>
-                                                <option value="每季度支出">每季度支出</option>
-                                                <option value="每年支出">每年支出</option>
-                                            </select>
-                                        </div>
-                                        <div class="input-group col-md-6 col-md-offset-3">
-                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
-                                            <div class='input-group date' id='setRealAssetsItemDateTime'>
-                                                <input type='text' id="setRealAssetsItemTimePoint" class="form-control" placeholder="与价值对应的日期"/>
+                                            <div class='input-group' id='setRealAssetsItemDateTime'>
+                                                <input type='text' id="setRealAssetsItemTimePoint" class="form-control" placeholder="支出日期"/>
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>
@@ -536,6 +499,11 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <h2 class="sub-header">实物资产</h2>
+                <div id="realassetstablediv" class="table-responsive">
+                    <table id="realassetsTable"></table>
                 </div>
             </div>
         </div>
