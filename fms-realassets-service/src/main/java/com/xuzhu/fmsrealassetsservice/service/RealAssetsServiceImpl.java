@@ -37,9 +37,15 @@ public class RealAssetsServiceImpl implements RealAssetsService{
             List<Item> oneList = items.get(realAssetsItemName);
             for (; index != oneList.size() && !oneList.get(index).getRealAssetsItemTimePoint().equals(realAssetsItemTimePoint); ++index);
             oneList.remove(index);
-            items.put(realAssetsItemName, oneList);
+            if (oneList.size() == 0) {
+                items.remove(realAssetsItemName);
+            }
+            else {
+                items.put(realAssetsItemName, oneList);
+            }
             account.setItems(items);
             account.setUpdateTime(new Date());
+
             accountDAO.save(account);
         }
         else return null;
@@ -48,7 +54,7 @@ public class RealAssetsServiceImpl implements RealAssetsService{
     }
 
     @Override
-    public Map<String, List<Item>> editRealAssetsItem(String username, Item item) {
+    public Map<String, List<Item>> editRealAssetsItem(String username, Item item, int i) {
         Account account = accountDAO.findOne(username);
         int index = 0;
 

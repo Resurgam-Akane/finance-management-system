@@ -1,8 +1,10 @@
 var incomesList;
 var expensesList;
 var realAssetsList;
+var realAssetsTimePriceList = {};
 var incomesEditIndex;
 var expensesEditIndex;
+var realAssetsEditIndex;
 var incomesStructureOfPerMonth = { '01' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '02' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '03' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '04' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '05' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '06' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '07' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '08' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '09' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '10' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '11' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '12' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}] };
 var expensesStructureOfPerMonth ={ '01' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '02' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '03' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '04' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '05' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '06' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '07' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '08' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '09' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '10' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '11' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '12' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}] };
 var incomesTrendOfYear = [];
@@ -12,7 +14,6 @@ var currentDate = new Date();
 var currentMonth=currentDate.getMonth()+1;
 var currentYear=currentDate.getFullYear().toString();
 currentMonth =(currentMonth < 10 ? "0" + currentMonth : currentMonth);
-
 
 function modifyTypeOfUpdatetime() {
     for (var i = 0; i < incomesList.length; ++i) {
@@ -35,7 +36,17 @@ function computeForOneMonthOneIncomeSource(month, data, i) {
             }
         }
         else if (data[i].incomeItemPeriod === "每月收入") {
+            var i1 = 0;
+            var i2 = "0" + i1;
+            for (; i2 !== month; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+            }
             incomesStructureOfPerMonth[month][0].value += data[i].incomeItemAmount;
+            for (; i1 <= 12; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+                incomesStructureOfPerMonth[i2][0].value += data[i].incomeItemAmount;
+            }
+            //incomesStructureOfPerMonth[month][0].value += data[i].incomeItemAmount;
         }
     }
     else if (data[i].incomeItemSource === "租赁") {
@@ -52,7 +63,17 @@ function computeForOneMonthOneIncomeSource(month, data, i) {
             }
         }
         else if (data[i].incomeItemPeriod === "每月收入") {
+            //incomesStructureOfPerMonth[month][1].value += data[i].incomeItemAmount;
+            var i1 = 0;
+            var i2 = "0" + i1;
+            for (; i2 !== month; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+            }
             incomesStructureOfPerMonth[month][1].value += data[i].incomeItemAmount;
+            for (; i1 <= 12; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+                incomesStructureOfPerMonth[i2][1].value += data[i].incomeItemAmount;
+            }
         }
     }
     else if (data[i].incomeItemSource === "财产转让") {
@@ -69,7 +90,17 @@ function computeForOneMonthOneIncomeSource(month, data, i) {
             }
         }
         else if (data[i].incomeItemPeriod === "每月收入") {
+            //incomesStructureOfPerMonth[month][2].value += data[i].incomeItemAmount;
+            var i1 = 0;
+            var i2 = "0" + i1;
+            for (; i2 !== month; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+            }
             incomesStructureOfPerMonth[month][2].value += data[i].incomeItemAmount;
+            for (; i1 <= 12; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+                incomesStructureOfPerMonth[i2][2].value += data[i].incomeItemAmount;
+            }
         }
     }
     else if (data[i].incomeItemSource === "礼金") {
@@ -86,7 +117,17 @@ function computeForOneMonthOneIncomeSource(month, data, i) {
             }
         }
         else if (data[i].incomeItemPeriod === "每月收入") {
+            //incomesStructureOfPerMonth[month][3].value += data[i].incomeItemAmount;
+            var i1 = 0;
+            var i2 = "0" + i1;
+            for (; i2 !== month; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+            }
             incomesStructureOfPerMonth[month][3].value += data[i].incomeItemAmount;
+            for (; i1 <= 12; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+                incomesStructureOfPerMonth[i2][3].value += data[i].incomeItemAmount;
+            }
         }
     }
     else if (data[i].incomeItemSource === "其他") {
@@ -103,7 +144,17 @@ function computeForOneMonthOneIncomeSource(month, data, i) {
             }
         }
         else if (data[i].incomeItemPeriod === "每月收入") {
-            incomesStructureOfPerMonth[month][4].value += data[i].incomeItemAmount;
+            //incomesStructureOfPerMonth[month][4].value += data[i].incomeItemAmount;
+            var i1 = 0;
+            var i2 = "0" + i1;
+            for (; i2 !== month; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+            }
+            incomesStructureOfPerMonth[month][5].value += data[i].incomeItemAmount;
+            for (; i1 <= 12; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+                incomesStructureOfPerMonth[i2][5].value += data[i].incomeItemAmount;
+            }
         }
     }
 }
@@ -123,7 +174,17 @@ function computeForOneMonthOneExpenseSource(month, data, i) {
             }
         }
         else if (data[i].expenseItemPeriod === "每月支出") {
+            //expensesStructureOfPerMonth[month][0].value += data[i].expenseItemAmount;
+            var i1 = 0;
+            var i2 = "0" + i1;
+            for (; i2 !== month; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+            }
             expensesStructureOfPerMonth[month][0].value += data[i].expenseItemAmount;
+            for (; i1 <= 12; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+                expensesStructureOfPerMonth[i2][0].value += data[i].expenseItemAmount;
+            }
         }
     }
     else if (data[i].expenseItemSource === "租赁") {
@@ -140,7 +201,17 @@ function computeForOneMonthOneExpenseSource(month, data, i) {
             }
         }
         else if (data[i].expenseItemPeriod === "每月支出") {
+            //expensesStructureOfPerMonth[month][1].value += data[i].expenseItemAmount;
+            var i1 = 0;
+            var i2 = "0" + i1;
+            for (; i2 !== month; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+            }
             expensesStructureOfPerMonth[month][1].value += data[i].expenseItemAmount;
+            for (; i1 <= 12; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+                expensesStructureOfPerMonth[i2][1].value += data[i].expenseItemAmount;
+            }
         }
     }
     else if (data[i].expenseItemSource === "教育") {
@@ -157,7 +228,17 @@ function computeForOneMonthOneExpenseSource(month, data, i) {
             }
         }
         else if (data[i].expenseItemPeriod === "每月支出") {
+            //expensesStructureOfPerMonth[month][2].value += data[i].expenseItemAmount;
+            var i1 = 0;
+            var i2 = "0" + i1;
+            for (; i2 !== month; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+            }
             expensesStructureOfPerMonth[month][2].value += data[i].expenseItemAmount;
+            for (; i1 <= 12; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+                expensesStructureOfPerMonth[i2][2].value += data[i].expenseItemAmount;
+            }
         }
     }
     else if (data[i].expenseItemSource === "衣服") {
@@ -174,7 +255,17 @@ function computeForOneMonthOneExpenseSource(month, data, i) {
             }
         }
         else if (data[i].expenseItemPeriod === "每月支出") {
+            //expensesStructureOfPerMonth[month][3].value += data[i].expenseItemAmount;
+            var i1 = 0;
+            var i2 = "0" + i1;
+            for (; i2 !== month; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+            }
             expensesStructureOfPerMonth[month][3].value += data[i].expenseItemAmount;
+            for (; i1 <= 12; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+                expensesStructureOfPerMonth[i2][3].value += data[i].expenseItemAmount;
+            }
         }
     }
     else if (data[i].expenseItemSource === "饮食") {
@@ -191,7 +282,17 @@ function computeForOneMonthOneExpenseSource(month, data, i) {
             }
         }
         else if (data[i].expenseItemPeriod === "每月支出") {
+            //expensesStructureOfPerMonth[month][4].value += data[i].expenseItemAmount;
+            var i1 = 0;
+            var i2 = "0" + i1;
+            for (; i2 !== month; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+            }
             expensesStructureOfPerMonth[month][4].value += data[i].expenseItemAmount;
+            for (; i1 <= 12; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+                expensesStructureOfPerMonth[i2][4].value += data[i].expenseItemAmount;
+            }
         }
     }
     else if (data[i].expenseItemSource === "旅游") {
@@ -208,7 +309,17 @@ function computeForOneMonthOneExpenseSource(month, data, i) {
             }
         }
         else if (data[i].expenseItemPeriod === "每月支出") {
+            //expensesStructureOfPerMonth[month][5].value += data[i].expenseItemAmount;
+            var i1 = 0;
+            var i2 = "0" + i1;
+            for (; i2 !== month; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+            }
             expensesStructureOfPerMonth[month][5].value += data[i].expenseItemAmount;
+            for (; i1 <= 12; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+                expensesStructureOfPerMonth[i2][5].value += data[i].expenseItemAmount;
+            }
         }
     }
     else if (data[i].expenseItemSource === "运动") {
@@ -225,7 +336,17 @@ function computeForOneMonthOneExpenseSource(month, data, i) {
             }
         }
         else if (data[i].expenseItemPeriod === "每月支出") {
+            //expensesStructureOfPerMonth[month][6].value += data[i].expenseItemAmount;
+            var i1 = 0;
+            var i2 = "0" + i1;
+            for (; i2 !== month; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+            }
             expensesStructureOfPerMonth[month][6].value += data[i].expenseItemAmount;
+            for (; i1 <= 12; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+                expensesStructureOfPerMonth[i2][6].value += data[i].expenseItemAmount;
+            }
         }
     }
     else if (data[i].expenseItemSource === "医疗") {
@@ -242,7 +363,17 @@ function computeForOneMonthOneExpenseSource(month, data, i) {
             }
         }
         else if (data[i].expenseItemPeriod === "每月支出") {
+            //expensesStructureOfPerMonth[month][7].value += data[i].expenseItemAmount;
+            var i1 = 0;
+            var i2 = "0" + i1;
+            for (; i2 !== month; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+            }
             expensesStructureOfPerMonth[month][7].value += data[i].expenseItemAmount;
+            for (; i1 <= 12; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+                expensesStructureOfPerMonth[i2][7].value += data[i].expenseItemAmount;
+            }
         }
     }
     else if (data[i].expenseItemSource === "水电费") {
@@ -259,7 +390,17 @@ function computeForOneMonthOneExpenseSource(month, data, i) {
             }
         }
         else if (data[i].expenseItemPeriod === "每月支出") {
+            //expensesStructureOfPerMonth[month][8].value += data[i].expenseItemAmount;
+            var i1 = 0;
+            var i2 = "0" + i1;
+            for (; i2 !== month; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+            }
             expensesStructureOfPerMonth[month][8].value += data[i].expenseItemAmount;
+            for (; i1 <= 12; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+                expensesStructureOfPerMonth[i2][8].value += data[i].expenseItemAmount;
+            }
         }
     }
     else if (data[i].expenseItemSource === "其他") {
@@ -276,7 +417,17 @@ function computeForOneMonthOneExpenseSource(month, data, i) {
             }
         }
         else if (data[i].expenseItemPeriod === "每月支出") {
+            //expensesStructureOfPerMonth[month][9].value += data[i].expenseItemAmount;
+            var i1 = 0;
+            var i2 = "0" + i1;
+            for (; i2 !== month; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+            }
             expensesStructureOfPerMonth[month][9].value += data[i].expenseItemAmount;
+            for (; i1 <= 12; ++i1) {
+                i2 = i1 < 10 ? "0" + i1 : i1;
+                expensesStructureOfPerMonth[i2][9].value += data[i].expenseItemAmount;
+            }
         }
     }
 }
@@ -301,11 +452,18 @@ function computeForOneYearIncomeTrend(data, year) {
             }
             else if(data[i].incomeItemPeriod === "每月收入") {
                 var interval = 12 - parseInt(incomeYearMonthDay[1]);
-                incomeOfPerMonth[incomeYearMonthDay[1]] += data[i].incomeItemAmount * interval;
+                //incomeOfPerMonth[incomeYearMonthDay[1]] += data[i].incomeItemAmount * interval;
+                for (var i1 = parseInt(incomeYearMonthDay[1]); i1 <= 12; ++ i1) {
+                    var i2 = i1 < 10 ? "0" + i1 : i1;
+                    incomeOfPerMonth[i2] += data[i].incomeItemAmount;
+                }
             }
             else if(data[i].incomeItemPeriod === "每季度收入") {
                 var interval = (12 - parseInt(incomeYearMonthDay[1])) / 3;
-                incomeOfPerMonth[incomeYearMonthDay[1]] += data[i].incomeItemAmount * interval;
+                for (var i1 = parseInt(incomeYearMonthDay[1]); i1 <= 12; i1 = i1 + 3) {
+                    var i2 = i1 < 10 ? "0" + i1 : i1;
+                    incomeOfPerMonth[i2] += data[i].incomeItemAmount;
+                }
             }
         }
     }
@@ -336,11 +494,18 @@ function computeForOneYearExpenseTrend(data, year) {
             }
             else if(data[i].expenseItemPeriod === "每月支出") {
                 var interval = 12 - parseInt(expenseYearMonthDay[1]);
-                expenseOfPerMonth[expenseYearMonthDay[1]] += data[i].expenseItemAmount * interval;
+                //expenseOfPerMonth[expenseYearMonthDay[1]] += data[i].expenseItemAmount * interval;
+                for (var i1 = parseInt(expenseYearMonthDay[1]); i1 <= 12; ++ i1) {
+                    var i2 = i1 < 10 ? "0" + i1 : i1;
+                    expenseOfPerMonth[i2] += data[i].expenseItemAmount;
+                }
             }
             else if(data[i].expenseItemPeriod === "每季度支出") {
                 var interval = (12 - parseInt(expenseYearMonthDay[1])) / 3;
-                expenseOfPerMonth[expenseYearMonthDay[1]] += data[i].expenseItemAmount * interval;
+                for (var i1 = parseInt(expenseYearMonthDay[1]); i1 <= 12; i1 = i1 + 3) {
+                    var i2 = i1 < 10 ? "0" + i1 : i1;
+                    expenseOfPerMonth[i2] += data[i].expenseItemAmount;
+                }
             }
         }
     }
@@ -456,6 +621,19 @@ function computeForexpensesStructureOfPerMonth(data) {
                     computeForOneMonthOneExpenseSource(month, data, i);
                     break;
             }
+        }
+    }
+}
+
+function computeForOneRealAssetsPic_arr(data) {
+    realAssetsTimePriceList = {};
+    for(var x in data) {
+        if(!realAssetsTimePriceList.hasOwnProperty(x)) {
+            realAssetsTimePriceList[x] = {'time':[], 'price':[]};
+        }
+        for (var index = 0; index < data[x].length; ++index) {
+            realAssetsTimePriceList[x]['time'].push(data[x][index].realAssetsItemTimePoint);
+            realAssetsTimePriceList[x]['price'].push(data[x][index].realAssetsItemAmount);
         }
     }
 }
@@ -679,11 +857,23 @@ $(document).ready(function () {
                 headers: {'Authorization': 'Bearer ' + token},
                 async: false,
                 success: function (data) {
-                    alert(typeof data);
+                    realAssetsList = [];
+                    computeForOneRealAssetsPic_arr(data);
+                    var selectlable = document.getElementById('setRealAssetsItemNameOfSelectLabel');
+                    selectlable.options.length = 0;
+
                     for(var x in data) {
-                        alert(JSON.stringify(data[x]));
+                        if (data[x].length !== 0) {
+                            selectlable.options.add(new Option(x, x));
+                            realAssetsList = realAssetsList.concat(data[x]);
+                        }
                     }
-                    //loadRealAssetsTable(data[1]);
+                    var selectRealAssets = selectlable.value;
+                    if (selectRealAssets !== '') {
+                        setDataForRealAssets(selectRealAssets);
+                        oneRealAssetsPic_chart.setOption(oneRealAssetsPic_option);
+                    }
+                    loadRealAssetsTable(realAssetsList);
                 },
                 error: function () {
 
@@ -821,6 +1011,8 @@ function addIncomeItem() {
                 $("#addIncomeItemModal").modal('hide');
                 incomesList = data;
                 computeForincomesStructureOfPerMonth(data);
+                $('#setIncomeStructureOfMonth').val(currentMonth);
+                $('#setIncomeTrendOfYearValue').val(currentYear);
                 computeForOneYearIncomeTrend(data, currentYear);
                 setDataForIncomeStructureOfMonthOption(currentMonth);
                 setDataForIncomeTrendOfYear();
@@ -900,6 +1092,8 @@ function addExpenseItem() {
                 $("#addExpenseItemModal").modal('hide');
                 expensesList = data;
                 computeForexpensesStructureOfPerMonth(data);
+                $('#setExpenseStructureOfMonth').val(currentMonth);
+                $('#setExpenseTrendOfYearValue').val(currentYear);
                 computeForOneYearExpenseTrend(data, currentYear);
                 setDataForexpenseStructureOfMonthOption(currentMonth);
                 setDataForExpenseTrendOfYear();
@@ -955,7 +1149,28 @@ function addRealAssetsItem() {
                 realAssetsItemInfo:realAssetsItemInfo
                 }),
             success: function (data) {
-                alert(JSON.stringify(data));
+                $("#setRealAssetsItemName").val("");
+                $("#setRealAssetsItemAmount").val("");
+                $("#setRealAssetsItemTimePoint").val("");
+                $("#setRealAssetsItemInfo").val("");
+                $("#addRealAssetsItemModal").modal('hide');
+                realAssetsList = [];
+                computeForOneRealAssetsPic_arr(data);
+                var selectlable = document.getElementById('setRealAssetsItemNameOfSelectLabel');
+                selectlable.options.length = 0;
+
+                for(var x in data) {
+                    if (data[x].length !== 0) {
+                        selectlable.options.add(new Option(x, x));
+                        realAssetsList = realAssetsList.concat(data[x]);
+                    }
+                }
+                var selectRealAssets = selectlable.value;
+                if (selectRealAssets !== '') {
+                    setDataForRealAssets(selectRealAssets);
+                    oneRealAssetsPic_chart.setOption(oneRealAssetsPic_option);
+                }
+                loadRealAssetsTable(realAssetsList);
             },
             error: function () {
                 removeOauthTokenFromStorage();
@@ -1176,8 +1391,8 @@ var operateFormatterForExpense = function (value, row, index) {
 
 var operateFormatterForRealAssets = function (value, row, index) {
     return [
-        '<button class="btn btn-info btn-sm rightSize detailBtn" type="button" onclick=alert("haha!")><i class="Edit fa fa-paste"></i> 修改</button>',
-        '<button class="btn btn-danger btn-sm rightSize packageBtn" type="button" onclick=alert(\'' + index + '\')><i class="Delete fa fa-envelope"></i> 删除</button>'
+        '<button class="btn btn-info btn-sm rightSize detailBtn" type="button" onclick="editForRealAssets(\'' + row.realAssetsItemName + '\', \'' + row.realAssetsItemAmount + '\', \'' + row.realAssetsItemTimePoint + '\', \'' + row.realAssetsItemInfo + '\', \'' + index + '\')"><i class="Edit fa fa-paste"></i> 修改</button>',
+        '<button class="btn btn-danger btn-sm rightSize packageBtn" type="button" onclick="delRealAssetItem(\'' + row.realAssetsItemName + '\', \'' + row.realAssetsItemAmount + '\', \'' + row.realAssetsItemTimePoint + '\', \'' + row.realAssetsItemInfo + '\', \'' + index + '\')"><i class="Delete fa fa-envelope"></i> 删除</button>'
     ].join('');
 };
 
@@ -1209,6 +1424,18 @@ function editForExpense(expenseItemName, expenseItemAmount, expenseItemTimePoint
     $("#setExpenseItemSource").val(expenseItemSource);
     $("#setExpenseItemPeriod").val(expenseItemPeriod);
     expensesEditIndex = index;
+}
+
+function editForRealAssets(realAssetsItemName, realAssetsItemAmount, realAssetsItemTimePoint, realAssetsItemInfo, index) {
+    $("#addRealAssetsItemModal").modal('show');
+    document.getElementById('addRealAssetsItemModalLabel').innerHTML = "修改实物资产项";
+    $("#addRealAssetsItemBtn").hide();
+    $("#editRealAssetsItemBtn").show();
+    $("#setRealAssetsItemName").val(realAssetsItemName);
+    $("#setRealAssetsItemAmount").val(realAssetsItemAmount);
+    $("#setRealAssetsItemTimePoint").val(realAssetsItemTimePoint);
+    $("#setRealAssetsItemInfo").val(realAssetsItemInfo);
+    realAssetsEditIndex = index;
 }
 
 function editIncomeItem() {
@@ -1255,6 +1482,8 @@ function editIncomeItem() {
                 $("#addIncomeItemModal").modal('hide');
                 incomesList = data;
                 computeForincomesStructureOfPerMonth(data);
+                $('#setIncomeStructureOfMonth').val(currentMonth);
+                $('#setIncomeTrendOfYearValue').val(currentYear);
                 computeForOneYearIncomeTrend(data, currentYear);
                 setDataForIncomeStructureOfMonthOption(currentMonth);
                 setDataForIncomeTrendOfYear();
@@ -1313,12 +1542,70 @@ function editExpenseItem() {
                 $("#addExpenseItemModal").modal('hide');
                 expensesList = data;
                 computeForexpensesStructureOfPerMonth(data);
+                $('#setExpenseStructureOfMonth').val(currentMonth);
+                $('#setExpenseTrendOfYearValue').val(currentYear);
                 computeForOneYearExpenseTrend(data, currentYear);
                 setDataForexpenseStructureOfMonthOption(currentMonth);
                 setDataForExpenseTrendOfYear();
                 expensesStructureOfMonth_chart.setOption(expenseStructureOfMonth_option);
                 expenseTrendOfYear_char.setOption(expenseTrendOfYear_option);
                 loadExpenseTable(data);
+            },
+            error: function () {
+                removeOauthTokenFromStorage();
+            }
+        });
+    }
+}
+
+function editRealAssetsItem() {
+    var token = getOauthTokenFromStorage();
+    var username=localStorage.getItem('username');
+    var realAssetsItemName = document.getElementById('setRealAssetsItemName').value;
+    var realAssetsItemAmount = document.getElementById('setRealAssetsItemAmount').value;
+    var realAssetsItemTiemPoint = document.getElementById('setRealAssetsItemTimePoint').value;
+    var realAssetsItemInfo = document.getElementById('setRealAssetsItemInfo').value;
+
+    if (token) {
+        $.ajax({
+            url: '/realassets/editRealAssetsItem/' + username + '/' + realAssetsEditIndex,
+            datatype: 'json',
+            type: 'post',
+            contentType: "application/json",
+            headers: {'Authorization': 'Bearer ' + token},
+            async: false,
+            data: JSON.stringify({
+                realAssetsItemName: realAssetsItemName,
+                realAssetsItemAmount: realAssetsItemAmount,
+                realAssetsItemTimePoint: realAssetsItemTiemPoint,
+                realAssetsItemInfo: realAssetsItemInfo
+            }),
+            success: function (data) {
+                document.getElementById("addRealAssetsItemModalLabel").innerHTML = "新建实物资产";
+                $("#editRealAssetsItemBtn").hide();
+                $("#addRealAssetsItemBtn").show();
+                $("#setRealAssetsItemName").val("");
+                $("#setRealAssetsItemAmount").val("");
+                $("#setRealAssetsItemTimePoint").val("");
+                $("#setRealAssetsItemInfo").val("");
+                $("#addRealAssetsItemModal").modal('hide');
+                realAssetsList = [];
+                computeForOneRealAssetsPic_arr(data);
+                var selectlable = document.getElementById('setRealAssetsItemNameOfSelectLabel');
+                selectlable.options.length = 0;
+
+                for(var x in data) {
+                    if (data[x].length !== 0) {
+                        selectlable.options.add(new Option(x, x));
+                        realAssetsList = realAssetsList.concat(data[x]);
+                    }
+                }
+                var selectRealAssets = selectlable.value;
+                if (selectRealAssets !== '') {
+                    setDataForRealAssets(selectRealAssets);
+                    oneRealAssetsPic_chart.setOption(oneRealAssetsPic_option);
+                }
+                loadRealAssetsTable(realAssetsList);
             },
             error: function () {
                 removeOauthTokenFromStorage();
@@ -1345,6 +1632,8 @@ function delIncomeItem(index) {
             success: function (data) {
                 incomesList = data;
                 computeForincomesStructureOfPerMonth(data);
+                $('#setIncomeStructureOfMonth').val(currentMonth);
+                $('#setIncomeTrendOfYearValue').val(currentYear);
                 computeForOneYearIncomeTrend(data, currentYear);
                 setDataForIncomeStructureOfMonthOption(currentMonth);
                 setDataForIncomeTrendOfYear();
@@ -1377,12 +1666,56 @@ function delExpenseItem(index) {
             success: function (data) {
                 expensesList = data;
                 computeForexpensesStructureOfPerMonth(data);
+                $('#setExpenseStructureOfMonth').val(currentMonth);
+                $('#setExpenseTrendOfYearValue').val(currentYear);
                 computeForOneYearExpenseTrend(data, currentYear);
                 setDataForexpenseStructureOfMonthOption(currentMonth);
                 setDataForExpenseTrendOfYear();
                 expensesStructureOfMonth_chart.setOption(expenseStructureOfMonth_option);
                 expenseTrendOfYear_char.setOption(expenseTrendOfYear_option);
                 loadExpenseTable(data);
+            },
+            error: function () {
+                removeOauthTokenFromStorage();
+            }
+        });
+    }
+}
+
+function delRealAssetItem(realAssetsItemName, realAssetsItemAmount, realAssetsItemTimePoint, realAssetsItemInfo,index) {
+    var token = getOauthTokenFromStorage();
+    var username=localStorage.getItem('username');
+
+    if (token) {
+        $.ajax({
+            url: '/realassets/deleteRealAssetsItem/' + username + '/' + realAssetsItemName + '/' + realAssetsItemTimePoint,
+            datatype: 'json',
+            type: 'post',
+            //contentType: "application/json",
+            headers: {'Authorization': 'Bearer ' + token},
+            async: false,
+            success: function (data) {
+                realAssetsList = [];
+                computeForOneRealAssetsPic_arr(data);
+                var selectlable = document.getElementById('setRealAssetsItemNameOfSelectLabel');
+                selectlable.options.length = 0;
+                //$("#setRealAssetsItemNameOfSelectLabel").empty();
+
+                for(var x in data) {
+                    if (data[x].length !== 0) {
+                        selectlable.options.add(new Option(x, x));
+                        realAssetsList = realAssetsList.concat(data[x]);
+                    }
+                }
+                var selectRealAssets = selectlable.value;
+                if (selectRealAssets !== '') {
+                    setDataForRealAssets(selectRealAssets);
+                    oneRealAssetsPic_chart.setOption(oneRealAssetsPic_option);
+                }
+                else {
+                    document.getElementById('oneRealAssetsPic').innerHTML = "";
+                }
+                loadRealAssetsTable(realAssetsList);
             },
             error: function () {
                 removeOauthTokenFromStorage();
@@ -1426,6 +1759,17 @@ $(document).ready(function () {
         computeForOneYearExpenseTrend(expensesList, year);
         setDataForExpenseTrendOfYear();
         expenseTrendOfYear_char.setOption(expenseTrendOfYear_option);
+    })
+});
+
+$(document).ready(function () {
+    $("#setRealAssetsItemNameOfSelectLabel").change(function () {
+        var selectRealAssets = $("#setRealAssetsItemNameOfSelectLabel").val();
+        var selectRealAssets = selectlable.value;
+        if (selectRealAssets !== '') {
+            setDataForRealAssets(selectRealAssets);
+            oneRealAssetsPic_chart.setOption(oneRealAssetsPic_option);
+        }
     })
 });
 
@@ -1708,14 +2052,54 @@ function setDataForExpenseTrendOfYear() {
     };
 }
 
+function setDataForRealAssets(realAssetsItemName) {
+    oneRealAssetsPic_option = {
+        title: {
+            text: '实物资产价格趋势图',
+            x: 'center'
+        },
+        tooltip:{
+            trigger: 'axis'
+        },
+        xAxis: {
+            type: 'category',
+            data: realAssetsTimePriceList[realAssetsItemName]['time']
+        },
+        yAxis: {
+            type: 'value',
+            axisLabel: {
+                formatter: '{value} 元'
+            }
+        },
+        series: [{
+            name: '月总收入金额',
+            type:'line',
+            data: realAssetsTimePriceList[realAssetsItemName]['price'],
+            markPoint: {
+                data: [
+                    {type: 'max', name: '最大值'},
+                    {type: 'min', name: '最小值'}
+                ]
+            },
+            markLine: {
+                data: [
+                    {type: 'average', name: '平均值'}
+                ]
+            }
+        }]
+    };
+}
+
 var incomeStructureOfMonthContainer = document.getElementById('incomeStructureOfMonth');
 var expenseStructureOfMonthContainer = document.getElementById('expenseStructureOfMonth');
 var incomeTrendOfYearContainer = document.getElementById('incomeTrendOfYear');
 var expenseTrendOfYearContainer = document.getElementById('expenseTrendOfYear');
+var oneRealAssetsPicContainer = document.getElementById('oneRealAssetsPic');
 var incomeStructureOfMonth_option;
 var expenseStructureOfMonth_option;
 var incomeTrendOfYear_option;
 var expenseTrendOfYear_option;
+var oneRealAssetsPic_option;
 
 var resizeIncomeStructureOfMonthContainer = function () {
     incomeStructureOfMonthContainer.style.width = window.innerWidth*0.8+'px';
@@ -1737,23 +2121,32 @@ var resizeExpenseTrendOfYearContainer = function () {
     expenseTrendOfYearContainer.style.height = window.innerHeight*0.8 + 'px';
 };
 
+var resizeOneRealAssetsPicContainer = function () {
+    oneRealAssetsPicContainer.style.width = window.innerWidth*0.8 + 'px';
+    oneRealAssetsPicContainer.style.height = window.innerHeight*0.8 + 'px';
+}
+
 resizeIncomeStructureOfMonthContainer();
 resizeExpenseStructureOfMonthContainer();
 resizeIncomeTrendOfYearContainer();
 resizeExpenseTrendOfYearContainer();
+resizeOneRealAssetsPicContainer();
 
 var incomesStructureOfMonth_chart = echarts.init(incomeStructureOfMonthContainer);
 var expensesStructureOfMonth_chart = echarts.init(expenseStructureOfMonthContainer);
 var incomeTrendOfYear_chart = echarts.init(incomeTrendOfYearContainer);
 var expenseTrendOfYear_char = echarts.init(expenseTrendOfYearContainer);
+var oneRealAssetsPic_chart = echarts.init(oneRealAssetsPicContainer);
 
 window.onresize = function() {
     resizeIncomeStructureOfMonthContainer();
     resizeExpenseStructureOfMonthContainer();
     resizeIncomeTrendOfYearContainer();
     resizeExpenseTrendOfYearContainer();
+    resizeOneRealAssetsPicContainer();
     incomesStructureOfMonth_chart.resize();
     expensesStructureOfMonth_chart.resize();
     incomeTrendOfYear_chart.resize();
     expenseTrendOfYear_char.resize();
+    oneRealAssetsPic_chart.resize();
 };

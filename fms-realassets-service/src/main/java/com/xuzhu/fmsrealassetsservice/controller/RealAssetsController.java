@@ -50,4 +50,13 @@ public class RealAssetsController {
         return realAssetsService.loadRealAssets(username);
     }
 
+    @RequestMapping(value = "/editRealAssetsItem/{username}/{index}", method = RequestMethod.POST)
+    public Map<String, List<Item>> editRealAssetsItem(@PathVariable String username, @PathVariable String index, @Valid @RequestBody Item item) {
+        return realAssetsService.editRealAssetsItem(username, item, Integer.parseInt(index));
+    }
+
+    @RequestMapping(value = "/deleteRealAssetsItem/{username}/{realAssetsItemName}/{realAssetsItemTimePoint}", method = RequestMethod.POST)
+    public Map<String, List<Item>> deleteRealAssetsItem(@PathVariable String username, @PathVariable String realAssetsItemName, @PathVariable String realAssetsItemTimePoint) {
+        return realAssetsService.deleteRealAssetsItem(username, realAssetsItemName, realAssetsItemTimePoint);
+    }
 }
