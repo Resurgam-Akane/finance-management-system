@@ -20,14 +20,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 
-/*没有使用以下配置*/
 @EnableResourceServer
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class AuthConfig extends ResourceServerConfigurerAdapter {
-
-    @Autowired
-    private ResourceServerProperties sso;
 
     @Bean
     @ConfigurationProperties(prefix = "security.oauth2.client")
@@ -44,9 +40,4 @@ public class AuthConfig extends ResourceServerConfigurerAdapter {
     public OAuth2RestTemplate clientCredentialsRestTemplate() {
         return new OAuth2RestTemplate(clientCredentialsResourceDetails());
     }
-
-    /*@Bean
-    public ResourceServerTokenServices tokenServices() {
-        return new CustomUserInfoTokenServices(sso.getUserInfoUri(), sso.getClientId());
-    }*/
 }
