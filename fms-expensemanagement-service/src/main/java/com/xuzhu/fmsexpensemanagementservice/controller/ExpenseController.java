@@ -4,6 +4,7 @@ import com.xuzhu.fmsexpensemanagementservice.domain.Item;
 import com.xuzhu.fmsexpensemanagementservice.service.ExpensesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -32,5 +33,12 @@ public class ExpenseController {
     @RequestMapping(value = "/editExpenseItem/{username}/{index}", method = RequestMethod.POST)
     public List<Item> editExpenseItem(@PathVariable String username, @Valid @PathVariable String index, @Valid @RequestBody Item item) {
         return expensesService.editExpensesItem(username, Integer.parseInt(index), item);
+    }
+
+    @RequestMapping(value = "/uploadFile/{username}", method = RequestMethod.POST)
+    public String uploadExpenseData(@PathVariable String username, MultipartFile file) {
+        if (file != null)
+            return "haha!";
+        else return "fail";
     }
 }

@@ -1,10 +1,13 @@
 var incomesList;
 var expensesList;
 var realAssetsList;
+var financesList;
 var realAssetsTimePriceList = {};
+var financesTimePriceList = {};
 var incomesEditIndex;
 var expensesEditIndex;
 var realAssetsEditIndex;
+var financesEditIndex;
 var incomesStructureOfPerMonth = { '01' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '02' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '03' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '04' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '05' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '06' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '07' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '08' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '09' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '10' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '11' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}], '12' : [{value: 0, name:'工资'}, {value: 0, name:'租赁'}, {value: 0, name:'财产转让'}, {value: 0, name:'礼金'}, {value: 0, name:'其他'}] };
 var expensesStructureOfPerMonth ={ '01' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '02' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '03' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '04' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '05' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '06' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '07' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '08' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '09' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '10' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '11' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}], '12' : [{value: 0, name:'交通'}, {value: 0, name:'租赁'}, {value: 0, name:'教育'}, {value: 0, name:'衣服'}, {value: 0, name:'饮食'}, {value: 0, name:'旅游'}, {value: 0, name:'运动'}, {value: 0, name:'医疗'}, {value: 0, name:'水电费'}, {value: 0, name:'其他'}] };
 var incomesTrendOfYear = [];
@@ -638,6 +641,19 @@ function computeForOneRealAssetsPic_arr(data) {
     }
 }
 
+function computeForOneFinancePic_arr(data) {
+    financesTimePriceList = {};
+    for(var x in data) {
+        if(!financesTimePriceList.hasOwnProperty(x)) {
+            financesTimePriceList[x] = {'time':[], 'price':[]};
+        }
+        for (var index = 0; index < data[x].length; ++index) {
+            financesTimePriceList[x]['time'].push(data[x][index].financeItemTimePoint);
+            financesTimePriceList[x]['price'].push(data[x][index].financeItemAmount);
+        }
+    }
+}
+
 function requestOauth2TOken(username, password) {
     var success = false;
 
@@ -833,6 +849,36 @@ $(document).ready(function () {
             $('#financemanagementdiv').show();
             $('#financialstatementsdiv').hide();
             $('#realassetsdiv').hide();
+
+            $.ajax({
+                url: '/finances/' + username,
+                datatype: 'json',
+                type: 'get',
+                headers: {'Authorization': 'Bearer ' + token},
+                async: false,
+                success: function (data) {
+                    financesList = [];
+                    computeForOneFinancePic_arr(data);
+                    var selectlabel = document.getElementById('setFinanceItemNameOfSelectLabel');
+                    selectlabel.options.length = 0;
+
+                    for(var x in data) {
+                        if (data[x].length !== 0) {
+                            selectlabel.options.add(new Option(x, x));
+                            financesList = financesList.concat(data[x]);
+                        }
+                    }
+                    var selectfinance = selectlabel.value;
+                    if (selectfinance !== '') {
+                        setDataForFinance(selectfinance);
+                        oneFinancePic_chart.setOption(oneFinancePic_option);
+                    }
+                    loadFinanceTable(financesList);
+                },
+                error: function () {
+
+                }
+            });
         }
         else if (this.id === "financialstatements") {
             $('#centerdiv').hide();
@@ -1027,6 +1073,40 @@ function addIncomeItem() {
     }
 }
 
+function addIncomeItemBatch() {
+    var username =  localStorage.getItem('username');
+    var token = getOauthTokenFromStorage();
+    var formData = new FormData();
+    var fileobj = document.getElementById('addIncomeItemBatchFile').files[0];
+    var filename = document.getElementById('addIncomeItemBatchFile').value;
+
+    if (filename === "") {
+        alert("请选择文件！");
+        return false;
+    }
+
+    formData.append("file", fileobj);
+    formData.append("filename", filename);
+
+    $.ajax({
+        url: '/zuul/incomes/uploadFile/' + username,
+        type: 'POST',
+        headers: {'Authorization': 'Bearer ' + token},
+        async: false,
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: formData,
+        success: function (data) {
+            alert(data);
+        },
+        error: function () {
+            
+        }
+    });
+
+}
+
 function addExpenseItem() {
     var token = getOauthTokenFromStorage();
     var expenseItemName = document.getElementById("setExpenseItemName").value;
@@ -1108,6 +1188,39 @@ function addExpenseItem() {
     }
 }
 
+function addExpenseItemBatch() {
+    var username =  localStorage.getItem('username');
+    var token = getOauthTokenFromStorage();
+    var formData = new FormData();
+    var fileobj = document.getElementById('addExpenseItemBatchFile').files[0];
+    var filename = document.getElementById('addExpenseItemBatchFile').value;
+
+    if (filename === "") {
+        alert("请选择文件！");
+        return false;
+    }
+
+    formData.append("file", fileobj);
+    formData.append("filename", filename);
+
+    $.ajax({
+        url: '/zuul/expenses/uploadFile/' + username,
+        type: 'POST',
+        headers: {'Authorization': 'Bearer ' + token},
+        async: false,
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: formData,
+        success: function (data) {
+            alert(data);
+        },
+        error: function () {
+
+        }
+    });
+}
+
 function addRealAssetsItem() {
     var token = getOauthTokenFromStorage();
     var username = localStorage.getItem('username');
@@ -1179,6 +1292,70 @@ function addRealAssetsItem() {
     }
 }
 
+function addFinanceItem() {
+    var token = getOauthTokenFromStorage();
+    var username = localStorage.getItem('username');
+    var financeItemName = document.getElementById('setFinanceItemName').value;
+    var financeItemKind = $("#setFinanceItemKind").find("option:selected").val();
+    var financeItemOutOrIn = $("#setFinanceItemOutOrIn").find("option:selected").val();
+    var financeItemPerPrice = document.getElementById('setFinanceItemPerPrice').value;
+    var financeItemAmount = document.getElementById('setFinanceItemAmount').value;
+    var financeItemTimePoint = document.getElementById('setFinanceItemTimePoint').value;
+    var financeItemInfo = document.getElementById('setFinanceItemInfo').value;
+
+    if (token) {
+        $.ajax({
+            url: '/finances/addFinanceProductItem/' + username,
+            datatype: 'json',
+            type: 'post',
+            contentType: "application/json",
+            headers: {'Authorization': 'Bearer ' + token},
+            async: false,
+            data:
+                JSON.stringify({
+                    financeItemName: financeItemName,
+                    financeItemKind: financeItemKind,
+                    financeItemOutOrIn: financeItemOutOrIn,
+                    financeItemPerPrice: financeItemPerPrice,
+                    financeItemAmount: financeItemAmount,
+                    financeItemTimePoint: financeItemTimePoint,
+                    financeItemInfo: financeItemInfo
+                }),
+            success: function (data) {
+                $("#setFinanceItemName").val("");
+                $("#setFinanceItemKind").val("股票");
+                $("#setFinanceItemOutOrIn").val("买入");
+                $("#setFinanceItemPerPrice").val("");
+                $("#setFinanceItemAmount").val("");
+                $("#setFinanceItemTimePoint").val("");
+                $("#setFinanceItemInfo").val("");
+                $("#addFinanceItemModal").modal('hide');
+
+                financesList = [];
+                computeForOneFinancePic_arr(data);
+                var selectlabel = document.getElementById('setFinanceItemNameOfSelectLabel');
+                selectlabel.options.length = 0;
+
+                for(var x in data) {
+                    if (data[x].length !== 0) {
+                        selectlabel.options.add(new Option(x, x));
+                        financesList = financesList.concat(data[x]);
+                    }
+                }
+                var selectfinance = selectlabel.value;
+                if (selectfinance !== '') {
+                    setDataForFinance(selectfinance);
+                    oneFinancePic_chart.setOption(oneFinancePic_option);
+                }
+                loadFinanceTable(financesList);
+            },
+            error: function () {
+                removeOauthTokenFromStorage();
+            }
+        });
+    }
+}
+
 $(document).ready(function () {
     $(function () {
         $('#setIncomeItemTimePoint').datepicker({
@@ -1234,6 +1411,18 @@ $(document).ready(function () {
 $(document).ready(function () {
     $(function () {
         $('#setRealAssetsItemTimePoint').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            forceParse: true,
+            language: 'cn',
+            endDate : new Date()
+        });
+    });
+});
+
+$(document).ready(function () {
+    $(function () {
+        $('#setFinanceItemTimePoint').datepicker({
             format: 'yyyy-mm-dd',
             autoclose: true,
             forceParse: true,
@@ -1356,7 +1545,7 @@ function loadRealAssetsTable(data) {
         showExport: false,
         columns: [{
             field: 'realAssetsItemName',
-            title: '支出项名称'
+            title: '实物资产项名称'
         }, {
             field: 'realAssetsItemAmount',
             title: '金额'
@@ -1364,12 +1553,57 @@ function loadRealAssetsTable(data) {
             field: 'realAssetsItemTimePoint',
             title: '时间'
         }, {
-            field: 'expenseItemInfo',
+            field: 'realAssetsItemInfo',
             title: '备注'
         }, {
             field: 'operate',
             title: '操作',
             formatter: operateFormatterForRealAssets
+        }],
+        data: data
+    });
+}
+
+function loadFinanceTable(data) {
+    $('#financeTable').bootstrapTable('destroy').bootstrapTable({
+        method: 'get',
+        cache: false,
+        height: 400,
+        striped: true,
+        pagination: true,
+        pageSize: 20,
+        pageNumber:1,
+        pageList: [10, 20, 50, 100, 200, 500],
+        sidePagination:'client',
+        search: false,
+        showColumns: true,
+        showRefresh: false,
+        showExport: false,
+        columns: [{
+            field: 'financeItemName',
+            title: '理财项目名称'
+        }, {
+            field: 'financeItemKind',
+            title: '理财项目类别'
+        }, {
+            field: 'financeItemOutOrIn',
+            title: '买入或卖出'
+        }, {
+            field: 'financeItemPerPrice',
+            title: '单价'
+        }, {
+            field: 'financeItemAmount',
+            title: '数量'
+        }, {
+            field: 'financeItemTimePoint',
+            title: '时间'
+        }, {
+            field: 'financeItemInfo',
+            title: '备注'
+        }, {
+            field: 'operate',
+            title: '操作',
+            formatter: operateFormatterForFinance
         }],
         data: data
     });
@@ -1395,6 +1629,13 @@ var operateFormatterForRealAssets = function (value, row, index) {
         '<button class="btn btn-danger btn-sm rightSize packageBtn" type="button" onclick="delRealAssetItem(\'' + row.realAssetsItemName + '\', \'' + row.realAssetsItemAmount + '\', \'' + row.realAssetsItemTimePoint + '\', \'' + row.realAssetsItemInfo + '\', \'' + index + '\')"><i class="Delete fa fa-envelope"></i> 删除</button>'
     ].join('');
 };
+
+var operateFormatterForFinance = function (value, row, index) {
+    return [
+        '<button class="btn btn-info btn-sm rightSize detailBtn" type="button" onclick="editForFinance(\'' + row.financeItemName + '\', \'' + row.financeItemKind + '\', \'' + row.financeItemOutOrIn + '\', \'' +  row.financeItemPerPrice + '\', \'' + row.financeItemAmount + '\', \'' + row.financeItemTimePoint + '\', \'' + row.financeItemInfo + '\', \'' + index + '\')"><i class="Edit fa fa-paste"></i> 修改</button>',
+        '<button class="btn btn-danger btn-sm rightSize packageBtn" type="button" onclick="delFinanceItem(\'' + row.realAssetsItemName + '\', \'' + row.financeItemAmount + '\', \'' + row.financeItemTimePoint + '\', \'' + row.financeItemInfo + '\', \'' + index + '\')"><i class="Delete fa fa-envelope"></i> 删除</button>'
+    ].join('');
+}
 
 function editForIncome(incomeItemName, incomeItemAmount, incomeItemTimePoint, incomeItemSource, incomeItemMode, incomeItemInfo, updateTime, incomeItemPeriod, index) {
     $("#addIncomeItemModal").modal('show');
@@ -1765,10 +2006,21 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#setRealAssetsItemNameOfSelectLabel").change(function () {
         var selectRealAssets = $("#setRealAssetsItemNameOfSelectLabel").val();
-        var selectRealAssets = selectlable.value;
+        //var selectRealAssets = selectlable.value;
         if (selectRealAssets !== '') {
             setDataForRealAssets(selectRealAssets);
             oneRealAssetsPic_chart.setOption(oneRealAssetsPic_option);
+        }
+    })
+});
+
+$(document).ready(function () {
+    $("#setFinanceItemNameOfSelectLabel").change(function () {
+        var selectFinance = $("#setFinanceItemNameOfSelectLabel").val();
+
+        if (selectFinance !== '') {
+            setDataForFinance(selectFinance);
+            oneFinancePic_chart.setOption(oneFinancePic_option);
         }
     })
 });
@@ -2072,9 +2324,47 @@ function setDataForRealAssets(realAssetsItemName) {
             }
         },
         series: [{
-            name: '月总收入金额',
+            name: '价格',
             type:'line',
             data: realAssetsTimePriceList[realAssetsItemName]['price'],
+            markPoint: {
+                data: [
+                    {type: 'max', name: '最大值'},
+                    {type: 'min', name: '最小值'}
+                ]
+            },
+            markLine: {
+                data: [
+                    {type: 'average', name: '平均值'}
+                ]
+            }
+        }]
+    };
+}
+
+function setDataForFinance(financeItemName) {
+    oneFinancePic_option = {
+        title: {
+            text: '理财项目价格趋势图',
+            x: 'center'
+        },
+        tooltip:{
+            trigger: 'axis'
+        },
+        xAxis: {
+            type: 'category',
+            data: financesTimePriceList[financeItemName]['time']
+        },
+        yAxis: {
+            type: 'value',
+            axisLabel: {
+                formatter: '{value} 元'
+            }
+        },
+        series: [{
+            name: '价格',
+            type:'line',
+            data: financesTimePriceList[financeItemName]['price'],
             markPoint: {
                 data: [
                     {type: 'max', name: '最大值'},
@@ -2095,11 +2385,13 @@ var expenseStructureOfMonthContainer = document.getElementById('expenseStructure
 var incomeTrendOfYearContainer = document.getElementById('incomeTrendOfYear');
 var expenseTrendOfYearContainer = document.getElementById('expenseTrendOfYear');
 var oneRealAssetsPicContainer = document.getElementById('oneRealAssetsPic');
+var oneFinancePicContainer = document.getElementById('oneFinancePic');
 var incomeStructureOfMonth_option;
 var expenseStructureOfMonth_option;
 var incomeTrendOfYear_option;
 var expenseTrendOfYear_option;
 var oneRealAssetsPic_option;
+var oneFinancePic_option;
 
 var resizeIncomeStructureOfMonthContainer = function () {
     incomeStructureOfMonthContainer.style.width = window.innerWidth*0.8+'px';
@@ -2126,17 +2418,24 @@ var resizeOneRealAssetsPicContainer = function () {
     oneRealAssetsPicContainer.style.height = window.innerHeight*0.8 + 'px';
 }
 
+var resizeOneFinancePicContainer = function () {
+    oneFinancePicContainer.style.width = window.innerWidth * 0.8 + 'px';
+    oneFinancePicContainer.style.height = window.innerHeight * 0.8 + 'px';
+}
+
 resizeIncomeStructureOfMonthContainer();
 resizeExpenseStructureOfMonthContainer();
 resizeIncomeTrendOfYearContainer();
 resizeExpenseTrendOfYearContainer();
 resizeOneRealAssetsPicContainer();
+resizeOneFinancePicContainer();
 
 var incomesStructureOfMonth_chart = echarts.init(incomeStructureOfMonthContainer);
 var expensesStructureOfMonth_chart = echarts.init(expenseStructureOfMonthContainer);
 var incomeTrendOfYear_chart = echarts.init(incomeTrendOfYearContainer);
 var expenseTrendOfYear_char = echarts.init(expenseTrendOfYearContainer);
 var oneRealAssetsPic_chart = echarts.init(oneRealAssetsPicContainer);
+var oneFinancePic_chart = echarts.init(oneFinancePicContainer);
 
 window.onresize = function() {
     resizeIncomeStructureOfMonthContainer();
@@ -2144,9 +2443,11 @@ window.onresize = function() {
     resizeIncomeTrendOfYearContainer();
     resizeExpenseTrendOfYearContainer();
     resizeOneRealAssetsPicContainer();
+    resizeOneFinancePicContainer();
     incomesStructureOfMonth_chart.resize();
     expensesStructureOfMonth_chart.resize();
     incomeTrendOfYear_chart.resize();
     expenseTrendOfYear_char.resize();
     oneRealAssetsPic_chart.resize();
+    oneFinancePic_chart.resize();
 };

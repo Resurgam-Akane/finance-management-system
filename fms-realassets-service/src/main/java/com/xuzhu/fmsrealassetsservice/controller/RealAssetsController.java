@@ -19,7 +19,7 @@ public class RealAssetsController {
     @Autowired
     RealAssetsService realAssetsService;
 
-    @RequestMapping(value = "/haha", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/haha", method = RequestMethod.GET)
     public Map<String, List<Item>> hehe() {
         Map<String, List<Item>> testMap = new HashMap<String, List<Item>>();
         List<Item> testList = new ArrayList<>();
@@ -38,7 +38,7 @@ public class RealAssetsController {
         testMap.put("test", testList);
 
         return testMap;
-    }
+    }*/
 
     @RequestMapping(value = "/addRealAssetsItem/{username}", method = RequestMethod.POST)
     public Map<String, List<Item>> addRealAssetsItem(@PathVariable String username, @Valid @RequestBody Item item) {

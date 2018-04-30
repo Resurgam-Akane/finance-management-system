@@ -173,6 +173,14 @@
                 <div class="row placeholders">
                     <div>
                         <button class="btn btn-primary btn-lg pull-left" data-toggle="modal" data-target="#addIncomeItemModal">添加收入项</button>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+
+                        <p class="text-left">批量添加:<input id="addIncomeItemBatchFile" type="file" class="btn btn-default"/></p>
+                        <button id="addIncomeItemBatchFileBtn" type="button" class="btn btn-primary btn-lg pull-left" onclick="addIncomeItemBatch()">提交</button>
+
                     </div>
                 </div>
 
@@ -303,6 +311,13 @@
                 <div class="row placeholders">
                     <div>
                         <button class="btn btn-primary btn-lg pull-left" data-toggle="modal" data-target="#addExpenseItemModal">添加支出项</button>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+
+                        <p class="text-left">批量添加:<input id="addExpenseItemBatchFile" type="file" class="btn btn-default"/></p>
+                        <button id="addExpenseItemBatchFileBtn" type="button" class="btn btn-primary btn-lg pull-left" onclick="addExpenseItemBatch()">提交</button>
                     </div>
                 </div>
 
@@ -436,8 +451,90 @@
 
                 <div class="row placeholders">
                     <div>
-
+                        <button class="btn btn-primary btn-lg pull-left" data-toggle="modal" data-target="#addFinanceItemModal">添加理财项</button>
                     </div>
+                </div>
+
+                <div class="modal fade" id="addFinanceItemModal" tabindex="-1" role="dialog" aria-labelledby="addFinanceItemModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="addFinanceItemModalLabel">新建理财项</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" autocomplete="off">
+                                    <div class="form-group" style="margin-top: 30px">
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                                            <input type="text" class="form-control" name="setFinanceItemName" id="setFinanceItemName" placeholder="理财项目名称" />
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <label for="setFinanceItemKind"></label>
+                                            <select name="setFinanceItemKind" id="setFinanceItemKind" class="selectpicker form-control">
+                                                <option value="股票" selected="selected">股票</option>
+                                                <option value="基金">基金</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <label for="setFinanceItemOutOrIn"></label>
+                                            <select name="setFinanceItemOutOrIn" id="setFinanceItemOutOrIn" class="selectpicker form-control">
+                                                <option value="买入" selected="selected">买入</option>
+                                                <option value="卖出">卖出</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <input type="text" class="form-control" name="setFinanceItemPerPrice" id="setFinanceItemPerPrice" placeholder="单价" />
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <input type="text" class="form-control" name="setFinanceItemAmount" id="setFinanceItemAmount" placeholder="数量" />
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <div class='input-group' id='setFinanceItemDateTime'>
+                                                <input type='text' id="setFinanceItemTimePoint" class="form-control" placeholder="日期"/>
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="input-group col-md-6 col-md-offset-3">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                                            <input type="text" class="form-control" name="setFinanceItemInfo" id="setFinanceItemInfo" placeholder="备注信息" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                <button id="addFinanceItemBtn" type="button" class="btn btn-primary" onclick="addFinanceItem()">提交</button>
+                                <button id="editFinanceItemBtn" type="button" class="btn btn-primary" onclick="editFinanceItem()" style="display: none">提交</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="sub-header">理财项目</h2>
+
+                <div class="row placeholders">
+                    <div class="input-group col-md-6 col-md-offset-3">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                        <label for="setFinanceItemNameOfSelectLabel"></label>
+                        <select name="setFinanceItemNameOfSelectLabel" id="setFinanceItemNameOfSelectLabel" class="selectpicker form-control">
+                        </select>
+                    </div>
+                    <br />
+
+                    <div id="oneFinancePic" class="col-xs-6 col-sm-6 placeholder" style="height: auto;width: auto;">
+                    </div>
+                </div>
+
+                <div id="financetablediv" class="table-responsive">
+                    <table id="financeTable"></table>
                 </div>
             </div>
             <div id="financialstatementsdiv" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="display:none;">
@@ -445,7 +542,6 @@
 
                 <div class="row placeholders">
                     <div>
-
                     </div>
                 </div>
             </div>
