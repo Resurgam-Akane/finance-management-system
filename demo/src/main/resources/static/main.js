@@ -1614,7 +1614,7 @@ var operateFormatterForIncome = function(value, row, index) {
         '<button class="btn btn-info btn-sm rightSize detailBtn" type="button" onclick="editForIncome(\'' + row.incomeItemName+ '\', \''+row.incomeItemAmount+'\', \''+ row.incomeItemTimePoint+ '\', \'' + row.incomeItemSource + '\', \'' + row.incomeItemMode + '\', \'' + row.incomeItemInfo + '\', \'' + row.updateTime + '\', \'' + row.incomeItemPeriod + '\', \'' + index + '\')"><i class="Edit fa fa-paste"></i> 修改</button>',
         '<button class="btn btn-danger btn-sm rightSize packageBtn" type="button" onclick="delIncomeItem(\''+ index + '\')"><i class="Delete fa fa-envelope"></i> 删除</button>'
     ].join('');
-}
+};
 
 var operateFormatterForExpense = function (value, row, index) {
     return [
@@ -1633,9 +1633,9 @@ var operateFormatterForRealAssets = function (value, row, index) {
 var operateFormatterForFinance = function (value, row, index) {
     return [
         '<button class="btn btn-info btn-sm rightSize detailBtn" type="button" onclick="editForFinance(\'' + row.financeItemName + '\', \'' + row.financeItemKind + '\', \'' + row.financeItemOutOrIn + '\', \'' +  row.financeItemPerPrice + '\', \'' + row.financeItemAmount + '\', \'' + row.financeItemTimePoint + '\', \'' + row.financeItemInfo + '\', \'' + index + '\')"><i class="Edit fa fa-paste"></i> 修改</button>',
-        '<button class="btn btn-danger btn-sm rightSize packageBtn" type="button" onclick="delFinanceItem(\'' + row.realAssetsItemName + '\', \'' + row.financeItemAmount + '\', \'' + row.financeItemTimePoint + '\', \'' + row.financeItemInfo + '\', \'' + index + '\')"><i class="Delete fa fa-envelope"></i> 删除</button>'
+        '<button class="btn btn-danger btn-sm rightSize packageBtn" type="button" onclick="delFinanceItem(\'' + row.financeItemName + '\', \'' + row.financeItemAmount + '\', \'' + row.financeItemTimePoint + '\', \'' + row.financeItemInfo + '\', \'' + index + '\')"><i class="Delete fa fa-envelope"></i> 删除</button>'
     ].join('');
-}
+};
 
 function editForIncome(incomeItemName, incomeItemAmount, incomeItemTimePoint, incomeItemSource, incomeItemMode, incomeItemInfo, updateTime, incomeItemPeriod, index) {
     $("#addIncomeItemModal").modal('show');
@@ -1677,6 +1677,21 @@ function editForRealAssets(realAssetsItemName, realAssetsItemAmount, realAssetsI
     $("#setRealAssetsItemTimePoint").val(realAssetsItemTimePoint);
     $("#setRealAssetsItemInfo").val(realAssetsItemInfo);
     realAssetsEditIndex = index;
+}
+
+function editForFinance(financeItemName, financeItemKind, financeItemOutOrIn, financeItemPerPrice, financeItemAmount, financeItemTimePoint, financeItemInfo, index) {
+    $("#addFinanceItemModal").modal('show');
+    document.getElementById('addFinanceItemModalLabel').innerHTML = "修改理财项目";
+    $("#addFinanceItemBtn").hide();
+    $("#editFinanceItemBtn").show();
+    $("#setFinanceItemName").val(financeItemName);
+    $("#setFinanceItemKind").val(financeItemKind);
+    $("#setFinanceItemOutOrIn").val(financeItemOutOrIn);
+    $("#setFinanceItemPerPrice").val(financeItemPerPrice);
+    $("#setFinanceItemAmount").val(financeItemAmount);
+    $("#setFinanceItemTimePoint").val(financeItemTimePoint);
+    $("#setFinanceItemInfo").val(financeItemInfo);
+    financesEditIndex = index;
 }
 
 function editIncomeItem() {
@@ -1855,6 +1870,71 @@ function editRealAssetsItem() {
     }
 }
 
+function editFinanceItem() {
+    var token = getOauthTokenFromStorage();
+    var username = localStorage.getItem('username');
+    var financeItemName = document.getElementById('setFinanceItemName').value;
+    var financeItemKind = $("#setFinanceItemKind").find("option:selected").val();
+    var financeItemOutOrIn = $("#setFinanceItemOutOrIn").find("option:selected").val();
+    var financeItemPerPrice = document.getElementById('setFinanceItemPerPrice').value;
+    var financeItemAmount = document.getElementById('setFinanceItemAmount').value;
+    var financeItemTimePoint = document.getElementById('setFinanceItemTimePoint').value;
+    var financeItemInfo = document.getElementById('setFinanceItemInfo').value;
+
+    if (token) {
+        $.ajax({
+            url: '/finances/editFinanceProductItem/' + username + '/' + financesEditIndex,
+            datatype: 'json',
+            type: 'post',
+            contentType: "application/json",
+            headers: {'Authorization': 'Bearer ' + token},
+            async: false,
+            data:
+                JSON.stringify({
+                    financeItemName: financeItemName,
+                    financeItemKind: financeItemKind,
+                    financeItemOutOrIn: financeItemOutOrIn,
+                    financeItemPerPrice: financeItemPerPrice,
+                    financeItemAmount: financeItemAmount,
+                    financeItemTimePoint: financeItemTimePoint,
+                    financeItemInfo: financeItemInfo
+                }),
+            success: function (data) {
+                document.getElementById('addFinanceItemModalLabel').innerHTML = "新建理财项目";
+                $("#setFinanceItemName").val("");
+                $("#setFinanceItemKind").val("股票");
+                $("#setFinanceItemOutOrIn").val("买入");
+                $("#setFinanceItemPerPrice").val("");
+                $("#setFinanceItemAmount").val("");
+                $("#setFinanceItemTimePoint").val("");
+                $("#setFinanceItemInfo").val("");
+                $("#addFinanceItemModal").modal('hide');
+
+                financesList = [];
+                computeForOneFinancePic_arr(data);
+                var selectlabel = document.getElementById('setFinanceItemNameOfSelectLabel');
+                selectlabel.options.length = 0;
+
+                for(var x in data) {
+                    if (data[x].length !== 0) {
+                        selectlabel.options.add(new Option(x, x));
+                        financesList = financesList.concat(data[x]);
+                    }
+                }
+                var selectfinance = selectlabel.value;
+                if (selectfinance !== '') {
+                    setDataForFinance(selectfinance);
+                    oneFinancePic_chart.setOption(oneFinancePic_option);
+                }
+                loadFinanceTable(financesList);
+            },
+            error: function () {
+                removeOauthTokenFromStorage();
+            }
+        });
+    }
+}
+
 function delIncomeItem(index) {
     var token = getOauthTokenFromStorage();
     var username=localStorage.getItem('username');
@@ -1962,6 +2042,46 @@ function delRealAssetItem(realAssetsItemName, realAssetsItemAmount, realAssetsIt
                 removeOauthTokenFromStorage();
             }
         });
+    }
+}
+
+function delFinanceItem(financeItemName, financeItemAmount, financeItemTimePoint, financeItemInfo, index) {
+    var token = getOauthTokenFromStorage();
+    var username=localStorage.getItem('username');
+
+    if (token) {
+        $.ajax({
+            url: '/finances/deleteFinanceProductItem/' + username + '/' + financeItemName + '/' + financeItemTimePoint,
+            datatype: 'json',
+            type: 'post',
+            headers: {'Authorization': 'Bearer ' + token},
+            async: false,
+            success: function (data) {
+                financesList = [];
+                computeForOneFinancePic_arr(data);
+                var selectlabel = document.getElementById('setFinanceItemNameOfSelectLabel');
+                selectlabel.options.length = 0;
+
+                for(var x in data) {
+                    if (data[x].length !== 0) {
+                        selectlabel.options.add(new Option(x, x));
+                        financesList = financesList.concat(data[x]);
+                    }
+                }
+                var selectfinance = selectlabel.value;
+                if (selectfinance !== '') {
+                    setDataForFinance(selectfinance);
+                    oneFinancePic_chart.setOption(oneFinancePic_option);
+                }
+                else {
+                    document.getElementById('oneFinancePic').innerHTML = "";
+                }
+                loadFinanceTable(financesList);
+            },
+            error: function () {
+                removeOauthTokenFromStorage();
+            }
+        })
     }
 }
 

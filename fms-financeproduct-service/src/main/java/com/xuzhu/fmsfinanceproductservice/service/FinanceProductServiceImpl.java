@@ -51,19 +51,19 @@ public class FinanceProductServiceImpl implements FinanceProductService {
     }
 
     @Override
-    public Map<String, List<Item>> deleteFinanceProductItem(String username, String financeProductItemName, String financeProductItemTimePoint) {
+    public Map<String, List<Item>> deleteFinanceProductItem(String username, String financeItemName, String financeItemTimePoint) {
         Account account = accountDAO.findOne(username);
         int index = 0;
         if (account != null) {
             Map<String, List<Item>> items = account.getItems();
-            List<Item> oneList = items.get(financeProductItemName);
-            for (; index != oneList.size() && !oneList.get(index).getFinanceItemTimePoint().equals(financeProductItemTimePoint); ++index);
+            List<Item> oneList = items.get(financeItemName);
+            for (; index != oneList.size() && !oneList.get(index).getFinanceItemTimePoint().equals(financeItemTimePoint); ++index);
             oneList.remove(index);
             if (oneList.size() == 0) {
-                items.remove(financeProductItemName);
+                items.remove(financeItemName);
             }
             else {
-                items.put(financeProductItemName, oneList);
+                items.put(financeItemName, oneList);
             }
             account.setItems(items);
             account.setUpdateTime(new Date());

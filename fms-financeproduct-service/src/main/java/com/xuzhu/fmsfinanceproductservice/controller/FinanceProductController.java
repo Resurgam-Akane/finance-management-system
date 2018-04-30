@@ -29,9 +29,9 @@ public class FinanceProductController {
         return financeProductService.editFinanceProductItem(username, item, Integer.parseInt(index));
     }
 
-    @RequestMapping(value = "/deleteFinanceProductItem/{username}/{financeProductItemName}/{financeProductItemTimePoint}", method = RequestMethod.POST)
-    Map<String, List<Item>> deleteFinanceProductItem(@PathVariable String username, @PathVariable String financeProductItemName, @PathVariable String financeProductItemTimePoint) {
-        return financeProductService.deleteFinanceProductItem(username, financeProductItemName, financeProductItemTimePoint);
+    @RequestMapping(value = "/deleteFinanceProductItem/{username}/{financeItemName}/{financeItemTimePoint}", method = RequestMethod.POST)
+    Map<String, List<Item>> deleteFinanceProductItem(@PathVariable String username, @PathVariable String financeItemName, @PathVariable String financeItemTimePoint) {
+        return financeProductService.deleteFinanceProductItem(username, financeItemName, financeItemTimePoint);
     }
 
 }
