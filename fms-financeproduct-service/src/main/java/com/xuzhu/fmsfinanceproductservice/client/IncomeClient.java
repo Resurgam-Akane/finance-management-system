@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.*;
 @FeignClient(value = "fms-incomemanagement-service")
 public interface IncomeClient {
     @RequestMapping(value = "/addIncomeItem/{username}", method = RequestMethod.POST)
-    public void addFinanceProductIntoIncomeManagement(@PathVariable("username") String username, @RequestBody IncomeItem incomeItem);
+    void addFinanceProductIntoIncomeManagement(@PathVariable("username") String username, @RequestBody IncomeItem incomeItem);
 }

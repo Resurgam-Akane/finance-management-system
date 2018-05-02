@@ -1073,6 +1073,17 @@ function addIncomeItem() {
     }
 }
 
+function initAddIncomeModal() {
+    document.getElementById("addIncomeItemModalLabel").innerHTML = "新建收入项";
+    $("#setIncomeItemName").attr("readOnly", false).val("");
+    $("#setIncomeItemAmount").val("");
+    $("#setIncomeItemTimePoint").val("");
+    $("#setIncomeItemInfo").val("");
+    $("#setIncomeItemMode").val("现金");
+    $("#setIncomeItemSource").val("工资");
+    $("#setIncomeItemPeriod").val("一次性收入");
+}
+
 function addIncomeItemBatch() {
     var username =  localStorage.getItem('username');
     var token = getOauthTokenFromStorage();
@@ -1188,6 +1199,17 @@ function addExpenseItem() {
     }
 }
 
+function initAddExpenseModal() {
+    document.getElementById("addExpenseItemModalLabel").innerHTML = "新建支出项";
+    $("#setExpenseItemName").attr("readOnly", false).val("");
+    $("#setExpenseItemAmount").val("");
+    $("#setExpenseItemTimePoint").val("");
+    $("#setExpenseItemInfo").val("");
+    $("#setExpenseItemMode").val("现金");
+    $("#setExpenseItemSource").val("交通");
+    $("#setExpenseItemPeriod").val("一次性支出");
+}
+
 function addExpenseItemBatch() {
     var username =  localStorage.getItem('username');
     var token = getOauthTokenFromStorage();
@@ -1292,6 +1314,14 @@ function addRealAssetsItem() {
     }
 }
 
+function initRealAssetsModal() {
+    document.getElementById('addRealAssetsItemModalLabel').innerHTML = "新建实物资产项";
+    $("#setRealAssetsItemName").attr("readOnly", false).val("");
+    $("#setRealAssetsItemAmount").val("");
+    $("#setRealAssetsItemTimePoint").val("");
+    $("#setRealAssetsItemInfo").val("");
+}
+
 function addFinanceItem() {
     var token = getOauthTokenFromStorage();
     var username = localStorage.getItem('username');
@@ -1354,6 +1384,17 @@ function addFinanceItem() {
             }
         });
     }
+}
+
+function initFinanceModal() {
+    document.getElementById('addFinanceItemModalLabel').innerHTML = "新建理财项目";
+    $("#setFinanceItemName").attr("readOnly", false).val("");
+    $("#setFinanceItemKind").val("股票");
+    $("#setFinanceItemOutOrIn").val("买入");
+    $("#setFinanceItemPerPrice").val("");
+    $("#setFinanceItemAmount").val("");
+    $("#setFinanceItemTimePoint").val("");
+    $("#setFinanceItemInfo").val("");
 }
 
 $(document).ready(function () {
@@ -1612,14 +1653,14 @@ function loadFinanceTable(data) {
 var operateFormatterForIncome = function(value, row, index) {
     return [
         '<button class="btn btn-info btn-sm rightSize detailBtn" type="button" onclick="editForIncome(\'' + row.incomeItemName+ '\', \''+row.incomeItemAmount+'\', \''+ row.incomeItemTimePoint+ '\', \'' + row.incomeItemSource + '\', \'' + row.incomeItemMode + '\', \'' + row.incomeItemInfo + '\', \'' + row.updateTime + '\', \'' + row.incomeItemPeriod + '\', \'' + index + '\')"><i class="Edit fa fa-paste"></i> 修改</button>',
-        '<button class="btn btn-danger btn-sm rightSize packageBtn" type="button" onclick="delIncomeItem(\''+ index + '\')"><i class="Delete fa fa-envelope"></i> 删除</button>'
+        '<button class="btn btn-danger btn-sm rightSize packageBtn" type="button" onclick="delIncomeItem(\'' + row.incomeItemName + '\', \''+ index + '\')"><i class="Delete fa fa-envelope"></i> 删除</button>'
     ].join('');
 };
 
 var operateFormatterForExpense = function (value, row, index) {
     return [
         '<button class="btn btn-info btn-sm rightSize detailBtn" type="button" onclick="editForExpense(\'' + row.expenseItemName+ '\', \''+row.expenseItemAmount+'\', \''+ row.expenseItemTimePoint+ '\', \'' + row.expenseItemSource + '\', \'' + row.expenseItemMode + '\', \'' + row.expenseItemInfo + '\', \'' + row.updateTime + '\', \'' + row.expenseItemPeriod + '\', \'' + index + '\')"><i class="Edit fa fa-paste"></i> 修改</button>',
-        '<button class="btn btn-danger btn-sm rightSize packageBtn" type="button" onclick="delExpenseItem(\''+ index + '\')"><i class="Delete fa fa-envelope"></i> 删除</button>'
+        '<button class="btn btn-danger btn-sm rightSize packageBtn" type="button" onclick="delExpenseItem(\'' + row.expenseItemName + '\', \''+ index + '\')"><i class="Delete fa fa-envelope"></i> 删除</button>'
     ].join('');
 };
 
@@ -1638,33 +1679,53 @@ var operateFormatterForFinance = function (value, row, index) {
 };
 
 function editForIncome(incomeItemName, incomeItemAmount, incomeItemTimePoint, incomeItemSource, incomeItemMode, incomeItemInfo, updateTime, incomeItemPeriod, index) {
-    $("#addIncomeItemModal").modal('show');
-    document.getElementById("addIncomeItemModalLabel").innerHTML = "修改收入项";
-    $("#addIncomesItemBtn").hide();
-    $("#editIncomesItemBtn").show();
-    $("#setIncomeItemName").val(incomeItemName);
-    $("#setIncomeItemAmount").val(incomeItemAmount);
-    $("#setIncomeItemTimePoint").val(incomeItemTimePoint);
-    $("#setIncomeItemInfo").val(incomeItemInfo);
-    $("#setIncomeItemMode").val(incomeItemMode);
-    $("#setIncomeItemSource").val(incomeItemSource);
-    $("#setIncomeItemPeriod").val(incomeItemPeriod);
-    incomesEditIndex = index;
+    if (incomeItemName[0] === "股" && incomeItemName[1] === "票" && incomeItemName[2] === "-") {
+        alert("理财项目只能在理财管理修改！");
+        return false;
+    }
+    else if (incomeItemName[0] === "基" && incomeItemName[1] === "金" && incomeItemName[2] === "-") {
+        alert("理财项目只能在理财管理修改！");
+        return false;
+    }
+    else {
+        $("#addIncomeItemModal").modal('show');
+        document.getElementById("addIncomeItemModalLabel").innerHTML = "修改收入项";
+        $("#addIncomesItemBtn").hide();
+        $("#editIncomesItemBtn").show();
+        $("#setIncomeItemName").val(incomeItemName).attr("readOnly", "true");
+        $("#setIncomeItemAmount").val(incomeItemAmount);
+        $("#setIncomeItemTimePoint").val(incomeItemTimePoint);
+        $("#setIncomeItemInfo").val(incomeItemInfo);
+        $("#setIncomeItemMode").val(incomeItemMode);
+        $("#setIncomeItemSource").val(incomeItemSource);
+        $("#setIncomeItemPeriod").val(incomeItemPeriod);
+        incomesEditIndex = index;
+    }
 }
 
 function editForExpense(expenseItemName, expenseItemAmount, expenseItemTimePoint, expenseItemSource, expenseItemMode, expenseItemInfo, updateTime, expenseItemPeriod, index) {
-    $("#addExpenseItemModal").modal('show');
-    document.getElementById("addExpenseItemModalLabel").innerHTML = "修改支出项";
-    $("#addExpensesItemBtn").hide();
-    $("#editExpensesItemBtn").show();
-    $("#setExpenseItemName").val(expenseItemName);
-    $("#setExpenseItemAmount").val(expenseItemAmount);
-    $("#setExpenseItemTimePoint").val(expenseItemTimePoint);
-    $("#setExpenseItemInfo").val(expenseItemInfo);
-    $("#setExpenseItemMode").val(expenseItemMode);
-    $("#setExpenseItemSource").val(expenseItemSource);
-    $("#setExpenseItemPeriod").val(expenseItemPeriod);
-    expensesEditIndex = index;
+    if (expenseItemName[0] === "股" && expenseItemName[1] === "票" && expenseItemName[2] === "-") {
+        alert("理财项目只能在理财管理修改！");
+        return false;
+    }
+    else if (expenseItemName[0] === "基" && expenseItemName[1] === "金" && expenseItemName[2] === "-") {
+        alert("理财项目只能在理财管理修改！");
+        return false;
+    }
+    else {
+        $("#addExpenseItemModal").modal('show');
+        document.getElementById("addExpenseItemModalLabel").innerHTML = "修改支出项";
+        $("#addExpensesItemBtn").hide();
+        $("#editExpensesItemBtn").show();
+        $("#setExpenseItemName").val(expenseItemName).attr("readOnly", "true");
+        $("#setExpenseItemAmount").val(expenseItemAmount);
+        $("#setExpenseItemTimePoint").val(expenseItemTimePoint);
+        $("#setExpenseItemInfo").val(expenseItemInfo);
+        $("#setExpenseItemMode").val(expenseItemMode);
+        $("#setExpenseItemSource").val(expenseItemSource);
+        $("#setExpenseItemPeriod").val(expenseItemPeriod);
+        expensesEditIndex = index;
+    }
 }
 
 function editForRealAssets(realAssetsItemName, realAssetsItemAmount, realAssetsItemTimePoint, realAssetsItemInfo, index) {
@@ -1672,7 +1733,7 @@ function editForRealAssets(realAssetsItemName, realAssetsItemAmount, realAssetsI
     document.getElementById('addRealAssetsItemModalLabel').innerHTML = "修改实物资产项";
     $("#addRealAssetsItemBtn").hide();
     $("#editRealAssetsItemBtn").show();
-    $("#setRealAssetsItemName").val(realAssetsItemName);
+    $("#setRealAssetsItemName").val(realAssetsItemName).attr("readOnly", "true");
     $("#setRealAssetsItemAmount").val(realAssetsItemAmount);
     $("#setRealAssetsItemTimePoint").val(realAssetsItemTimePoint);
     $("#setRealAssetsItemInfo").val(realAssetsItemInfo);
@@ -1684,7 +1745,7 @@ function editForFinance(financeItemName, financeItemKind, financeItemOutOrIn, fi
     document.getElementById('addFinanceItemModalLabel').innerHTML = "修改理财项目";
     $("#addFinanceItemBtn").hide();
     $("#editFinanceItemBtn").show();
-    $("#setFinanceItemName").val(financeItemName);
+    $("#setFinanceItemName").val(financeItemName).attr("readOnly", "true");
     $("#setFinanceItemKind").val(financeItemKind);
     $("#setFinanceItemOutOrIn").val(financeItemOutOrIn);
     $("#setFinanceItemPerPrice").val(financeItemPerPrice);
@@ -1728,7 +1789,7 @@ function editIncomeItem() {
                 document.getElementById("addIncomeItemModalLabel").innerHTML = "新建收入项";
                 $("#editIncomesItemBtn").hide();
                 $("#addIncomesItemBtn").show();
-                $("#setIncomeItemName").val("");
+                $("#setIncomeItemName").attr("readOnly", false).val("");
                 $("#setIncomeItemAmount").val("");
                 $("#setIncomeItemTimePoint").val("");
                 $("#setIncomeItemInfo").val("");
@@ -1788,7 +1849,7 @@ function editExpenseItem() {
                 document.getElementById("addExpenseItemModalLabel").innerHTML = "新建支出项";
                 $("#editExpensesItemBtn").hide();
                 $("#addExpensesItemBtn").show();
-                $("#setExpenseItemName").val("");
+                $("#setExpenseItemName").attr("readOnly", false).val("");
                 $("#setExpenseItemAmount").val("");
                 $("#setExpenseItemTimePoint").val("");
                 $("#setExpenseItemInfo").val("");
@@ -1840,7 +1901,7 @@ function editRealAssetsItem() {
                 document.getElementById("addRealAssetsItemModalLabel").innerHTML = "新建实物资产";
                 $("#editRealAssetsItemBtn").hide();
                 $("#addRealAssetsItemBtn").show();
-                $("#setRealAssetsItemName").val("");
+                $("#setRealAssetsItemName").attr("readOnly", false).val("");
                 $("#setRealAssetsItemAmount").val("");
                 $("#setRealAssetsItemTimePoint").val("");
                 $("#setRealAssetsItemInfo").val("");
@@ -1901,7 +1962,7 @@ function editFinanceItem() {
                 }),
             success: function (data) {
                 document.getElementById('addFinanceItemModalLabel').innerHTML = "新建理财项目";
-                $("#setFinanceItemName").val("");
+                $("#setFinanceItemName").attr("readOnly", false).val("");
                 $("#setFinanceItemKind").val("股票");
                 $("#setFinanceItemOutOrIn").val("买入");
                 $("#setFinanceItemPerPrice").val("");
@@ -1935,7 +1996,16 @@ function editFinanceItem() {
     }
 }
 
-function delIncomeItem(index) {
+function delIncomeItem(incomeItemName, index) {
+    if (incomeItemName[0] === "股" && incomeItemName[1] === "票" && incomeItemName[2] === "-") {
+        alert("理财项目只能在理财管理删除！");
+        return false;
+    }
+    else if (incomeItemName[0] === "基" && incomeItemName[1] === "金" && incomeItemName[2] === "-") {
+        alert("理财项目只能在理财管理修改！");
+        return false;
+    }
+
     var token = getOauthTokenFromStorage();
     var username=localStorage.getItem('username');
 
@@ -1969,7 +2039,16 @@ function delIncomeItem(index) {
     }
 }
 
-function delExpenseItem(index) {
+function delExpenseItem(expenseItemName, index) {
+    if (expenseItemName[0] === "股" && expenseItemName[1] === "票" && expenseItemName[2] === "-") {
+        alert("理财项目只能在理财管理删除！");
+        return false;
+    }
+    else if (expenseItemName[0] === "基" && expenseItemName[1] === "金" && expenseItemName[2] === "-") {
+        alert("理财项目只能在理财管理修改！");
+        return false;
+    }
+
     var token = getOauthTokenFromStorage();
     var username=localStorage.getItem('username');
 
