@@ -30,6 +30,11 @@ public class ExpenseController {
         return expensesService.deleteExpensesItem(username, Integer.parseInt(index));
     }
 
+    @RequestMapping(value = "/deleteExpenseItemFromFinanceManagement/{username}/{itemName}/{timePoint}", method = RequestMethod.POST)
+    public boolean deleteExpenseItemFromFinanceManagement(@PathVariable String username, @PathVariable String itemName, @PathVariable String timePoint) {
+        return expensesService.deleteExpenseItemFromFinanceManagement(username, itemName, timePoint);
+    }
+
     @RequestMapping(value = "/editExpenseItem/{username}/{index}", method = RequestMethod.POST)
     public List<Item> editExpenseItem(@PathVariable String username, @Valid @PathVariable String index, @Valid @RequestBody Item item) {
         return expensesService.editExpensesItem(username, Integer.parseInt(index), item);

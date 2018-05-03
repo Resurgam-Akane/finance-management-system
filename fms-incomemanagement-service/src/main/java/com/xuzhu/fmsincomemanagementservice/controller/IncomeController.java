@@ -31,6 +31,11 @@ public class IncomeController {
         return incomesService.deleteIncomesItem(username, Integer.parseInt(index));
     }
 
+    @RequestMapping(value = "/deleteIncomeItemFromFinanceManagement/{username}/{itemName}/{timePoint}", method = RequestMethod.POST)
+    public boolean deleteIncomeItemFromFinanceManagement(@PathVariable String username, @PathVariable String itemName, @PathVariable String timePoint) {
+        return incomesService.deleteIncomeItemFromFinanceManagement(username, itemName, timePoint);
+    }
+
     @RequestMapping(value = "/editIncomeItem/{username}/{index}", method = RequestMethod.POST)
     public List<Item> editIncomeItem(@PathVariable String username, @Valid @PathVariable String index, @Valid @RequestBody Item item) {
         return incomesService.editIncomesItem(username, Integer.parseInt(index), item);

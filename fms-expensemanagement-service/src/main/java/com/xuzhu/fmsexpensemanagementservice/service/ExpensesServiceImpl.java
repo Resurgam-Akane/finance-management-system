@@ -77,4 +77,26 @@ public class ExpensesServiceImpl implements ExpensesService {
             return account.getExpenses();
         }
     }
+
+    @Override
+    public boolean deleteExpenseItemFromFinanceManagement(String username, String itemName, String timePoint) {
+        Account account = accountDAO.findOne(username);
+
+        if (account != null) {
+            List<Item> items = account.getExpenses();
+            int index = 0;
+            for (index = 0; index != items.size(); ++index) {
+                Item item = items.get(index);
+                if (item.getExpenseItemName().equals(itemName) && item.getExpenseItemTimePoint().equals(timePoint))
+                    break;
+            }
+            items.remove(index);
+            account.setExpenses(items);
+            account.setUpdateTime(new Date());
+            accountDAO.save(account);
+            return true;
+        }
+        else return false;
+    }
+
 }

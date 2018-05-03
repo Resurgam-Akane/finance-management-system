@@ -9,4 +9,5 @@ public interface ExpensesService {
     List<Item> addExpensesItem(String username, Item item);
     List<Item> deleteExpensesItem(String username, int index);
     List<Item> editExpensesItem(String username, int index, Item item);
+    boolean deleteExpenseItemFromFinanceManagement(String username, String itemName, String timePoint);
 }

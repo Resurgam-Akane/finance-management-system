@@ -79,4 +79,26 @@ public class IncomesServiceImpl implements IncomesService{
             return account.getIncomes();
         }
     }
+
+    @Override
+    public boolean deleteIncomeItemFromFinanceManagement(String username, String itemName, String timePoint) {
+        Account account = accountDAO.findOne(username);
+
+        if (account != null) {
+            int index = 0;
+            List<Item> items = account.getIncomes();
+            for (index = 0; index != items.size(); ++index) {
+                Item item = items.get(index);
+                if (item.getIncomeItemName().equals(itemName) && item.getIncomeItemTimePoint().equals(timePoint))
+                    break;
+            }
+
+            items.remove(index);
+            account.setIncomes(items);
+            account.setUpdateTime(new Date());
+            accountDAO.save(account);
+            return true;
+        }
+        else return false;
+    }
 }

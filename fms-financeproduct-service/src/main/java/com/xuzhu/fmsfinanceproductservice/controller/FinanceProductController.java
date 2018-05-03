@@ -65,7 +65,7 @@ public class FinanceProductController {
             expenseItem.setExpenseItemMode("银行");
             expenseItem.setExpenseItemPeriod("一次性支出");
             expenseItem.setUpdateTime(new Date());
-            expenseItem.setExpenseItemName("通过理财管理添加" + item.getFinanceItemInfo());
+            expenseItem.setExpenseItemInfo("通过理财管理添加" + item.getFinanceItemInfo());
             expenseClient.addFinanceProductIntoExpenseManagement(username, expenseItem);
         }
         return financeProductService.addFinanceProductItem(username, item);
@@ -76,8 +76,22 @@ public class FinanceProductController {
         return financeProductService.editFinanceProductItem(username, item, Integer.parseInt(index));
     }
 
-    @RequestMapping(value = "/deleteFinanceProductItem/{username}/{financeItemName}/{financeItemTimePoint}", method = RequestMethod.POST)
-    Map<String, List<Item>> deleteFinanceProductItem(@PathVariable String username, @PathVariable String financeItemName, @PathVariable String financeItemTimePoint) {
+    @RequestMapping(value = "/deleteFinanceProductItem/{username}/{financeItemName}/{financeItemTimePoint}/{financeItemKind}/{financeItemOutOrIn}", method = RequestMethod.POST)
+    Map<String, List<Item>> deleteFinanceProductItem(@PathVariable String username, @PathVariable String financeItemName, @PathVariable String financeItemTimePoint,@PathVariable String financeItemKind, @PathVariable String financeItemOutOrIn) {
+        boolean status = false;
+
+        if (financeItemOutOrIn.equals("卖出")) {
+            if (financeItemKind.equals("股票"))
+                status = incomeClient.deleteFinanceProductFromIncomeManagement(username, "股票-" + financeItemName, financeItemTimePoint);
+            else
+                status = incomeClient.deleteFinanceProductFromIncomeManagement(username, "基金-" + financeItemName, financeItemTimePoint);
+        }
+        else {
+            if (financeItemKind.equals("股票"))
+                status = expenseClient.deleteFinanceProductFromExpenseManagement(username, "股票-" + financeItemName, financeItemTimePoint);
+            else
+                status = expenseClient.deleteFinanceProductFromExpenseManagement(username, "基金-" + financeItemName, financeItemTimePoint);
+        }
         return financeProductService.deleteFinanceProductItem(username, financeItemName, financeItemTimePoint);
     }
 

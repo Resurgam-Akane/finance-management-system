@@ -1674,7 +1674,7 @@ var operateFormatterForRealAssets = function (value, row, index) {
 var operateFormatterForFinance = function (value, row, index) {
     return [
         '<button class="btn btn-info btn-sm rightSize detailBtn" type="button" onclick="editForFinance(\'' + row.financeItemName + '\', \'' + row.financeItemKind + '\', \'' + row.financeItemOutOrIn + '\', \'' +  row.financeItemPerPrice + '\', \'' + row.financeItemAmount + '\', \'' + row.financeItemTimePoint + '\', \'' + row.financeItemInfo + '\', \'' + index + '\')"><i class="Edit fa fa-paste"></i> 修改</button>',
-        '<button class="btn btn-danger btn-sm rightSize packageBtn" type="button" onclick="delFinanceItem(\'' + row.financeItemName + '\', \'' + row.financeItemAmount + '\', \'' + row.financeItemTimePoint + '\', \'' + row.financeItemInfo + '\', \'' + index + '\')"><i class="Delete fa fa-envelope"></i> 删除</button>'
+        '<button class="btn btn-danger btn-sm rightSize packageBtn" type="button" onclick="delFinanceItem(\'' + row.financeItemName + '\', \'' + row.financeItemAmount + '\', \'' + row.financeItemTimePoint + '\', \'' + row.financeItemInfo + '\', \'' + row.financeItemKind + '\', \'' + row.financeItemOutOrIn + '\', \'' + index + '\')"><i class="Delete fa fa-envelope"></i> 删除</button>'
     ].join('');
 };
 
@@ -2124,13 +2124,13 @@ function delRealAssetItem(realAssetsItemName, realAssetsItemAmount, realAssetsIt
     }
 }
 
-function delFinanceItem(financeItemName, financeItemAmount, financeItemTimePoint, financeItemInfo, index) {
+function delFinanceItem(financeItemName, financeItemAmount, financeItemTimePoint, financeItemInfo, financeItemKind, financeItemOutOrIn, index) {
     var token = getOauthTokenFromStorage();
     var username=localStorage.getItem('username');
 
     if (token) {
         $.ajax({
-            url: '/finances/deleteFinanceProductItem/' + username + '/' + financeItemName + '/' + financeItemTimePoint,
+            url: '/finances/deleteFinanceProductItem/' + username + '/' + financeItemName + '/' + financeItemTimePoint + '/' + financeItemKind + '/' + financeItemOutOrIn,
             datatype: 'json',
             type: 'post',
             headers: {'Authorization': 'Bearer ' + token},

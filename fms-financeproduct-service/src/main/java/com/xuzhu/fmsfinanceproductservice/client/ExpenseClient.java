@@ -11,4 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface ExpenseClient {
     @RequestMapping(value = "/addExpenseItem/{username}", method = RequestMethod.POST)
     void addFinanceProductIntoExpenseManagement(@PathVariable("username") String username, @RequestBody ExpenseItem expenseItem);
+
+    @RequestMapping(value = "/deleteExpenseItemFromFinanceManagement/{username}/{itemName}/{timePoint}", method = RequestMethod.POST)
+    boolean deleteFinanceProductFromExpenseManagement(@PathVariable("username") String username, @PathVariable("itemName") String itemName, @PathVariable("timePoint") String timePoint);
 }
