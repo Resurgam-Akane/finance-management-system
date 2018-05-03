@@ -1109,7 +1109,24 @@ function addIncomeItemBatch() {
         processData: false,
         data: formData,
         success: function (data) {
-            alert(data);
+            $("#setIncomeItemName").val("");
+            $("#setIncomeItemAmount").val("");
+            $("#setIncomeItemTimePoint").val("");
+            $("#setIncomeItemInfo").val("");
+            $("#setIncomeItemMode").val("现金");
+            $("#setIncomeItemSource").val("工资");
+            $("#setIncomeItemPeriod").val("一次性收入");
+            $("#addIncomeItemModal").modal('hide');
+            incomesList = data;
+            computeForincomesStructureOfPerMonth(data);
+            $('#setIncomeStructureOfMonth').val(currentMonth);
+            $('#setIncomeTrendOfYearValue').val(currentYear);
+            computeForOneYearIncomeTrend(data, currentYear);
+            setDataForIncomeStructureOfMonthOption(currentMonth);
+            setDataForIncomeTrendOfYear();
+            incomesStructureOfMonth_chart.setOption(incomeStructureOfMonth_option);
+            incomeTrendOfYear_chart.setOption(incomeTrendOfYear_option);
+            loadIncomeTable(data);
         },
         error: function () {
             
@@ -1235,7 +1252,24 @@ function addExpenseItemBatch() {
         processData: false,
         data: formData,
         success: function (data) {
-            alert(data);
+            $("#setExpenseItemName").val("");
+            $("#setExpenseItemAmount").val("");
+            $("#setExpenseItemTimePoint").val("");
+            $("#setExpenseItemInfo").val("");
+            $("#setExpenseItemMode").val("现金");
+            $("#setExpenseItemSource").val("交通");
+            $("#setExpenseItemPeriod").val("一次性支出");
+            $("#addExpenseItemModal").modal('hide');
+            expensesList = data;
+            computeForexpensesStructureOfPerMonth(data);
+            $('#setExpenseStructureOfMonth').val(currentMonth);
+            $('#setExpenseTrendOfYearValue').val(currentYear);
+            computeForOneYearExpenseTrend(data, currentYear);
+            setDataForexpenseStructureOfMonthOption(currentMonth);
+            setDataForExpenseTrendOfYear();
+            expensesStructureOfMonth_chart.setOption(expenseStructureOfMonth_option);
+            expenseTrendOfYear_char.setOption(expenseTrendOfYear_option);
+            loadExpenseTable(data);
         },
         error: function () {
 

@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
 @RestController
@@ -41,9 +44,20 @@ public class ExpenseController {
     }
 
     @RequestMapping(value = "/uploadFile/{username}", method = RequestMethod.POST)
-    public String uploadExpenseData(@PathVariable String username, MultipartFile file) {
-        if (file != null)
-            return "haha!";
-        else return "fail";
+    public List<Item> uploadExpenseData(@PathVariable String username, @RequestParam("file")MultipartFile file) {
+        if (!file.isEmpty()) {
+            try {
+                BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(new File(".\\ExpenseBatchFile\\"+"AddExpenseItem-" + username + "-" + file.getOriginalFilename())));
+                out.write(file.getBytes());
+                out.flush();
+                out.close();
+                return expensesService.addExpensesItemViaFile(username, file.getOriginalFilename());
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+        else return null;
     }
 }

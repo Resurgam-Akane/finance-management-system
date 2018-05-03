@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.xuzhu.fmsincomemanagementservice.domain.Item;
 import org.springframework.web.multipart.MultipartFile;
+import sun.rmi.runtime.NewThreadAction;
 
 import javax.validation.Valid;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
 @RestController
@@ -42,9 +46,20 @@ public class IncomeController {
     }
 
     @RequestMapping(value = "/uploadFile/{username}", method = RequestMethod.POST)
-    public String uploadIncomeData(@PathVariable String username, MultipartFile file) {
-        if (file != null)
-            return "haha!";
-        else return "fail";
+    public List<Item> uploadIncomeData(@PathVariable String username, @RequestParam("file") MultipartFile file) {
+        if (!file.isEmpty()) {
+            try {
+                BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(new File(".\\IncomeBatchFile\\"+"AddIncomeItem-" + username + "-" + file.getOriginalFilename())));
+                out.write(file.getBytes());
+                out.flush();
+                out.close();
+                return incomesService.addIncomesItemViaFile(username, file.getOriginalFilename());
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+        else return null;
     }
 }
