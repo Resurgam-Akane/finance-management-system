@@ -1427,7 +1427,7 @@ function initFinanceModal() {
     $("#setFinanceItemOutOrIn").val("买入");
     $("#setFinanceItemPerPrice").val("");
     $("#setFinanceItemAmount").val("");
-    $("#setFinanceItemTimePoint").val("");
+    $("#setFinanceItemTimePoint").val("").removeAttr("disabled").attr("readOnly", false);
     $("#setFinanceItemInfo").val("");
 }
 
@@ -1784,7 +1784,7 @@ function editForFinance(financeItemName, financeItemKind, financeItemOutOrIn, fi
     $("#setFinanceItemOutOrIn").val(financeItemOutOrIn);
     $("#setFinanceItemPerPrice").val(financeItemPerPrice);
     $("#setFinanceItemAmount").val(financeItemAmount);
-    $("#setFinanceItemTimePoint").val(financeItemTimePoint);
+    $("#setFinanceItemTimePoint").val(financeItemTimePoint).attr("disabled", "true").attr("readOnly", "true");
     $("#setFinanceItemInfo").val(financeItemInfo);
     financesEditIndex = index;
 }
@@ -2001,7 +2001,7 @@ function editFinanceItem() {
                 $("#setFinanceItemOutOrIn").val("买入");
                 $("#setFinanceItemPerPrice").val("");
                 $("#setFinanceItemAmount").val("");
-                $("#setFinanceItemTimePoint").val("");
+                $("#setFinanceItemTimePoint").val("").removeAttr("disabled").attr("readOnly", false);
                 $("#setFinanceItemInfo").val("");
                 $("#addFinanceItemModal").modal('hide');
 
@@ -2257,6 +2257,28 @@ $(document).ready(function () {
         }
     })
 });
+
+function downloadStatisticFile() {
+    var token = getOauthTokenFromStorage();
+    var username = localStorage.getItem('username');
+
+    $.ajax({
+        url: '/zuul/statistics/DownloadFile/' + username,
+        datatype: 'text',
+        type: 'GET',
+        headers: {'Authorization': 'Bearer ' + token},
+        async: false,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function () {
+            alert("haha!");
+        },
+        error: function () {
+
+        }
+    });
+}
 
 function setDataForIncomeStructureOfMonthOption(month) {
     incomeStructureOfMonth_option = {

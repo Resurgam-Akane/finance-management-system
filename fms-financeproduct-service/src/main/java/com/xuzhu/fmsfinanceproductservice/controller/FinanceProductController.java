@@ -73,6 +73,42 @@ public class FinanceProductController {
 
     @RequestMapping(value = "/editFinanceProductItem/{username}/{index}", method = RequestMethod.POST)
     Map<String, List<Item>> editFinanceProductItem(@PathVariable String username, @PathVariable String index, @RequestBody Item item) {
+        boolean status = false;
+
+        if (item.getFinanceItemOutOrIn().equals("卖出")) {
+            IncomeItem incomeItem = new IncomeItem();
+            if (item.getFinanceItemKind().equals("股票")) {
+                incomeItem.setIncomeItemName("股票-" + item.getFinanceItemName());
+            }
+            else {
+                incomeItem.setIncomeItemName("基金-" + item.getFinanceItemName());
+            }
+            incomeItem.setIncomeItemAmount(item.getFinanceItemAmount().multiply(item.getFinanceItemPerPrice()));
+            incomeItem.setIncomeItemTimePoint(item.getFinanceItemTimePoint());
+            incomeItem.setIncomeItemSource("其他");
+            incomeItem.setIncomeItemMode("银行");
+            incomeItem.setIncomeItemPeriod("一次性收入");
+            incomeItem.setUpdateTime(new Date());
+            incomeItem.setIncomeItemInfo("通过理财管理添加" + item.getFinanceItemInfo());
+            status = incomeClient.editFinanceProductFromIncomeManagement(username, incomeItem);
+        }
+        else if (item.getFinanceItemOutOrIn().equals("买入")) {
+            ExpenseItem expenseItem = new ExpenseItem();
+            if (item.getFinanceItemKind().equals("股票")) {
+                expenseItem.setExpenseItemName("股票-" + item.getFinanceItemName());
+            }
+            else {
+                expenseItem.setExpenseItemName("基金-" + item.getFinanceItemName());
+            }
+            expenseItem.setExpenseItemAmount(item.getFinanceItemAmount().multiply(item.getFinanceItemPerPrice()));
+            expenseItem.setExpenseItemTimePoint(item.getFinanceItemTimePoint());
+            expenseItem.setExpenseItemSource("其他");
+            expenseItem.setExpenseItemMode("银行");
+            expenseItem.setExpenseItemPeriod("一次性支出");
+            expenseItem.setUpdateTime(new Date());
+            expenseItem.setExpenseItemInfo("通过理财管理添加" + item.getFinanceItemInfo());
+            status = expenseClient.editFinanceProductFromExpenseManagement(username, expenseItem);
+        }
         return financeProductService.editFinanceProductItem(username, item, Integer.parseInt(index));
     }
 

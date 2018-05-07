@@ -45,6 +45,11 @@ public class IncomeController {
         return incomesService.editIncomesItem(username, Integer.parseInt(index), item);
     }
 
+    @RequestMapping(value = "/editIncomeItem/{username}", method = RequestMethod.POST)
+    public boolean editIncomeItemFromFinanceManagement(@PathVariable String username, @Valid @RequestBody Item item) {
+        return incomesService.editIncomeItemFromFinanceManagement(username, item);
+    }
+
     @RequestMapping(value = "/uploadFile/{username}", method = RequestMethod.POST)
     public List<Item> uploadIncomeData(@PathVariable String username, @RequestParam("file") MultipartFile file) {
         if (!file.isEmpty()) {

@@ -14,4 +14,7 @@ public interface ExpenseClient {
 
     @RequestMapping(value = "/deleteExpenseItemFromFinanceManagement/{username}/{itemName}/{timePoint}", method = RequestMethod.POST)
     boolean deleteFinanceProductFromExpenseManagement(@PathVariable("username") String username, @PathVariable("itemName") String itemName, @PathVariable("timePoint") String timePoint);
+
+    @RequestMapping(value = "/editExpenseItem/{username}", method = RequestMethod.POST)
+    boolean editFinanceProductFromExpenseManagement(@PathVariable("username") String username, @RequestBody ExpenseItem expenseItem);
 }

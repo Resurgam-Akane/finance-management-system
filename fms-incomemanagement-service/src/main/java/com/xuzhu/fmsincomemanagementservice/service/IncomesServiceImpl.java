@@ -112,6 +112,28 @@ public class IncomesServiceImpl implements IncomesService{
     }
 
     @Override
+    public boolean editIncomeItemFromFinanceManagement(String username, Item item) {
+        Account account = accountDAO.findOne(username);
+
+        if (account != null) {
+            int index = 0;
+            List<Item> items = account.getIncomes();
+            for (index = 0; index != items.size(); ++index) {
+                Item item1 = items.get(index);
+                if (item.getIncomeItemName().equals(item1.getIncomeItemName()))
+                    break;
+            }
+
+            items.set(index, item);
+            account.setIncomes(items);
+            account.setUpdateTime(new Date());
+            accountDAO.save(account);
+            return true;
+        }
+        else return false;
+    }
+
+    @Override
     public List<Item> addIncomesItemViaFile(String username, String fileName) {
         Account account = accountDAO.findOne(username);
         List<Item> incomes = new ArrayList<>();

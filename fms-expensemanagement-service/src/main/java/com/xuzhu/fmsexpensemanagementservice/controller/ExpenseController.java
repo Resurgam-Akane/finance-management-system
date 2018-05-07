@@ -43,6 +43,11 @@ public class ExpenseController {
         return expensesService.editExpensesItem(username, Integer.parseInt(index), item);
     }
 
+    @RequestMapping(value = "/editExpenseItem/{username}", method = RequestMethod.POST)
+    public boolean editExpenseItem(@PathVariable String username, @Valid @RequestBody Item item) {
+        return expensesService.editExpenseItemFromFinanceManagement(username, item);
+    }
+
     @RequestMapping(value = "/uploadFile/{username}", method = RequestMethod.POST)
     public List<Item> uploadExpenseData(@PathVariable String username, @RequestParam("file")MultipartFile file) {
         if (!file.isEmpty()) {

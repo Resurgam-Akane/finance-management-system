@@ -11,5 +11,6 @@ public interface IncomesService {
     List<Item> deleteIncomesItem(String username, int index);
     List<Item> editIncomesItem(String username, int index, Item item);
     boolean deleteIncomeItemFromFinanceManagement(String username, String itemName, String timePoint);
+    boolean editIncomeItemFromFinanceManagement(String username, Item item);
     List<Item> addIncomesItemViaFile(String username, String fileName);
 }

@@ -109,6 +109,28 @@ public class ExpensesServiceImpl implements ExpensesService {
     }
 
     @Override
+    public boolean editExpenseItemFromFinanceManagement(String username, Item item) {
+        Account account = accountDAO.findOne(username);
+
+        if (account != null) {
+            int index = 0;
+            List<Item> items = account.getExpenses();
+            for (index = 0; index != items.size(); ++index) {
+                Item item1 = items.get(index);
+                if (item.getExpenseItemName().equals(item1.getExpenseItemName()))
+                    break;
+            }
+
+            items.set(index, item);
+            account.setExpenses(items);
+            account.setUpdateTime(new Date());
+            accountDAO.save(account);
+            return true;
+        }
+        else return false;
+    }
+
+    @Override
     public List<Item> addExpensesItemViaFile(String username, String filename) {
         Account account = accountDAO.findOne(username);
         List<Item> expenses = new ArrayList<>();
