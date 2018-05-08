@@ -51,7 +51,10 @@ public class StatisticController {
 
     @RequestMapping(value = "/DownloadFile/{username}", method = RequestMethod.GET)
     public void downloadFile(@PathVariable String username, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        statisticService.generateExcelFile(username, new Date());
+        List<IncomeItem> incomeItems = incomeClient.loadIncomeItem(username);
+        List<ExpenseItem> expenseItems = expenseClient.loadExpenseItem(username);
+        Map<String, List<RealAssetsItem>> realAssetsItems = realAssetsClient.loadRealAssetsItem(username);
+        statisticService.generateExcelFile(username, new Date(), incomeItems, expenseItems, realAssetsItems);
         response.setContentType("application/octet-stream");
         response.setHeader("Content-disposition", "attachment;filename=" + username + ".xls");//默认Excel名称
         response.flushBuffer();
@@ -60,16 +63,5 @@ public class StatisticController {
         FileInputStream fis = new FileInputStream(excel);
         Workbook wb = new HSSFWorkbook(fis);
         wb.write(response.getOutputStream());
-    }
-
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String test() {
-        //List<IncomeItem> incomeItems = incomeClient.loadIncomeItem("xuzhu");
-        //List<ExpenseItem> expenseItems = expenseClient.loadExpenseItem("xuzhu");
-        Map<String, List<RealAssetsItem>> realAssetsItems = realAssetsClient.loadRealAssetsItem("xuzhu");
-        //if (incomeItems == null) return "hh";
-        //if (expenseItems == null) return "hhh";
-        if (realAssetsItems == null) return "hhhhh";
-        return "111";
     }
 }

@@ -4,11 +4,12 @@ import com.xuzhu.fmsstatisticservice.domain.FinanceProductItem;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class financeProductClientFallback implements FinanceProductClient{
     @Override
-    public List<FinanceProductItem> loadFinanceProductItem(String username) {
+    public Map<String, List<FinanceProductItem>> loadFinanceProductItem(String username) {
         return null;
     }
 }

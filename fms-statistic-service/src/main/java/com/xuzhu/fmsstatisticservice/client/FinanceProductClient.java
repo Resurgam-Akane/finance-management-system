@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
+import java.util.Map;
 
 @FeignClient(value = "fms-financeproduct-service", fallback = financeProductClientFallback.class)
 public interface FinanceProductClient {
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
-    List<FinanceProductItem> loadFinanceProductItem(@PathVariable("username") String username);
+    Map<String, List<FinanceProductItem>> loadFinanceProductItem(@PathVariable("username") String username);
 }

@@ -2262,7 +2262,7 @@ function downloadStatisticFile() {
     var token = getOauthTokenFromStorage();
     var username = localStorage.getItem('username');
 
-    $.ajax({
+    /*$.ajax({
         url: '/zuul/statistics/DownloadFile/' + username,
         datatype: 'text',
         type: 'GET',
@@ -2277,7 +2277,16 @@ function downloadStatisticFile() {
         error: function () {
 
         }
-    });
+    });*/
+    window.open("http://localhost:9990/zuul/statistics/DownloadFile/" + username + "?access_token=" + token);
+    /*var $eleForm = $("<form method='get'></form>");
+
+    $eleForm.attr("action","localhost:9990/zuul/statistics/DownloadFile/" + username + "?access_token=" + token);
+
+    $(document.body).append($eleForm);
+
+    //提交表单，实现下载
+    $eleForm.submit();*/
 }
 
 function setDataForIncomeStructureOfMonthOption(month) {
