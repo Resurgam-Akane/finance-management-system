@@ -1,7 +1,13 @@
 package com.xuzhu.fmsstatisticservice.controller;
 
+import com.xuzhu.fmsstatisticservice.client.ExpenseClient;
+import com.xuzhu.fmsstatisticservice.client.FinanceProductClient;
 import com.xuzhu.fmsstatisticservice.client.IncomeClient;
+import com.xuzhu.fmsstatisticservice.client.RealAssetsClient;
+import com.xuzhu.fmsstatisticservice.domain.ExpenseItem;
+import com.xuzhu.fmsstatisticservice.domain.FinanceProductItem;
 import com.xuzhu.fmsstatisticservice.domain.IncomeItem;
+import com.xuzhu.fmsstatisticservice.domain.RealAssetsItem;
 import com.xuzhu.fmsstatisticservice.service.StatisticService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -23,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class StatisticController {
@@ -32,6 +39,15 @@ public class StatisticController {
 
     @Autowired
     IncomeClient incomeClient;
+
+    @Autowired
+    ExpenseClient expenseClient;
+
+    @Autowired
+    FinanceProductClient financeProductClient;
+
+    @Autowired
+    RealAssetsClient realAssetsClient;
 
     @RequestMapping(value = "/DownloadFile/{username}", method = RequestMethod.GET)
     public void downloadFile(@PathVariable String username, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -48,8 +64,12 @@ public class StatisticController {
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String test() {
-        List<IncomeItem> incomeItem = incomeClient.loadIncomeItem("xuzhu");
-        if (incomeItem == null) return "hh";
-        else return "111";
+        //List<IncomeItem> incomeItems = incomeClient.loadIncomeItem("xuzhu");
+        //List<ExpenseItem> expenseItems = expenseClient.loadExpenseItem("xuzhu");
+        Map<String, List<RealAssetsItem>> realAssetsItems = realAssetsClient.loadRealAssetsItem("xuzhu");
+        //if (incomeItems == null) return "hh";
+        //if (expenseItems == null) return "hhh";
+        if (realAssetsItems == null) return "hhhhh";
+        return "111";
     }
 }
