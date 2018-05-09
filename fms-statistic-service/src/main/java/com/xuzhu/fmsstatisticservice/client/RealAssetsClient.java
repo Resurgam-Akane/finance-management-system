@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 import java.util.Map;
 
-//@FeignClient(value = "fms-realassets-service", fallback = realAssetsClientFallback.class)
-@FeignClient(value = "fms-realassets-service")
+@FeignClient(value = "fms-realassets-service", fallback = realAssetsClientFallback.class)
 public interface RealAssetsClient {
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
     Map<String, List<RealAssetsItem>> loadRealAssetsItem(@PathVariable("username") String username);
