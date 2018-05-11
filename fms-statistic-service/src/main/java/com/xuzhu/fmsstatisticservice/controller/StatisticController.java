@@ -64,4 +64,19 @@ public class StatisticController {
         Workbook wb = new HSSFWorkbook(fis);
         wb.write(response.getOutputStream());
     }
+
+    @RequestMapping(value = "/IncomeStatistics/{username}", method = RequestMethod.GET)
+    public List<IncomeItem> loadIncomeStatistics(@PathVariable String username) {
+        return incomeClient.loadIncomeItem(username);
+    }
+
+    @RequestMapping(value = "/ExpenseStatistics/{username}", method = RequestMethod.GET)
+    public List<ExpenseItem> loadExpenseStatistics(@PathVariable String username) {
+        return expenseClient.loadExpenseItem(username);
+    }
+
+    @RequestMapping(value = "/RealAssetsStatistics/{username}", method = RequestMethod.GET)
+    public Map<String, List<RealAssetsItem>> loadRealAssetsItem(@PathVariable String username) {
+        return realAssetsClient.loadRealAssetsItem(username);
+    }
 }

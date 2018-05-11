@@ -887,6 +887,66 @@ $(document).ready(function () {
             $('#financemanagementdiv').hide();
             $('#financialstatementsdiv').show();
             $('#realassetsdiv').hide();
+
+            $.ajax({
+                url: '/statistics/IncomeStatistics/' + username,
+                datatype: 'json',
+                type: 'get',
+                headers: {'Authorization': 'Bearer ' + token},
+                async: false,
+                success: function (data) {
+                    if (data === "") {
+                        loadIncomeTableInStatistic(data);
+                        alert('收入管理接口调用失败，请稍后重试！');
+                    }
+                    else {
+                        loadIncomeTableInStatistic(data);
+                    }
+                },
+                error: function () {
+
+                }
+            });
+
+            $.ajax({
+                url: '/statistics/ExpenseStatistics/' + username,
+                datatype: 'json',
+                type: 'get',
+                headers: {'Authorization': 'Bearer ' + token},
+                async: false,
+                success: function (data) {
+                    if (data === "") {
+                        loadExpenseTableInStatistic(data);
+                        alert('支出管理接口调用失败，请稍后重试！');
+                    }
+                    else {
+                        loadExpenseTableInStatistic(data);
+                    }
+                },
+                error: function () {
+
+                }
+            });
+
+            $.ajax({
+                url: '/statistics/RealAssetsStatistics/' + username,
+                datatype: 'json',
+                type: 'get',
+                headers: {'Authorization': 'Bearer ' + token},
+                async: false,
+                success: function (data) {
+                    if (data === "") {
+                        loadRealAssetsTableInStatistic(data);
+                        alert('实物资产管理接口调用失败，请稍后重试！');
+                    }
+                    else {
+                        loadRealAssetsTableInStatistic(data);
+                    }
+                },
+                error: function () {
+
+                }
+            });
         }
         else if (this.id === "realassets") {
             $('#centerdiv').hide();
@@ -1684,6 +1744,120 @@ function loadFinanceTable(data) {
     });
 }
 
+function loadIncomeTableInStatistic(data) {
+    $('#incomeTableInStatistic').bootstrapTable('destroy').bootstrapTable({
+        method: 'get',
+        cache: false,
+        height: 400,
+        striped: true,
+        pagination: true,
+        pageSize: 20,
+        pageNumber:1,
+        pageList: [10, 20, 50, 100, 200, 500],
+        sidePagination:'client',
+        search: true,
+        showColumns: true,
+        showRefresh: false,
+        showExport: false,
+        columns: [{
+            field: 'incomeItemName',
+            title: '收入项名称'
+        }, {
+            field: 'incomeItemAmount',
+            title: '金额'
+        }, {
+            field: 'incomeItemTimePoint',
+            title: '时间'
+        }, {
+            field: 'incomeItemSource',
+            title: '来源'
+        }, {
+            field: 'incomeItemMode',
+            title: '方式'
+        }, {
+            field: 'incomeItemPeriod',
+            title: '频率'
+        }, {
+            field: 'incomeItemInfo',
+            title: '备注'
+        }],
+        data: data
+    });
+}
+
+function loadExpenseTableInStatistic(data) {
+    $('#expenseTableInStatistic').bootstrapTable('destroy').bootstrapTable({
+        method: 'get',
+        cache: false,
+        height: 400,
+        striped: true,
+        pagination: true,
+        pageSize: 20,
+        pageNumber:1,
+        pageList: [10, 20, 50, 100, 200, 500],
+        sidePagination:'client',
+        search: true,
+        showColumns: true,
+        showRefresh: false,
+        showExport: false,
+        columns: [{
+            field: 'expenseItemName',
+            title: '支出项名称'
+        }, {
+            field: 'expenseItemAmount',
+            title: '金额'
+        }, {
+            field: 'expenseItemTimePoint',
+            title: '时间'
+        }, {
+            field: 'expenseItemSource',
+            title: '来源'
+        }, {
+            field: 'expenseItemMode',
+            title: '方式'
+        }, {
+            field: 'expenseItemPeriod',
+            title: '频率'
+        }, {
+            field: 'expenseItemInfo',
+            title: '备注'
+        }],
+        data: data
+    });
+}
+
+function loadRealAssetsTableInStatistic(data) {
+    $('#realAssetsTableInStatistic').bootstrapTable('destroy').bootstrapTable({
+        method: 'get',
+        cache: false,
+        height: 400,
+        striped: true,
+        pagination: true,
+        pageSize: 20,
+        pageNumber:1,
+        pageList: [10, 20, 50, 100, 200, 500],
+        sidePagination:'client',
+        search: true,
+        showColumns: true,
+        showRefresh: false,
+        showExport: false,
+        columns: [{
+            field: 'realAssetsItemName',
+            title: '实物资产项名称'
+        }, {
+            field: 'realAssetsItemAmount',
+            title: '金额'
+        }, {
+            field: 'realAssetsItemTimePoint',
+            title: '时间'
+        }, {
+            field: 'realAssetsItemInfo',
+            title: '备注'
+        }],
+        data: data
+    });
+}
+
 var operateFormatterForIncome = function(value, row, index) {
     return [
         '<button class="btn btn-info btn-sm rightSize detailBtn" type="button" onclick="editForIncome(\'' + row.incomeItemName+ '\', \''+row.incomeItemAmount+'\', \''+ row.incomeItemTimePoint+ '\', \'' + row.incomeItemSource + '\', \'' + row.incomeItemMode + '\', \'' + row.incomeItemInfo + '\', \'' + row.updateTime + '\', \'' + row.incomeItemPeriod + '\', \'' + index + '\')"><i class="Edit fa fa-paste"></i> 修改</button>',
@@ -2261,32 +2435,7 @@ $(document).ready(function () {
 function downloadStatisticFile() {
     var token = getOauthTokenFromStorage();
     var username = localStorage.getItem('username');
-
-    /*$.ajax({
-        url: '/zuul/statistics/DownloadFile/' + username,
-        datatype: 'text',
-        type: 'GET',
-        headers: {'Authorization': 'Bearer ' + token},
-        async: false,
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function () {
-            alert("haha!");
-        },
-        error: function () {
-
-        }
-    });*/
     window.open("http://localhost:9990/zuul/statistics/DownloadFile/" + username + "?access_token=" + token);
-    /*var $eleForm = $("<form method='get'></form>");
-
-    $eleForm.attr("action","localhost:9990/zuul/statistics/DownloadFile/" + username + "?access_token=" + token);
-
-    $(document.body).append($eleForm);
-
-    //提交表单，实现下载
-    $eleForm.submit();*/
 }
 
 function setDataForIncomeStructureOfMonthOption(month) {
