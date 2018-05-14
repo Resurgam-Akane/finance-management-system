@@ -940,7 +940,14 @@ $(document).ready(function () {
                         alert('实物资产管理接口调用失败，请稍后重试！');
                     }
                     else {
-                        loadRealAssetsTableInStatistic(data);
+                        realAssetsList = [];
+
+                        for(var x in data) {
+                            if (data[x].length !== 0) {
+                                realAssetsList = realAssetsList.concat(data[x]);
+                            }
+                        }
+                        loadRealAssetsTableInStatistic(realAssetsList);
                     }
                 },
                 error: function () {
