@@ -649,7 +649,7 @@ function computeForOneFinancePic_arr(data) {
         }
         for (var index = 0; index < data[x].length; ++index) {
             financesTimePriceList[x]['time'].push(data[x][index].financeItemTimePoint);
-            financesTimePriceList[x]['price'].push(data[x][index].financeItemAmount);
+            financesTimePriceList[x]['price'].push(data[x][index].financeItemAmount * data[x][index].financeItemPerPrice);
         }
     }
 }
@@ -1956,6 +1956,11 @@ function editForRealAssets(realAssetsItemName, realAssetsItemAmount, realAssetsI
 }
 
 function editForFinance(financeItemName, financeItemKind, financeItemOutOrIn, financeItemPerPrice, financeItemAmount, financeItemTimePoint, financeItemInfo, index) {
+    if (financeItemKind === "微理财余额宝") {
+        alert("只读权限！");
+        return false;
+    }
+
     $("#addFinanceItemModal").modal('show');
     document.getElementById('addFinanceItemModalLabel').innerHTML = "修改理财项目";
     $("#addFinanceItemBtn").hide();
@@ -2343,6 +2348,10 @@ function delFinanceItem(financeItemName, financeItemAmount, financeItemTimePoint
     var token = getOauthTokenFromStorage();
     var username=localStorage.getItem('username');
 
+    if (financeItemKind === "微理财余额宝") {
+        alert("只读权限！");
+        return false;
+    }
     if (token) {
         $.ajax({
             url: '/finances/deleteFinanceProductItem/' + username + '/' + financeItemName + '/' + financeItemTimePoint + '/' + financeItemKind + '/' + financeItemOutOrIn,
@@ -2443,6 +2452,46 @@ function downloadStatisticFile() {
     var token = getOauthTokenFromStorage();
     var username = localStorage.getItem('username');
     window.open("http://localhost:9990/zuul/statistics/DownloadFile/" + username + "?access_token=" + token);
+}
+
+function GetFinanceDataFromMicroFinanceApp() {
+    var name = localStorage.getItem('username');
+    var token = getOauthTokenFromStorage();
+
+    if (token) {
+        $.ajax({
+            url: '/finances/GetDataFromMicroFinanceApp/' + name,
+            datatype: 'json',
+            type: 'post',
+            headers: {'Authorization': 'Bearer ' + token},
+            async: false,
+            success: function (data) {
+                financesList = [];
+                computeForOneFinancePic_arr(data);
+                var selectlabel = document.getElementById('setFinanceItemNameOfSelectLabel');
+                selectlabel.options.length = 0;
+
+                for(var x in data) {
+                    if (data[x].length !== 0) {
+                        selectlabel.options.add(new Option(x, x));
+                        financesList = financesList.concat(data[x]);
+                    }
+                }
+                var selectfinance = selectlabel.value;
+                if (selectfinance !== '') {
+                    setDataForFinance(selectfinance);
+                    oneFinancePic_chart.setOption(oneFinancePic_option);
+                }
+                else {
+                    document.getElementById('oneFinancePic').innerHTML = "";
+                }
+                loadFinanceTable(financesList);
+            },
+            error: function () {
+                removeOauthTokenFromStorage();
+            }
+        })
+    }
 }
 
 function setDataForIncomeStructureOfMonthOption(month) {
@@ -2706,7 +2755,7 @@ function setDataForExpenseTrendOfYear() {
             }
         },
         series: [{
-            name: '月总收入金额',
+            name: '月总支出金额',
             type:'line',
             data: expensesTrendOfYear,
             markPoint: {

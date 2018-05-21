@@ -3,17 +3,20 @@ package com.xuzhu.fmsfinanceproductservice.controller;
 import com.netflix.discovery.converters.Auto;
 import com.xuzhu.fmsfinanceproductservice.client.ExpenseClient;
 import com.xuzhu.fmsfinanceproductservice.client.IncomeClient;
+import com.xuzhu.fmsfinanceproductservice.domain.Account;
 import com.xuzhu.fmsfinanceproductservice.domain.ExpenseItem;
 import com.xuzhu.fmsfinanceproductservice.domain.IncomeItem;
 import com.xuzhu.fmsfinanceproductservice.domain.Item;
 import com.xuzhu.fmsfinanceproductservice.service.FinanceProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 public class FinanceProductController {
@@ -26,6 +29,9 @@ public class FinanceProductController {
 
     @Autowired
     ExpenseClient expenseClient;
+
+    @Autowired
+    RestTemplate restTemplate;
 
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
     Map<String, List<Item>> loadFinanceProductItem(@PathVariable String username) {
@@ -129,6 +135,20 @@ public class FinanceProductController {
                 status = expenseClient.deleteFinanceProductFromExpenseManagement(username, "基金-" + financeItemName, financeItemTimePoint);
         }
         return financeProductService.deleteFinanceProductItem(username, financeItemName, financeItemTimePoint);
+    }
+
+    @RequestMapping(value = "/GetDataFromMicroFinanceApp/{username}", method = RequestMethod.POST)
+    Map<String, List<Item>> getDataFromMicroFinanceApp(@PathVariable String username) {
+        Map<String, List<Item>> dataInSys = financeProductService.loadFinanceProduct(username);
+        if (dataInSys != null) {
+            Account dataFromMicroFinanceApp = restTemplate.getForObject("http://localhost:10080/" + username, Account.class);
+            Set<String> dataFromMicroFinanceAppKeyList = dataFromMicroFinanceApp.getItems().keySet();
+            for (String key : dataFromMicroFinanceAppKeyList) {
+                dataInSys.put(key, dataFromMicroFinanceApp.getItems().get(key));
+            }
+            return dataInSys;
+        }
+        else return null;
     }
 
 }
